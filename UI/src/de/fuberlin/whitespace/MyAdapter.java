@@ -57,7 +57,7 @@ public class MyAdapter extends BaseAdapter {
             	//buttonView.setText("Aktion"); 
             	imageView.setLayoutParams(new GridView.LayoutParams(125,125));
             }else{
-            	//buttonView.setText("Auslöser");
+            	//buttonView.setText("Auslöser"); 
             	imageView.setLayoutParams(new GridView.LayoutParams(125,125)); 
             }
         } else {
