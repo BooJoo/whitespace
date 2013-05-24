@@ -58,7 +58,7 @@ public class MyAdapter extends BaseAdapter {
             	imageView.setLayoutParams(new GridView.LayoutParams(125,125));
             }else{
             	//buttonView.setText("Auslšser");
-            	imageView.setLayoutParams(new GridView.LayoutParams(125,125));
+            	imageView.setLayoutParams(new GridView.LayoutParams(125,125)); 
             }
         } else {
             imageView = (ImageView) convertView;
