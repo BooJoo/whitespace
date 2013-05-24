@@ -54,7 +54,7 @@ public class MyAdapter extends BaseAdapter {
 						mContext.startActivity(i); 
 					}
 				});
-            	//buttonView.setText("Aktion");
+            	//buttonView.setText("Aktion"); 
             	imageView.setLayoutParams(new GridView.LayoutParams(125,125));
             }else{
             	//buttonView.setText("Auslöser");
