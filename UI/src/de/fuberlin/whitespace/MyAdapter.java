@@ -69,7 +69,7 @@ public class MyAdapter extends BaseAdapter {
 	}
 	 // references to our images
     private Integer[] mThumbIds = {
-         R.drawable.a9,R.drawable.a1,
+         R.drawable.a5,R.drawable.a1,
          R.drawable.a7,R.drawable.a2,
          R.drawable.a6,R.drawable.a4
     };
