@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 public class MyAdapter extends BaseAdapter {
 	private Context mContext;
+	private int numberOfRules = 3;
 	
 	public MyAdapter(Context c) {
 		mContext = c;
@@ -21,7 +22,14 @@ public class MyAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return 6; 
+		return numberOfRules*2 + 1; 
+	}
+	
+	/***
+	 * 
+	 */
+	public void addItem(Integer[] images){
+	
 	}
 
 	@Override
@@ -42,9 +50,9 @@ public class MyAdapter extends BaseAdapter {
 		ImageView imageView;
         if (convertView == null) {  // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
+        //    imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
             imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            imageView.setPadding(8, 8, 8, 8);
+           imageView.setPadding(8, 8, 8, 8);
             if(position % 2 != 0){
             	imageView.setOnClickListener(new View.OnClickListener() {
 					@Override
@@ -55,10 +63,11 @@ public class MyAdapter extends BaseAdapter {
 					}
 				});
             	//buttonView.setText("Aktion"); 
-            	imageView.setLayoutParams(new GridView.LayoutParams(125,125));
+            	//imageView.setLayoutParams(new GridView.LayoutParams(,125));
+            	imageView.setLayoutParams(new GridView.LayoutParams(-1,150));
             }else{
             	//buttonView.setText("Auslöser"); 
-            	imageView.setLayoutParams(new GridView.LayoutParams(125,125)); 
+            	imageView.setLayoutParams(new GridView.LayoutParams(-1,150)); 
             }
         } else {
             imageView = (ImageView) convertView;
@@ -69,8 +78,9 @@ public class MyAdapter extends BaseAdapter {
 	}
 	 // references to our images
     private Integer[] mThumbIds = {
-         R.drawable.a5,R.drawable.a1,
+         R.drawable.a9,R.drawable.a1,
          R.drawable.a7,R.drawable.a2,
-         R.drawable.a6,R.drawable.a4
+         R.drawable.a6,R.drawable.a4,
+         R.drawable.a5
     };
 }
