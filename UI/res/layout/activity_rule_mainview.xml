@@ -17,5 +17,6 @@
         android:layout_alignParentTop="true"
         android:numColumns="2" >
     </GridView>
+
     
 </RelativeLayout>

@@ -23,10 +23,10 @@ public class MyAdapter extends BaseAdapter {
 		Integer[] links = {R.drawable.a9,R.drawable.a7};
 		Integer[] links3 = {R.drawable.a9,R.drawable.a6,R.drawable.a7};
 		Integer[] rechts = {R.drawable.a1};
-		rules.add(new Rule(links,rechts));
-		rules.add(new Rule(links3,rechts));
-		rules.add(new Rule(R.drawable.a7,R.drawable.a2));
-		rules.add(new Rule(R.drawable.a6,R.drawable.a4));
+		rules.add(new Rule("Regel 1",links,rechts));
+		rules.add(new Rule("Regel 2",links3,rechts));
+		rules.add(new Rule("Meine Super Regel 3",R.drawable.a7,R.drawable.a2));
+		rules.add(new Rule("Regel 4",R.drawable.a6,R.drawable.a4));
 	}
 	
 	@Override
@@ -73,7 +73,7 @@ public class MyAdapter extends BaseAdapter {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					rules.add(new Rule(R.drawable.a6,R.drawable.a4));
+					rules.add(new Rule("Regel",R.drawable.a6,R.drawable.a4));
 					notifyDataSetChanged();  
 				}
 			});
