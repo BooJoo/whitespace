@@ -19,14 +19,6 @@ public class RuleMainview extends Activity {
 		GridView gridview = (GridView) findViewById(R.id.gridView1);
 	    gridview.setAdapter(new MyAdapter(this));
 
-	    gridview.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				// TODO Auto-generated method stub
-				Toast.makeText(RuleMainview.this, "" + arg2, Toast.LENGTH_SHORT).show();
-			}
-	    });
 	}
 
 	@Override

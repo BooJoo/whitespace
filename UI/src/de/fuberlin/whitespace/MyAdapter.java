@@ -57,33 +57,6 @@ public class MyAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		
-//		ImageView imageView;
-//        if (convertView == null) {  // if it's not recycled, initialize some attributes
-//            imageView = new ImageView(mContext);
-//        //    imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-//            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-//           imageView.setPadding(8, 8, 8, 8);
-//            if(position % 2 != 0){
-//            	imageView.setOnClickListener(new View.OnClickListener() {
-//					@Override
-//					public void onClick(View v) {
-//						// TODO Auto-generated method stub
-//						Intent i = new Intent(mContext,RuleConstruction.class);
-//						mContext.startActivity(i); 
-//					}
-//				});
-//            	//buttonView.setText("Aktion"); 
-//            	//imageView.setLayoutParams(new GridView.LayoutParams(,125));
-//            	imageView.setLayoutParams(new GridView.LayoutParams(-1,150));
-//            }else{
-//            	//buttonView.setText("Auslöser"); 
-//            	imageView.setLayoutParams(new GridView.LayoutParams(-1,150)); 
-//            }
-//        } else {
-//            imageView = (ImageView) convertView;
-//        }
-//
-//        imageView.setImageResource(mThumbIds[position]);
 		int row = (int) Math.floor(position/2);
 		if(position < getCount()-1){
 			if(position % 2 != 0){
