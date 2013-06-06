@@ -8,10 +8,16 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 import android.util.Log;
 
+/**
+ * Klasse, welche die Sprachausgabe ermöglicht.
+ * @author Christoph
+ *
+ */
 public class KnightRider implements OnInitListener {
 	
 	private Context context;
 	TextToSpeech tts;
+	private boolean readytospeek;
 	public KnightRider(Context c){
 		this.context = c;
 		Intent checkIntent = new Intent();
@@ -22,8 +28,16 @@ public class KnightRider implements OnInitListener {
 		
 	}
 	
+	/*
+	 * Sagt den angegebenen String, wenn readytospeak.
+	 * (Initialisierung des Knightriders vor Benutzung, am Besten in onCreate).
+	 */
 	public void say(String s){
-		tts.speak("Ich spüre eine große Menge an Snickas im Handschuhfach. Teilen ist nicht mehr optional. Snickas oder Schleudersitz.", TextToSpeech.QUEUE_ADD, null);
+	   if(!readytospeek){
+		   
+	   }else{
+		tts.speak(s, TextToSpeech.QUEUE_ADD, null);
+	   }
 	}
 
 	@Override
@@ -36,8 +50,8 @@ public class KnightRider implements OnInitListener {
                     || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 Log.e("TTS", "This Language is not supported");
             } else {
-             
-             say("");
+             this.readytospeek = true;
+             // Ab jetzt kann das Gerät sprechen
             }
  
         } else {

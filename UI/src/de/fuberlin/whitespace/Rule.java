@@ -14,6 +14,8 @@ public class Rule {
 	Integer[] left;
 	Integer[] right;
 	private String name;
+	public static KnightRider r;
+	
 	public Rule(String name,Integer[] left,Integer[] right){
 		this.name = name;
 		this.left = left;
@@ -39,12 +41,14 @@ public class Rule {
 		TextView txt = new TextView(c);
 		txt.setText(name);
 		MultipleImagesCell muli = new MultipleImagesCell(c, left);
+		r = new KnightRider(c);
 		muli.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				KnightRider r = new KnightRider(c);
+				
+				r.say("Hakuna Matata");
 			//	r.say("");
 			}
 		});
