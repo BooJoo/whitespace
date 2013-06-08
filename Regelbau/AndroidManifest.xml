@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="de.fuberlin.whitespace.regelbau"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="17" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Holo" >
+        <activity
+            android:name="de.fuberlin.whitespace.regelbau.Main"
+            android:label="@string/app_name" 
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="multiselect_with_checkboxes.ResultActivity"
+            android:label="@string/result_activity" >
+        </activity>
+        <activity 
+            android:name="multiselect_with_checkboxes.MultiSelectListViewActivity"  
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+      
+        
+    </application>
+
+</manifest>
