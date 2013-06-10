@@ -1,4 +1,4 @@
-package de.fuberlin.whitespace.regelbau;
+package de.fuberlin.whitespace.regelbau.logic;
 
 import java.io.IOException;
 import java.util.HashMap;
