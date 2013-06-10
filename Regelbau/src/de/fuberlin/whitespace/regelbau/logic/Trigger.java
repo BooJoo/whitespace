@@ -1,6 +1,9 @@
 package de.fuberlin.whitespace.regelbau.logic;
 
+import java.util.HashMap;
+
 import de.exlap.DataElement;
+import de.exlap.DataObject;
 import de.fuberlin.whitespace.regelbau.logic.ProxyClient;
 
 /**
@@ -9,7 +12,7 @@ import de.fuberlin.whitespace.regelbau.logic.ProxyClient;
  */
 public abstract class Trigger {
 
-	
+	protected HashMap<String, Object> params;
 	/**
 	 * gibt an ob der Trigger derzeitig erfüllt ist oder nicht 
 	 */
@@ -21,7 +24,11 @@ public abstract class Trigger {
 	 * geschieht dieses, so muss RulesPool.TriggerActive(this); aufgerufen werden
 	 * @param i Platzhalter fuer Parketdifinition
 	 */
-	public abstract void trigger (DataElement dataElement) ;
+	public abstract void trigger (DataObject dataObject) ;
+	
+	public void set (String name, Object value) {
+		params.put(name, value);
+	}
 	
 	@Override
 	public boolean equals (Object o) {
