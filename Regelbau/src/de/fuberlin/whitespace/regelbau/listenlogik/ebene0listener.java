@@ -33,6 +33,9 @@ public class ebene0listener implements OnItemClickListener {
 			String[] elemente = {"Raststätten","Tankstellen","McDonalds","Subway"};
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(listview.getContext(),android.R.layout.simple_list_item_1,elemente);
 			satzanzeige.setButtonLabelEins((String)((TextView)arg1).getText());
+			String[] defaults = {"Raststätten","um 12:00 Uhr"};
+			satzanzeige.setButtonLabelZwei(defaults[0]);
+			satzanzeige.setButtonLabelDrei(defaults[1]);
 			listview.setAdapter(adapter);
 			listview.setOnItemClickListener(new zeigemirebene1listener(obereregelbuttonview, listview));
 		}
@@ -40,14 +43,19 @@ public class ebene0listener implements OnItemClickListener {
 			String[] elemente = {"Sehenswürdigkeiten","Pause","Termin"};
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(listview.getContext(),android.R.layout.simple_list_item_1,elemente);
 			satzanzeige.setButtonLabelEins((String)((TextView)arg1).getText());
+			String[] defaults = {"Tankstellen","Tankstand < 20%"};
+			satzanzeige.setButtonLabelZwei(defaults[0]);
+			satzanzeige.setButtonLabelDrei(defaults[1]);
 			listview.setOnItemClickListener(new erinneremichebene1listener(satzanzeige, listview));
 			listview.setAdapter(adapter);
-		//	listview.setOnItemClickListener(new zeigemirebene1listener(null, listview));
 		}
-		else if(((String)((TextView)arg1).getText()).contains("Sende")){
-			String[] elemente = {"SMS","E-Mail","WhatsApp","Rauchzeichen"};
+		else if(((String)((TextView)arg1).getText()).contains("Informiere mich")){
+			String[] elemente = {"Außentemperatur","Innentemperatur","Durchschnittsgeschwindigkeit","Lautstärke (Radio)", "Regensensor", "Tankstand"};
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(listview.getContext(),android.R.layout.simple_list_item_1,elemente);
 			satzanzeige.setButtonLabelEins((String)((TextView)arg1).getText());
+			String[] defaults = {"Innentemperatur","> 20°C"};
+			satzanzeige.setButtonLabelZwei(defaults[0]);
+			satzanzeige.setButtonLabelDrei(defaults[1]);			
 			listview.setAdapter(adapter);
 		    listview.setOnItemClickListener(new sendemirebene1listener(satzanzeige, listview));
 		}

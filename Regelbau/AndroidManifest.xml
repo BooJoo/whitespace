@@ -17,10 +17,7 @@
             android:name="de.fuberlin.whitespace.regelbau.Main"
             android:label="@string/app_name" 
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            
         </activity>
         <activity
             android:name="multiselect_with_checkboxes.ResultActivity"
@@ -30,6 +27,13 @@
             android:name="multiselect_with_checkboxes.MultiSelectListViewActivity"  
             android:theme="@android:style/Theme.Dialog" >
         </activity>
+        <activity android:name="de.fuberlin.whitespace.RuleMainview">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="de.fuberlin.whitespace.RuleConstruction"></activity>
       
         
     </application>

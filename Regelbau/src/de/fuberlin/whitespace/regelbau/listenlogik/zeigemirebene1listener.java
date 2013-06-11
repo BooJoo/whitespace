@@ -17,6 +17,7 @@ public class zeigemirebene1listener implements OnItemClickListener {
 
 	private View obereregelbuttonview;
 	private ListView listview;
+	private Satzanzeige satzanzeige;
 	public zeigemirebene1listener(View obereregelbuttonview,ListView listview){
 		this.obereregelbuttonview = obereregelbuttonview;
 		this.listview = listview;
@@ -36,6 +37,7 @@ public class zeigemirebene1listener implements OnItemClickListener {
 		ArrayAdapter<String> adapterneu = new ArrayAdapter<String>(listview.getContext(),android.R.layout.simple_list_item_multiple_choice,copyarray);
 		listview.setAdapter(adapterneu);
 		// OK fertig hinzugefügt.
+		
 	}
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -55,7 +57,7 @@ public class zeigemirebene1listener implements OnItemClickListener {
 			// Das als letztes ausgewählte Element war FERTIG, also entfernen.
 			if(checkedItems.size() > 0) checkedItems.removeElementAt(checkedItems.size()-1);
 			// Hier das Layout oben updaten .
-			Satzanzeige satzanzeige = (Satzanzeige)obereregelbuttonview;
+			satzanzeige = (Satzanzeige)obereregelbuttonview;
 			satzanzeige.setButtonLabelZwei(checkedItems.toArray());
 		}else{
 			/*
