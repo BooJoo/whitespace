@@ -12,13 +12,27 @@ public class Satzanzeige extends LinearLayout {
 
 	Vector<IButtonChangeListener> listeners = new Vector<IButtonChangeListener>();
 	private AbsRule rule; 
-	private Button buttona = new Button(getContext());
-	private Button buttonb = new Button(getContext());
-	private Button buttonc = new Button(getContext()); 
+	private Button buttona;
+	private Button buttonb;
+	public Button getButtona() {
+		return buttona;
+	}
+
+	public Button getButtonb() {
+		return buttonb;
+	}
+
+	public Button getButtonc() {
+		return buttonc;
+	}
+
+	private Button buttonc; 
 	
-	public Satzanzeige(Context context, AbsRule rule) {
+	public Satzanzeige(Context context, AbsRule rule, Button b1, Button b2, Button b3) {
 		super(context);
-		
+		buttona = b1;
+		buttonb = b2;
+		buttonc = b3;
 		/*if(rule == null){
 			rule = new AbsRule("Meine super Regel") {
 				
@@ -34,12 +48,12 @@ public class Satzanzeige extends LinearLayout {
 				}
 			};
 		}*/
-		buttona.setLayoutParams(new GridView.LayoutParams(-1,-2));
-		buttona.setPadding(20,20,20,20);
-		buttonb.setLayoutParams(new GridView.LayoutParams(-1,-2));
-		buttonb.setPadding(20,20,20,20);
-		buttonc.setLayoutParams(new GridView.LayoutParams(-1,-2));
-		buttonc.setPadding(20,20,20,20);
+		//buttona.setLayoutParams(new GridView.LayoutParams(-1,-2));
+		//buttona.setPadding(20,20,20,20);
+		//buttonb.setLayoutParams(new GridView.LayoutParams(-1,-2));
+		//buttonb.setPadding(20,20,20,20);
+		//buttonc.setLayoutParams(new GridView.LayoutParams(-1,-2));
+		//buttonc.setPadding(20,20,20,20);
 		this.rule = rule;
 		this.setOrientation(LinearLayout.VERTICAL);
 		
@@ -62,7 +76,7 @@ public class Satzanzeige extends LinearLayout {
 				ActionOptionsChanged();
 			}
 		});
-		buttonc.setText("nach 100 Metern");
+		buttonc.setText("um 12:00 Uhr");
 		buttonc.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -71,7 +85,7 @@ public class Satzanzeige extends LinearLayout {
 			}
 		});
 		
-		addView(buttona);addView(buttonb);addView(buttonc);
+		//addView(buttona);addView(buttonb);addView(buttonc);
 	}
 	
 	public void registerForButtonChanges(IButtonChangeListener bcl){
@@ -113,6 +127,11 @@ public class Satzanzeige extends LinearLayout {
 			label += " "+(String)s;
 		}
 		buttonb.setText(label);
+	}
+	
+	public void setButtonLabelZwei(String res){
+		
+		buttonb.setText(res);
 	}
 	
 	public void setButtonLabelDrei(String res){

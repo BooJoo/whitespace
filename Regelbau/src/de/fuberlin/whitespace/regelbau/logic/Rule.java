@@ -1,6 +1,10 @@
 package de.fuberlin.whitespace.regelbau.logic;
 
+import java.io.Serializable;
 import java.util.LinkedList;
+
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Stellt eine Regel aus ein oder mehreren Auslösern(Trigger) und Aktionen
@@ -9,8 +13,8 @@ import java.util.LinkedList;
  */
 public class Rule {
 
-	LinkedList<Trigger> trigger = new LinkedList<Trigger>();
-	LinkedList<Action> actions = new LinkedList<Action>();
+	LinkedList<Trigger> trigger;// = new LinkedList<Trigger>();
+	LinkedList<Action> actions;// = new LinkedList<Action>();
 	
 	/**
 	 * Konstruktor
@@ -19,10 +23,31 @@ public class Rule {
 	 */
 	public Rule(LinkedList<Action> actions, LinkedList<Trigger> trigger )
 	{
-		 trigger = new LinkedList<Trigger>();
-		 actions =new LinkedList<Action>();
-		 this.actions=actions;
+		// trigger = new LinkedList<Trigger>();
+	//	 actions = new LinkedList<Action>();
+		 this.actions = actions;
 		 this.trigger = trigger;
 	}
+
+	
+
+	public LinkedList<Trigger> getTrigger() {
+		return trigger;
+	}
+
+	public void setTrigger(LinkedList<Trigger> trigger) {
+		this.trigger = trigger;
+	}
+
+	public LinkedList<Action> getActions() {
+		return actions;
+	}
+
+	public void setActions(LinkedList<Action> actions) {
+		this.actions = actions;
+	}
+
+	
+
 	
 }

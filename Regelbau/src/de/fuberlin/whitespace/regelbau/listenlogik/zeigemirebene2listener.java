@@ -37,9 +37,10 @@ public class zeigemirebene2listener implements OnItemClickListener {
 			// Hier auch
 		}	
 		else if(((String)((TextView)arg1).getText()).contains("Auto")){
-			String[] elemente = {"Aussentemperatur","Innentemperatur","Durchschnittsgeschwindigkeit",
+			String[] elemente = {"Außentemperatur","Innentemperatur","Durchschnittsgeschwindigkeit",
 					"Lautstärke (Radio)","Regensensor","Tankstand"};
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(listview.getContext(),android.R.layout.simple_list_item_1,elemente);
+			listview.setOnItemClickListener(new sendemirebene1listener(obereregelbuttonview,listview));
 			listview.setAdapter(adapter);
 			//
 		}

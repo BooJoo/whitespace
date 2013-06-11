@@ -1,9 +1,12 @@
 package de.fuberlin.whitespace.regelbau.listenlogik;
 
+import de.fuberlin.whitespace.regelbau.MyNumberPicker;
+import de.fuberlin.whitespace.regelbau.MyNumberPickerCallback;
 import de.fuberlin.whitespace.regelbau.Satzanzeige;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,7 +19,8 @@ import android.widget.TimePicker;
 
 public class zeitebene3listener implements OnItemClickListener, OnTimeSetListener {
 	private View obereregelbuttonview;
-	private ListView listview;
+	private ListView listview; 
+	
 
 	public zeitebene3listener(View obereregelbuttonview,ListView listview){
 		this.obereregelbuttonview = obereregelbuttonview;
@@ -26,7 +30,7 @@ public class zeitebene3listener implements OnItemClickListener, OnTimeSetListene
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		if(((String)((TextView)arg1).getText()).contains("Nach")){ // Fertig gedrückt.
-			final NumberPicker np = new NumberPicker(listview.getContext());
+		/*	final NumberPicker np = new NumberPicker(listview.getContext());
 			
 			final String[] nums = new String[20];
 			for (int i = 0; i < nums.length; i++) {
@@ -48,6 +52,29 @@ public class zeitebene3listener implements OnItemClickListener, OnTimeSetListene
 
 		    
 			alert.show();
+			*/
+			final String[] nums = new String[20];
+			for (int i = 0; i < nums.length; i++) {
+				nums[i] = Integer.toString(i*15);
+			}
+			 
+    	//	satz.setButtonLabelDrei("nach "+nums[np.getValue()]+" Minuten");
+			MyNumberPicker mynumberpicker = new MyNumberPicker(listview.getContext(), nums, new MyNumberPickerCallback() {
+				
+				@Override
+				public void valueset(int value) {
+					Satzanzeige satz = ((Satzanzeige)obereregelbuttonview); 
+					satz.setButtonLabelDrei("nach "+value+" Minuten");
+					
+				}
+
+				@Override
+				public void valueset(String value) {
+					// TODO Auto-generated method stub
+					
+				}
+			},"Setze nach ... Minuten");
+			
 			 
 			
 			// TODO Zahleneingabe einbinden in neuen OnItemClickListener

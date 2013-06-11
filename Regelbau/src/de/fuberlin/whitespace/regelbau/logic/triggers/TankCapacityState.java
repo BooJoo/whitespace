@@ -1,4 +1,4 @@
-package de.fuberlin.whitespace.regelbau.logic.actions;
+package de.fuberlin.whitespace.regelbau.logic.triggers;
 
 import java.io.IOException;
 
