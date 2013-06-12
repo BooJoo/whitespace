@@ -1,5 +1,6 @@
 package de.fuberlin.whitespace.regelbau.logic;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -7,8 +8,13 @@ import java.util.HashMap;
  * @author Stefan<
  *
  */
-public abstract class Action {
+public abstract class Action implements Serializable {
 
+	/**
+         * 
+         */
+        private static final long serialVersionUID = 7292784095129684506L;
+        
 	protected HashMap<String, Object> params;
 	
 	public void set (String name, Object value) {

@@ -1,5 +1,6 @@
 package de.fuberlin.whitespace.regelbau.logic;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import de.exlap.DataElement;
@@ -10,8 +11,13 @@ import de.fuberlin.whitespace.regelbau.logic.ProxyClient;
  * Interface fuer die Ausloeser einer Regel
  * @author Stefan Lange
  */
-public abstract class Trigger {
+public abstract class Trigger implements Serializable {
 
+	/**
+         * 
+         */
+        private static final long serialVersionUID = -3386299757013046952L;
+        
 	protected HashMap<String, Object> params;
 	/**
 	 * gibt an ob der Trigger derzeitig erfüllt ist oder nicht 
