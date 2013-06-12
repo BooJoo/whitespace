@@ -11,8 +11,13 @@ import android.os.Parcelable;
  * @author BJO
  *
  */
-public class Rule {
+public class Rule implements Serializable {
 
+	/**
+         * 
+         */
+        private static final long serialVersionUID = 2280704049072286645L;
+        
 	LinkedList<Trigger> trigger;// = new LinkedList<Trigger>();
 	LinkedList<Action> actions;// = new LinkedList<Action>();
 	
