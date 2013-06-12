@@ -23,7 +23,7 @@ public class ShowMessage extends Action {
 	
 	new AlertDialog.Builder(RuleMainview.getInstance())
 		.setTitle("Erinnerung")
-		.setMessage((String) this.params.get("Message"))
+		.setMessage((String) parameter[1])
 		.setNeutralButton(android.R.string.ok,
 			new DialogInterface.OnClickListener() {
 

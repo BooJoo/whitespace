@@ -31,7 +31,10 @@ public class Main extends Activity { // OoO
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(layout.activity_regelbau_main);
-		
+		Rule r;
+		try{
+			r = (Rule)getIntent().getExtras().getSerializable("rule");
+		}catch(Exception e){ r= null;}
 	/*	Button okbutton = new Button(this);
 		okbutton.setText("Regel speichern");
 		okbutton.setGravity(Gravity.CENTER); */
@@ -45,7 +48,14 @@ public class Main extends Activity { // OoO
 		satzanzeige = new Satzanzeige(this, null, button1, button2, button3);
 		optionsanzeigeListe = new Optionsanzeige(this,tmp,listview,satzanzeige);
 		satzanzeige.setPadding(20, 20, 20, 40);
-	
+		if(r != null){
+			ShowMessage s = (ShowMessage)r.getActions().get(0);
+			String[] res = s.getParameter();
+			button1.setText(res[0]);
+			button2.setText(res[1]);
+			button3.setText(res[2]);
+			System.out.println("Bearbeite Regel:"+res[0]+" "+res[1]);
+		}
 		button4.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -57,11 +67,18 @@ public class Main extends Activity { // OoO
 						Intent intent = new Intent();
 						//Bundle Objekt
 						Bundle bundle = new Bundle();
-						String[] output = {satzanzeige.getButtona().getText().toString(),satzanzeige.getButtonb().getText().toString(),satzanzeige.getButtonc().getText().toString()};
-					
+						String[] output = {satzanzeige.getButtona().getText().toString(),satzanzeige.getButtonb().getText().toString(),satzanzeige.getButtonc().getText().toString(),value};
+						LinkedList<Action> actions = new LinkedList<Action>();
+						LinkedList<Trigger> trigger = new LinkedList<Trigger>();
 						
-					    bundle.putStringArray("selectedItems", output);
-					   // bundle.putSerializable("regel", rule);
+						actions.add(new ShowMessage(output));
+						
+							trigger.add(null);
+					
+						Rule regel = new Rule(actions, trigger);
+						
+					   // bundle.putStringArray("selectedItems", output);
+					    bundle.putSerializable("regel", regel);
 					//	bundle.putAll(map)
 						
 						//Bundle zu intent hinzufügen

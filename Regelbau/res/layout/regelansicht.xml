@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:paddingTop="10dp"
+    android:orientation="horizontal" >
+
+    <Button
+        android:id="@+id/buttonAction"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="3"
+        android:text="Button" 
+        android:background="@drawable/regelbackgroundshape"
+        />
+ <Button
+        android:id="@+id/buttonActionOpt"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+          android:layout_weight="3"
+        android:text="Button" 
+        android:background="@drawable/regelbackgroundshape"
+        />
+
+  <Button
+      android:id="@+id/buttonTrigger"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:layout_weight="3"
+      android:background="@drawable/regelbackgroundshape"
+      android:text="Button" />
+
+</LinearLayout>
