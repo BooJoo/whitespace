@@ -2,7 +2,6 @@ package de.fuberlin.whitespace.regelbau.logic.triggers;
 
 import java.io.IOException;
 
-import de.exlap.DataElement;
 import de.exlap.DataObject;
 import de.exlap.ExlapException;
 import de.fuberlin.whitespace.regelbau.logic.ProxyClient;
@@ -13,7 +12,7 @@ public class TankCapacityState extends Trigger {
 
 	boolean consumed=false;
 	
-	public TankCapacityState() throws IllegalArgumentException, IOException, ExlapException 
+	public TankCapacityState() throws IllegalArgumentException, IOException, ExlapException
 	{
 		ProxyClient pc=ProxyClient.get();//instanc des Proxclients holen
 		
