@@ -1,16 +1,11 @@
 package de.fuberlin.whitespace.regelbau.listenlogik;
 
-import java.util.Vector;
-
-import de.fuberlin.whitespace.regelbau.Satzanzeige;
-import android.util.SparseBooleanArray;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class zeigemirebene2listener implements OnItemClickListener {
 
@@ -25,15 +20,16 @@ public class zeigemirebene2listener implements OnItemClickListener {
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		if(((String)((TextView)arg1).getText()).contains("Zeit")){ // Fertig gedrückt.
-			String[] elemente = {"Nach ... Minuten","Um ... Uhr"};
+			String[] elemente = {"nach ... Minuten","um ... Uhr"};
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(listview.getContext(),android.R.layout.simple_list_item_1,elemente);
 			listview.setAdapter(adapter);
 			listview.setOnItemClickListener(new zeitebene3listener(obereregelbuttonview, listview));
 			// TODO Zahleneingabe einbinden in neuen OnItemClickListener
 		}else if(((String)((TextView)arg1).getText()).contains("Ort")){
-			String[] elemente = {"Nach ... Kilometern", "In ... (Ort)","Auf der Strecke nach ..."};
+			String[] elemente = {"nach ... Kilometern", "in ... (Ort)","auf der Strecke nach ..."};
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(listview.getContext(),android.R.layout.simple_list_item_1,elemente);
 			listview.setAdapter(adapter);
+			listview.setOnItemClickListener(new ort_streckelistener(obereregelbuttonview, listview));
 			// Hier auch
 		}	
 		else if(((String)((TextView)arg1).getText()).contains("Auto")){

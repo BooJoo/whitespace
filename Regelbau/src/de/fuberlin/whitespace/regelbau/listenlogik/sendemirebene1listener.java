@@ -95,9 +95,9 @@ public class sendemirebene1listener implements OnItemClickListener {
 						@Override
 						public void valueset(int value) {
 							Satzanzeige satz = ((Satzanzeige) obereregelbuttonview);
-							//satz.setButtonLabelEins("Informiere mich");
-							satz.setButtonLabelZwei("Tankstand");
-							satz.setButtonLabelDrei("unter " + value + " %");
+							satz.setButtonLabelEins("Informiere mich über");
+							satz.setButtonLabelZwei("Tankstellen in der Nähe, ");
+							satz.setButtonLabelDrei("wenn mein Tankstand unter " + value + "% ist.");
 
 						}
 
@@ -123,9 +123,9 @@ public class sendemirebene1listener implements OnItemClickListener {
 						@Override
 						public void valueset(int value) {
 							Satzanzeige satz = ((Satzanzeige) obereregelbuttonview);
-							//satz.setButtonLabelEins("Informiere mich");
-							satz.setButtonLabelZwei("Innentemperatur");
-							satz.setButtonLabelDrei("über " + value + " °C");
+							satz.setButtonLabelEins("Informiere mich, wenn");
+							satz.setButtonLabelZwei("die Innentemperatur");
+							satz.setButtonLabelDrei("auf über " + value + " °C steigt.");
 
 						}
 

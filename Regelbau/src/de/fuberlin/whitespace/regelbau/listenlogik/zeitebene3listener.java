@@ -29,7 +29,7 @@ public class zeitebene3listener implements OnItemClickListener, OnTimeSetListene
 	
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		if(((String)((TextView)arg1).getText()).contains("Nach")){ // Fertig gedrückt.
+		if(((String)((TextView)arg1).getText()).contains("nach")){ // Fertig gedrückt.
 		/*	final NumberPicker np = new NumberPicker(listview.getContext());
 			
 			final String[] nums = new String[20];
@@ -78,7 +78,7 @@ public class zeitebene3listener implements OnItemClickListener, OnTimeSetListene
 			 
 			
 			// TODO Zahleneingabe einbinden in neuen OnItemClickListener
-		}else if(((String)((TextView)arg1).getText()).contains("Um")){
+		}else if(((String)((TextView)arg1).getText()).contains("um")){
 			TimePickerDialog timepickerdialog = new TimePickerDialog(listview.getContext(),this,12,00,true);
 			timepickerdialog.show();
 			// Hier auch
