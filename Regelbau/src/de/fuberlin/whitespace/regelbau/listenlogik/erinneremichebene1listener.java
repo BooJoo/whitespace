@@ -32,7 +32,7 @@ public class erinneremichebene1listener implements OnItemClickListener {
 		else if(((String)((TextView)arg1).getText()).contains("Pause")){ // else if wichtig, da sonst arg1 ge�ndert wurde.
 			String[] elemente = {};
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(listview.getContext(),android.R.layout.simple_list_item_1,elemente);
-			satzanzeige.setButtonLabelZwei(tmp);
+			satzanzeige.setButtonLabelZwei("an eine "+tmp[0]);
 			listview.setAdapter(adapter);
 		//	listview.setOnItemClickListener(new zeigemirebene1listener(null, listview));
 		}

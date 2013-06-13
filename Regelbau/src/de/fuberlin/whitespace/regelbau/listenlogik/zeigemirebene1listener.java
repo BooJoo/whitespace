@@ -58,7 +58,8 @@ public class zeigemirebene1listener implements OnItemClickListener {
 			if(checkedItems.size() > 0) checkedItems.removeElementAt(checkedItems.size()-1);
 			// Hier das Layout oben updaten .
 			satzanzeige = (Satzanzeige)obereregelbuttonview;
-			satzanzeige.setButtonLabelZwei(checkedItems.toArray());
+			Object tmpElements[] = checkedItems.toArray();
+			satzanzeige.setButtonLabelZwei(tmpElements[0]+", "+tmpElements[1]+",");
 		}else{
 			/*
 			 * Eines der Elemente wurde ausgewählt
