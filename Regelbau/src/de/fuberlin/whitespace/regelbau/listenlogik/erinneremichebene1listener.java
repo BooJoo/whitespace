@@ -43,6 +43,13 @@ public class erinneremichebene1listener implements OnItemClickListener {
 			listview.setAdapter(adapter);
 		//	listview.setOnItemClickListener(new zeigemirebene1listener(null, listview));
 		}
+		else if(((String)((TextView)arg1).getText()).contains("Tank")){
+			String[] elemente = {};
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(listview.getContext(),android.R.layout.simple_list_item_1,elemente);
+			satzanzeige.setButtonLabelZwei(tmp);
+			listview.setAdapter(adapter);
+		//	listview.setOnItemClickListener(new zeigemirebene1listener(null, listview));
+		}
 	}
 
 }

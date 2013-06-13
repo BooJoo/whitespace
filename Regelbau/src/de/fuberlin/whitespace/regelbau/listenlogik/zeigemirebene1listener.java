@@ -59,7 +59,9 @@ public class zeigemirebene1listener implements OnItemClickListener {
 			// Hier das Layout oben updaten .
 			satzanzeige = (Satzanzeige)obereregelbuttonview;
 			Object tmpElements[] = checkedItems.toArray();
-			satzanzeige.setButtonLabelZwei(tmpElements[0]+", "+tmpElements[1]+",");
+			if(tmpElements.length>1)
+				satzanzeige.setButtonLabelZwei(tmpElements[0]+" und "+tmpElements[1]+",");
+			else satzanzeige.setButtonLabelZwei(tmpElements[0]+",");
 		}else{
 			/*
 			 * Eines der Elemente wurde ausgewählt
