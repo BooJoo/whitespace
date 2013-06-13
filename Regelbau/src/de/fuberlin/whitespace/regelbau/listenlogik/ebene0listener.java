@@ -40,17 +40,17 @@ public class ebene0listener implements OnItemClickListener {
 			listview.setOnItemClickListener(new zeigemirebene1listener(obereregelbuttonview, listview));
 		}
 		else if(((String)((TextView)arg1).getText()).contains("Erinnere mich")){ // else if wichtig, da sonst arg1 ge�ndert wurde.
-			String[] elemente = {"Sehenswürdigkeiten","Pause","Termin"};
+			String[] elemente = {"Sehenswürdigkeiten","Pause","Termin", "Tanken"};
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(listview.getContext(),android.R.layout.simple_list_item_1,elemente);
 			satzanzeige.setButtonLabelEins((String)((TextView)arg1).getText());
-			String[] defaults = {"Tankstellen","Tankstand < 20%"};
+			String[] defaults = {"Tanken","Tankstand unter 20% ist"};
 			satzanzeige.setButtonLabelZwei(defaults[0]);
 			satzanzeige.setButtonLabelDrei(defaults[1]);
 			listview.setOnItemClickListener(new erinneremichebene1listener(satzanzeige, listview));
 			listview.setAdapter(adapter);
 		}
 		else if(((String)((TextView)arg1).getText()).contains("Informiere mich")){
-			String[] elemente = {"Außentemperatur","Innentemperatur","Durchschnittsgeschwindigkeit","Lautstärke (Radio)", "Regensensor", "Tankstand"};
+			String[] elemente = {"Außentemperatur","Innentemperatur","Durchschnittsgeschwindigkeit","Lautstärke (Radio)", "Regensensor", "Tankstand", "Tankstellen"};
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(listview.getContext(),android.R.layout.simple_list_item_1,elemente);
 			satzanzeige.setButtonLabelEins((String)((TextView)arg1).getText());
 			String[] defaults = {"Innentemperatur","> 20°C"};

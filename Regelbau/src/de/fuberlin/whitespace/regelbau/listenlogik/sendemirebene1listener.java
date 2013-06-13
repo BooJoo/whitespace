@@ -82,7 +82,7 @@ public class sendemirebene1listener implements OnItemClickListener {
 					},"Setze Durchschnittsgeschw. über...");
 			// listview.setOnItemClickListener(new zeigemirebene1listener(null,
 			// listview));
-		} else if (((String) ((TextView) arg1).getText()).contains("Tank")) {
+		} else if (((String) ((TextView) arg1).getText()).contains("Tankstand")) {
 			final String[] nums = new String[11];
 			for (int i = 0; i < nums.length; i++) {
 				nums[i] = Integer.toString(i * 10);
@@ -95,9 +95,9 @@ public class sendemirebene1listener implements OnItemClickListener {
 						@Override
 						public void valueset(int value) {
 							Satzanzeige satz = ((Satzanzeige) obereregelbuttonview);
-							satz.setButtonLabelEins("Informiere mich über");
-							satz.setButtonLabelZwei("Tankstellen in der Nähe, ");
-							satz.setButtonLabelDrei("wenn mein Tankstand unter " + value + "% ist.");
+							//satz.setButtonLabelEins("Informiere mich über");
+							//satz.setButtonLabelZwei("Tankstellen, ");
+							satz.setButtonLabelDrei("Tankstand unter " + value + "% ist.");
 
 						}
 
@@ -188,7 +188,33 @@ public class sendemirebene1listener implements OnItemClickListener {
 						}
 						
 					},"Setze Luftfeuchtigkeit über...");
-		}
+		} else if (((String) ((TextView) arg1).getText()).contains("Tankstelle")) {
+			final String[] nums = new String[11];
+			for (int i = 0; i < nums.length; i++) {
+				nums[i] = Integer.toString(i * 10);
+			}
+
+			// satz.setButtonLabelDrei("nach "+nums[np.getValue()]+" Minuten");
+			MyNumberPicker mynumberpicker = new MyNumberPicker(
+					listview.getContext(), nums, new MyNumberPickerCallback() {
+
+						@Override
+						public void valueset(int value) {
+							Satzanzeige satz = ((Satzanzeige) obereregelbuttonview);
+							//satz.setButtonLabelEins("Informiere mich über");
+							//satz.setButtonLabelZwei("Tankstellen, ");
+							satz.setButtonLabelDrei("wenn mein Tankstand unter " + value + "% ist.");
+
+						}
+
+						@Override
+						public void valueset(String value) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+					},"Setze Tankstand unter...");
+		} 
 		// else
 		// if(((String)((TextView)arg1).getText()).contains("Rauchzeichen")){
 		// String[] elemente = {};
