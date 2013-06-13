@@ -34,6 +34,7 @@
             </intent-filter>
         </activity>
         <activity android:name="de.fuberlin.whitespace.RuleConstruction"></activity>
+        <activity android:name="de.fuberlin.whitespace.ScherzActivity"></activity>
     
     </application>
 

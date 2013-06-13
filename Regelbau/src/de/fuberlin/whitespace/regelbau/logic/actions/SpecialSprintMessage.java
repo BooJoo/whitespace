@@ -3,9 +3,11 @@ package de.fuberlin.whitespace.regelbau.logic.actions;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.widget.Button;
 import de.fuberlin.whitespace.KnightRider;
 import de.fuberlin.whitespace.RuleMainview;
+import de.fuberlin.whitespace.ScherzActivity;
 
 public class SpecialSprintMessage extends ShowMessage{
 	KnightRider rider;
@@ -42,6 +44,8 @@ public class SpecialSprintMessage extends ShowMessage{
 		@Override
 		public void run() {
 			try {
+				Intent intent = new Intent(context,ScherzActivity.class);
+				context.startActivity(intent);
 				Thread.sleep(1000);
 				rider.say("Maikel!");
 				Thread.sleep(1000);
