@@ -25,7 +25,7 @@ public class sendemirebene1listener implements OnItemClickListener {
 		Satzanzeige satzanzeige = (Satzanzeige) obereregelbuttonview;
 		String[] tmp = { (String) ((TextView) arg1).getText() };
 		if (((String) ((TextView) arg1).getText()).contains("Außentemperatur")) {
-			final String[] nums = new String[5];
+			final String[] nums = new String[6];
 			for (int i = 0; i < nums.length; i++) {
 				nums[i] = Integer.toString(i * 5);
 			}
@@ -37,7 +37,7 @@ public class sendemirebene1listener implements OnItemClickListener {
 						@Override
 						public void valueset(int value) {
 							Satzanzeige satz = ((Satzanzeige) obereregelbuttonview);
-							satz.setButtonLabelEins("Informiere mich");
+							//satz.setButtonLabelEins("Informiere mich");
 							satz.setButtonLabelZwei("Außentemperatur");
 							satz.setButtonLabelDrei("über " + value + " °C");
 
@@ -68,7 +68,7 @@ public class sendemirebene1listener implements OnItemClickListener {
 						@Override
 						public void valueset(int value) {
 							Satzanzeige satz = ((Satzanzeige) obereregelbuttonview);
-							satz.setButtonLabelEins("Informiere mich");
+							//satz.setButtonLabelEins("Informiere mich");
 							satz.setButtonLabelZwei("Durchschnittsgeschwindigkeit");
 							satz.setButtonLabelDrei("über " + value + " Km/h");
 
@@ -83,7 +83,7 @@ public class sendemirebene1listener implements OnItemClickListener {
 			// listview.setOnItemClickListener(new zeigemirebene1listener(null,
 			// listview));
 		} else if (((String) ((TextView) arg1).getText()).contains("Tank")) {
-			final String[] nums = new String[10];
+			final String[] nums = new String[11];
 			for (int i = 0; i < nums.length; i++) {
 				nums[i] = Integer.toString(i * 10);
 			}
@@ -95,7 +95,7 @@ public class sendemirebene1listener implements OnItemClickListener {
 						@Override
 						public void valueset(int value) {
 							Satzanzeige satz = ((Satzanzeige) obereregelbuttonview);
-							satz.setButtonLabelEins("Informiere mich");
+							//satz.setButtonLabelEins("Informiere mich");
 							satz.setButtonLabelZwei("Tankstand");
 							satz.setButtonLabelDrei("unter " + value + " %");
 
@@ -110,6 +110,84 @@ public class sendemirebene1listener implements OnItemClickListener {
 					},"Setze Tankstand unter...");
 			// listview.setOnItemClickListener(new zeigemirebene1listener(null,
 			// listview));
+		} else if (((String) ((TextView) arg1).getText()).contains("Innentemperatur")) {
+			final String[] nums = new String[6];
+			for (int i = 0; i < nums.length; i++) {
+				nums[i] = Integer.toString(i * 5);
+			}
+
+			// satz.setButtonLabelDrei("nach "+nums[np.getValue()]+" Minuten");
+			MyNumberPicker mynumberpicker = new MyNumberPicker(
+					listview.getContext(), nums, new MyNumberPickerCallback() {
+
+						@Override
+						public void valueset(int value) {
+							Satzanzeige satz = ((Satzanzeige) obereregelbuttonview);
+							//satz.setButtonLabelEins("Informiere mich");
+							satz.setButtonLabelZwei("Innentemperatur");
+							satz.setButtonLabelDrei("über " + value + " °C");
+
+						}
+
+						@Override
+						public void valueset(String value) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+					},"Setze Innentemperatur über...");
+		} else if (((String) ((TextView) arg1).getText()).contains("Lautstärke")) {
+			final String[] nums = new String[21];
+			for (int i = 0; i < nums.length; i++) {
+				nums[i] = Integer.toString(i * 5);
+			}
+
+			// satz.setButtonLabelDrei("nach "+nums[np.getValue()]+" Minuten");
+			MyNumberPicker mynumberpicker = new MyNumberPicker(
+					listview.getContext(), nums, new MyNumberPickerCallback() {
+
+						@Override
+						public void valueset(int value) {
+							Satzanzeige satz = ((Satzanzeige) obereregelbuttonview);
+							//satz.setButtonLabelEins("Informiere mich");
+							satz.setButtonLabelZwei("Lautstärke");
+							satz.setButtonLabelDrei("über " + value + " %");
+
+						}
+
+						@Override
+						public void valueset(String value) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+					},"Setze Lautstärke über...");
+		} else if (((String) ((TextView) arg1).getText()).contains("Regensensor")) {
+			final String[] nums = new String[41];
+			for (int i = 0; i < nums.length; i++) {
+				nums[i] = Integer.toString(i * 5);
+			}
+
+			// satz.setButtonLabelDrei("nach "+nums[np.getValue()]+" Minuten");
+			MyNumberPicker mynumberpicker = new MyNumberPicker(
+					listview.getContext(), nums, new MyNumberPickerCallback() {
+
+						@Override
+						public void valueset(int value) {
+							Satzanzeige satz = ((Satzanzeige) obereregelbuttonview);
+							//satz.setButtonLabelEins("Informiere mich");
+							satz.setButtonLabelZwei("Regensensor");
+							satz.setButtonLabelDrei("über " + value + " %");
+
+						}
+
+						@Override
+						public void valueset(String value) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+					},"Setze Luftfeuchtigkeit über...");
 		}
 		// else
 		// if(((String)((TextView)arg1).getText()).contains("Rauchzeichen")){
