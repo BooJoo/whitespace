@@ -23,24 +23,24 @@
         android:layout_width="match_parent" 
         android:orientation="vertical"
         android:background="@drawable/regelbaurahmen" >
-        
+
         <Button
-        android:id="@+id/buttoneins"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-     	android:background="@drawable/regelbuttonshapedreibuttons"
-        android:textSize="25sp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:layout_margin="10dp"
-        android:textColor="#000000"
-        android:text="Button" />
+            android:id="@+id/buttoneins"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/regelbuttonshapedreibuttons"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="Button"
+            android:textColor="#000000"
+            android:textSize="25sp" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-       android:background="@drawable/regelbuttonshapedreibuttons"
+        android:background="@drawable/regelbuttonshapedreibuttons"
         android:textSize="25sp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"

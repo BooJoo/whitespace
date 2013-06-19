@@ -27,9 +27,12 @@ public class MySlotmachine {
 	 * @param ueberschrift3
 	 * @param values3 Werte für die 3. Spalte
 	 */
+	String wert1 = "=";
+	String wert2 = "10";
+	String wert3 = "km";
 	public MySlotmachine(Context context, final ListView listview,
 			String ueberschrift1, String[] values1, String ueberschrift2,
-			String[] values2, String ueberschrift3, String[] values3) {
+			String[] values2, String ueberschrift3, String[] values3, final MySlotmachineCallback mycallback) {
 		super();
 		this.context = context;
 		this.listview = listview;
@@ -50,6 +53,7 @@ public class MySlotmachine {
 			@Override
 			public void onClick(View v) {
 				listview.setVisibility(View.VISIBLE);
+				mycallback.values(wert1, wert2, wert3);
 				((ViewGroup)listview.getParent()).removeView(machine);
 			}
 		});
@@ -58,22 +62,64 @@ public class MySlotmachine {
 	    ListView lv2 = (ListView)machine.findViewById(R.id.listView2);
 	    ListView lv3 = (ListView)machine.findViewById(R.id.listView3);
 	    
-	    ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1);
+	    ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_activated_1);
 	    adapter1.addAll(values1);
 	    lv1.setAdapter(adapter1);
-	    ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1);
+	    lv1.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+	    lv1.setOnItemClickListener(new MySlotmachineOnItemClickListener(null, lv1, new MyNumberPickerCallback() {
+			
+			@Override
+			public void valueset(String value) {
+				wert1 = value;
+			}
+			
+			@Override
+			public void valueset(int value) {
+	
+				
+			}
+		}));
+	    ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_activated_1);
 	    adapter2.addAll(values2);
 	    lv2.setAdapter(adapter2);
-	    ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1);
+	    lv2.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		lv2.setOnItemClickListener(new MySlotmachineOnItemClickListener(null, lv2, new MyNumberPickerCallback() {
+					
+					@Override
+					public void valueset(String value) {
+						wert2 = value;
+					}
+					
+					@Override
+					public void valueset(int value) {
+						// TODO Auto-generated method stub
+						
+					}
+				}));
+	    ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_activated_1);
 	    adapter3.addAll(values3);
 	    lv3.setAdapter(adapter3);
-	}
+	    lv3.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		lv3.setOnItemClickListener(new MySlotmachineOnItemClickListener(null, lv3, new MyNumberPickerCallback() {
+					
+					@Override
+					public void valueset(String value) {
+						wert3 = value;
+					}
+					
+					@Override
+					public void valueset(int value) {
+						// TODO Auto-generated method stub
+						
+					}
+				}));
+			}
 	
-	View slotmachine;
-	ListView listview;
-	
-	String ueberschrift1;String[] values1;
-	String ueberschrift2;String[] values2;
-	String ueberschrift3;String[] values3;
+		View slotmachine;
+		ListView listview;
+		
+		String ueberschrift1; String[] values1;
+		String ueberschrift2; String[] values2;
+		String ueberschrift3; String[] values3;
 	
 }

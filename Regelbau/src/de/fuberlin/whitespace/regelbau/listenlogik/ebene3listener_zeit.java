@@ -2,6 +2,7 @@ package de.fuberlin.whitespace.regelbau.listenlogik;
 
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -10,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import de.fuberlin.whitespace.regelbau.Satzanzeige;
+import de.fuberlin.whitespace.regelbau.R.drawable;
 
 public class ebene3listener_zeit implements OnItemClickListener, OnTimeSetListener {
 	private View obereregelbuttonview;
@@ -23,8 +25,11 @@ public class ebene3listener_zeit implements OnItemClickListener, OnTimeSetListen
 	
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		Satzanzeige satzanzeige = (Satzanzeige) obereregelbuttonview;
+		final Drawable img = listview.getContext().getResources().getDrawable( drawable.mycheck );
 		if(((String)((TextView)arg1).getText()).contains("nach")){ // Fertig gedrückt.
-		/*	final NumberPicker np = new NumberPicker(listview.getContext());
+		
+			/*	final NumberPicker np = new NumberPicker(listview.getContext());
 			
 			final String[] nums = new String[20];
 			for (int i = 0; i < nums.length; i++) {
@@ -81,6 +86,9 @@ public class ebene3listener_zeit implements OnItemClickListener, OnTimeSetListen
 					 Satzanzeige satz = ((Satzanzeige)obereregelbuttonview); 
 					 satz.setButtonLabelDrei("nach "+adapter.getItem(position)+" Minuten");
 					 listview.setAdapter(null);
+					 satz.getButtona().setCompoundDrawablesWithIntrinsicBounds(null, null, img, null );
+					 satz.getButtonb().setCompoundDrawablesWithIntrinsicBounds(null, null, img, null );
+					 satz.getButtonc().setCompoundDrawablesWithIntrinsicBounds(null, null, img, null );
 				}
 			
 			} );
@@ -90,6 +98,9 @@ public class ebene3listener_zeit implements OnItemClickListener, OnTimeSetListen
 		}else if(((String)((TextView)arg1).getText()).contains("um")){
 			TimePickerDialog timepickerdialog = new TimePickerDialog(listview.getContext(),this,12,00,true);
 			timepickerdialog.show();
+			satzanzeige.getButtona().setCompoundDrawablesWithIntrinsicBounds(null, null, img, null );
+			satzanzeige.getButtonb().setCompoundDrawablesWithIntrinsicBounds(null, null, img, null );
+			satzanzeige.getButtonc().setCompoundDrawablesWithIntrinsicBounds(null, null, img, null );
 			// Hier auch
 		}	
 		
