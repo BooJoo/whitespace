@@ -1,14 +1,13 @@
 package de.fuberlin.whitespace.regelbau.listenlogik;
 
-import de.fuberlin.whitespace.regelbau.Satzanzeige;
-import de.fuberlin.whitespace.regelbau.Satzanzeige;
-import android.R;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
+import de.fuberlin.whitespace.regelbau.R.array;
+import de.fuberlin.whitespace.regelbau.Satzanzeige;
 
 /**
  * Erste Menuebene
@@ -20,50 +19,54 @@ public class ebene0listener implements OnItemClickListener {
 
 	private View obereregelbuttonview;
 	private ListView listview;
-	public ebene0listener(View obereregelbuttonview,ListView listview){
+	Satzanzeige satzanzeige;
+	
+	public ebene0listener(View obereregelbuttonview, ListView listview){
 		this.obereregelbuttonview = obereregelbuttonview;
 		this.listview = listview;
 	}
 	
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		System.out.println((String)((TextView)arg1).getText());
-		Satzanzeige satzanzeige = (Satzanzeige)obereregelbuttonview;
+		satzanzeige = (Satzanzeige)obereregelbuttonview;
+		String[] elemente = new String[Integer.SIZE];
+		ArrayAdapter<String> adapter;
 		if(((String)((TextView)arg1).getText()).contains("Zeige mir")){ 
-			String[] elemente = {"Raststätten","Tankstellen","McDonalds","Subway"};
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(listview.getContext(),android.R.layout.simple_list_item_1,elemente);
+			elemente = satzanzeige.getResources().getStringArray(array.Button2WennZeigeMirArray);
 			satzanzeige.setButtonLabelEins((String)((TextView)arg1).getText());
-			String[] defaults = {"Raststätten","um 12:00 Uhr"};
-			satzanzeige.setButtonLabelZwei(defaults[0]);
-			satzanzeige.setButtonLabelDrei(defaults[1]);
-			listview.setAdapter(adapter);
-			listview.setOnItemClickListener(new zeigemirebene1listener(obereregelbuttonview, listview));
+			satzanzeige.setButtonLabelZwei("Raststätten");
+			satzanzeige.setButtonLabelDrei("um 12:00 Uhr");
+			
+			//adapter = new ArrayAdapter<String>(listview.getContext(),android.R.layout.simple_list_item_1, elemente);
+			listview.setAdapter(null);
+//			listview.setAdapter(adapter);
+//			listview.setOnItemClickListener(new ebene1listener_zeigemir(obereregelbuttonview, listview));
 		}
 		else if(((String)((TextView)arg1).getText()).contains("Erinnere mich")){ // else if wichtig, da sonst arg1 ge�ndert wurde.
-			String[] elemente = {"Sehenswürdigkeiten","Pause","Termin", "Tanken"};
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(listview.getContext(),android.R.layout.simple_list_item_1,elemente);
+			elemente = satzanzeige.getResources().getStringArray(array.Button2WennErinnereMichArray);
 			satzanzeige.setButtonLabelEins((String)((TextView)arg1).getText());
-			String[] defaults = {"Tanken","Tankstand unter 20% ist"};
-			satzanzeige.setButtonLabelZwei(defaults[0]);
-			satzanzeige.setButtonLabelDrei(defaults[1]);
-			listview.setOnItemClickListener(new erinneremichebene1listener(satzanzeige, listview));
-			listview.setAdapter(adapter);
+			satzanzeige.setButtonLabelZwei("Tanken");
+			satzanzeige.setButtonLabelDrei("Tankstand unter 20% ist");
+			
+			//adapter = new ArrayAdapter<String>(listview.getContext(),android.R.layout.simple_list_item_1, elemente);
+			listview.setAdapter(null);
+			//listview.setAdapter(adapter);
+			//listview.setOnItemClickListener(new ebene1listener_erinneremich(obereregelbuttonview, listview));
 		}
 		else if(((String)((TextView)arg1).getText()).contains("Informiere mich")){
-			String[] elemente = {"Außentemperatur","Innentemperatur","Durchschnittsgeschwindigkeit","Lautstärke (Radio)", "Regensensor", "Tankstand", "Tankstellen"};
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(listview.getContext(),android.R.layout.simple_list_item_1,elemente);
+			elemente = satzanzeige.getResources().getStringArray(array.Button2WennInformiereMichArray);
 			satzanzeige.setButtonLabelEins((String)((TextView)arg1).getText());
-			String[] defaults = {"Innentemperatur","> 20°C"};
-			satzanzeige.setButtonLabelZwei(defaults[0]);
-			satzanzeige.setButtonLabelDrei(defaults[1]);			
-			listview.setAdapter(adapter);
-		    listview.setOnItemClickListener(new sendemirebene1listener(satzanzeige, listview));
+			satzanzeige.setButtonLabelZwei("Innentemperatur");
+			satzanzeige.setButtonLabelDrei("> 20°C");
+			
+			//adapter = new ArrayAdapter<String>(listview.getContext(),android.R.layout.simple_list_item_1,elemente);
+			listview.setAdapter(null);
+//			listview.setAdapter(adapter);
+//		    listview.setOnItemClickListener(new ebene1listener_informieremich(obereregelbuttonview, listview));
 		}
-		else{
-			String[] elemente = listview.getContext().getResources().getStringArray(de.fuberlin.whitespace.regelbau.R.array.ListDummy);
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(listview.getContext(),android.R.layout.simple_list_item_1,elemente);
-			listview.setAdapter(adapter);
-		}
+		
+		
+		
 
 	}
 

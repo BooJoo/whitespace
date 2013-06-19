@@ -20,10 +20,10 @@ public class OptionsanzeigeListAdapter implements ListAdapter {
 	String[] elemente;
 	private Context context;
 	private DataSetObserver observer;
-	private Main rbm;
+	private MainActivity rbm;
 	private ArrayAdapter adapter;
 	
-	public OptionsanzeigeListAdapter(Context context,String[] elemente,Main rbm){
+	public OptionsanzeigeListAdapter(Context context,String[] elemente,MainActivity rbm){
 		if(elemente == null){
 			String[] tmp = {"Hallo Welt"};
 			elemente = tmp;
@@ -72,7 +72,7 @@ public class OptionsanzeigeListAdapter implements ListAdapter {
 		v.setTextSize(30);*/
 		View v = adapter.getView(position, convertView, parent);
 		
-		View hauptfenster = Main.act.findViewById(R.layout.activity_regelbau_main);
+		View hauptfenster = MainActivity.act.findViewById(R.layout.activity_regelbau_main);
 	    //ColorDrawable clo = (ColorDrawable)(hauptfenster.getBackground());
 		TypedValue a = new TypedValue();
 		context.getTheme().resolveAttribute(android.R.attr.windowBackground, a, true);

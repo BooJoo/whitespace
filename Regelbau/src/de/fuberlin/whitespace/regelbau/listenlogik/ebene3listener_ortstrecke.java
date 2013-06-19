@@ -9,13 +9,13 @@ import de.fuberlin.whitespace.regelbau.MyNumberPicker;
 import de.fuberlin.whitespace.regelbau.MyNumberPickerCallback;
 import de.fuberlin.whitespace.regelbau.Satzanzeige;
 
-public class ort_streckelistener implements OnItemClickListener{
+public class ebene3listener_ortstrecke implements OnItemClickListener{
 	
 
 	private View obereregelbuttonview;
 	private ListView listview;
 
-	public ort_streckelistener(View obereregelbuttonview, ListView listview) {
+	public ebene3listener_ortstrecke(View obereregelbuttonview, ListView listview) {
 		this.obereregelbuttonview = obereregelbuttonview;
 		this.listview = listview;
 	}
@@ -29,7 +29,7 @@ public class ort_streckelistener implements OnItemClickListener{
 			
 
 			new MyNumberPicker(
-				listview.getContext(), nums, new MyNumberPickerCallback() {
+				listview.getContext(), listview,nums, new MyNumberPickerCallback() {
 	
 				@Override
 				public void valueset(int value) {

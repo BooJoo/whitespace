@@ -1,55 +1,48 @@
 package de.fuberlin.whitespace;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
-import de.exlap.ExlapException;
-import de.fuberlin.whitespace.regelbau.Main;
+import de.fuberlin.whitespace.regelbau.MainActivity;
 import de.fuberlin.whitespace.regelbau.R;
 import de.fuberlin.whitespace.regelbau.logic.Action;
 import de.fuberlin.whitespace.regelbau.logic.Rule;
 import de.fuberlin.whitespace.regelbau.logic.Trigger;
 import de.fuberlin.whitespace.regelbau.logic.actions.ShowMessage;
 import de.fuberlin.whitespace.regelbau.logic.actions.SpecialSprintMessage;
-import de.fuberlin.whitespace.regelbau.logic.triggers.TankCapacityState;
 
-public class RuleMainview extends Activity {
+public class RuleMainviewActivity extends Activity {
 
     MyAdapter myadapter;
 
 	private RegelAdapter myregeladapter;
 
-    private static RuleMainview _instance = null;
+    private static RuleMainviewActivity _instance = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
-	setContentView(R.layout.activity_rule_mainview);
-	myadapter = new MyAdapter(this,this);
-	myregeladapter = new RegelAdapter(this, android.R.layout.simple_list_item_1);
-	Button addbutton = (Button) findViewById(R.id.addbutton);
-	addbutton.setText("+");
-	addbutton.setOnClickListener(new View.OnClickListener() {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_rule_mainview);
+		myadapter = new MyAdapter(this,this);
+		myregeladapter = new RegelAdapter(this, android.R.layout.simple_list_item_1);
+		Button addbutton = (Button) findViewById(R.id.addbutton);
+		addbutton.setOnClickListener(new View.OnClickListener() {
 		
 		@Override
 		public void onClick(View v) {
-			// TODO Auto-generated method stub
 			rufeRegelkontruktionAuf();
 		}
 	});
 	LinkedList<Action> actions = new LinkedList<Action>();
 	LinkedList<Trigger> trigger = new LinkedList<Trigger>();
-	String[] tmp = {"Aktion","Aktionsoptionen","Trigger","Meine Super Regel"};
-	actions.add(new SpecialSprintMessage(this,tmp));
 	
+	String[] tmp = {"Meine","erste","Testregel","Meine Super Regel"};
+	actions.add(new SpecialSprintMessage(this,tmp));	
 		trigger.add(null);
 
 	Rule regel = new Rule(actions, trigger);
@@ -64,13 +57,13 @@ public class RuleMainview extends Activity {
 
 
     public void rufeRegelkontruktionAuf(){
-	Intent i = new Intent(getApplicationContext(), Main.class);
+	Intent i = new Intent(getApplicationContext(), MainActivity.class);
 	startActivityForResult(i, 666);
     }
     
     public void rufeRegelkontruktionAuf(Rule rule){
     	
-    	Intent i = new Intent(getApplicationContext(), Main.class);
+    	Intent i = new Intent(getApplicationContext(), MainActivity.class);
     	Bundle b = new Bundle();
     	b.putSerializable("rule", rule); //Your id
     	i.putExtras(b); //Put your id to your next Intent
@@ -96,7 +89,7 @@ public class RuleMainview extends Activity {
 	}
     }
 
-    public static RuleMainview getInstance () {
+    public static RuleMainviewActivity getInstance () {
 	return _instance;
     }
 
