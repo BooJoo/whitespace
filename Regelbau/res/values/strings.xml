@@ -44,6 +44,26 @@
         <item>Tankstellen</item>
     </string-array>
     
+    <string-array name="Button3WennAuto">
+        <item>Außentemperatur</item>
+        <item>Innentemperatur</item>
+        <item>Durchschnittsgeschwindigkeit</item>
+        <item>Tankstand</item>
+        <item>Tankstellen</item>
+    </string-array>
+    
+    <string-array name="Button3WennZeit">
+        <item>nach #8230; Minuten</item>
+        <item>nach #8230; Stunden</item>
+        <item>um #8230; Uhr</item>
+    </string-array>
+    
+    <string-array name="Button3WennOrtStrecke">
+        <item>nach #8230; Kilometern</item>
+        <item>in #8230; (Ort)</item>
+        <item>auf der Strecke nach #8230;</item>
+    </string-array>
+    
     <string-array name="Button3Array">
         <item>Zeit</item>
         <item>Ort / Strecke</item>

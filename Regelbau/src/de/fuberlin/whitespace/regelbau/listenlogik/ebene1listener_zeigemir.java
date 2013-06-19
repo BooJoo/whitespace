@@ -3,8 +3,10 @@ package de.fuberlin.whitespace.regelbau.listenlogik;
 import java.util.Vector;
 
 import de.fuberlin.whitespace.regelbau.Satzanzeige;
+import de.fuberlin.whitespace.regelbau.R.drawable;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.Adapter;
@@ -39,7 +41,7 @@ public class ebene1listener_zeigemir implements OnItemClickListener {
 	}
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		
+		Drawable img = listview.getContext().getResources().getDrawable( drawable.mycheck );
 		if(((String)((TextView)arg1).getText()).contains("F E R T I G")){ // Fertig gedrückt.
 			Vector<String> checkedItems = new Vector<String>();
 			SparseBooleanArray checked = listview.getCheckedItemPositions();
@@ -56,10 +58,15 @@ public class ebene1listener_zeigemir implements OnItemClickListener {
 			listview.setAdapter(adapter);
 			// Setze wieder den normalen onitemclick listener
 			listview.setOnItemClickListener(new ebene0listener(obereregelbuttonview, listview));
+			
+			
 			// Das als letztes ausgewählte Element war FERTIG, also entfernen.
 			if(checkedItems.size() > 0) checkedItems.removeElementAt(checkedItems.size()-1);
 			// Hier das Layout oben updaten .
 			satzanzeige = (Satzanzeige)obereregelbuttonview;
+			satzanzeige.getButtona().setCompoundDrawablesWithIntrinsicBounds(null, null, img, null );
+			satzanzeige.getButtonb().setCompoundDrawablesWithIntrinsicBounds(null, null, img, null );
+			satzanzeige.getButtonc().setCompoundDrawablesWithIntrinsicBounds(null, null, null, null );
 			Object tmpElements[] = checkedItems.toArray();
 			if(tmpElements.length>1)
 				satzanzeige.setButtonLabelZwei(tmpElements[0]+" und "+tmpElements[1]+",");
