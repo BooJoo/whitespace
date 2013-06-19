@@ -9,17 +9,17 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import de.fuberlin.whitespace.regelbau.Main;
-import de.fuberlin.whitespace.regelbau.Main;
+import de.fuberlin.whitespace.regelbau.MainActivity;
+import de.fuberlin.whitespace.regelbau.MainActivity;
 import de.fuberlin.whitespace.regelbau.R;
 
 public class MyAdapter extends BaseAdapter {
 	private Context mContext;
 	Vector<RegelView> rules = new Vector<RegelView>();
-	private RuleMainview rulemainview;
+	private RuleMainviewActivity rulemainview;
 	//private int numberOfRules = 3;
 	
-	public MyAdapter(Context c, RuleMainview rulemainview) {
+	public MyAdapter(Context c, RuleMainviewActivity rulemainview) {
 		this.rulemainview = rulemainview;
 		mContext = c;
 		Integer[] links = {R.drawable.a9,R.drawable.a7};

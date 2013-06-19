@@ -1,28 +1,22 @@
 package de.fuberlin.whitespace.regelbau.listenlogik;
 
-import de.fuberlin.whitespace.regelbau.MyNumberPicker;
-import de.fuberlin.whitespace.regelbau.MyNumberPickerCallback;
-import de.fuberlin.whitespace.regelbau.Satzanzeige;
-import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.NumberPicker;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TimePicker;
+import de.fuberlin.whitespace.regelbau.Satzanzeige;
 
-public class zeitebene3listener implements OnItemClickListener, OnTimeSetListener {
+public class ebene3listener_zeit implements OnItemClickListener, OnTimeSetListener {
 	private View obereregelbuttonview;
 	private ListView listview; 
 	
 
-	public zeitebene3listener(View obereregelbuttonview,ListView listview){
+	public ebene3listener_zeit(View obereregelbuttonview,ListView listview){
 		this.obereregelbuttonview = obereregelbuttonview;
 		this.listview = listview;
 	}
@@ -53,13 +47,13 @@ public class zeitebene3listener implements OnItemClickListener, OnTimeSetListene
 		    
 			alert.show();
 			*/
-			final String[] nums = new String[20];
+			final Integer[] nums = new Integer[20];
 			for (int i = 0; i < nums.length; i++) {
-				nums[i] = Integer.toString(i*15);
+				nums[i] = i*15;
 			}
 			 
     	//	satz.setButtonLabelDrei("nach "+nums[np.getValue()]+" Minuten");
-			MyNumberPicker mynumberpicker = new MyNumberPicker(listview.getContext(), nums, new MyNumberPickerCallback() {
+		/*	MyNumberPicker mynumberpicker = new MyNumberPicker(listview.getContext(), nums, new MyNumberPickerCallback() {
 				
 				@Override
 				public void valueset(int value) {
@@ -74,7 +68,22 @@ public class zeitebene3listener implements OnItemClickListener, OnTimeSetListene
 					
 				}
 			},"Setze nach ... Minuten");
+			*/
 			
+			final ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(listview.getContext(), android.R.layout.simple_list_item_1);
+			adapter.addAll(nums);
+			listview.setAdapter(adapter);
+			listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+					 int position = arg2;
+					 Satzanzeige satz = ((Satzanzeige)obereregelbuttonview); 
+					 satz.setButtonLabelDrei("nach "+adapter.getItem(position)+" Minuten");
+					 listview.setAdapter(null);
+				}
+			
+			} );
 			 
 			
 			// TODO Zahleneingabe einbinden in neuen OnItemClickListener

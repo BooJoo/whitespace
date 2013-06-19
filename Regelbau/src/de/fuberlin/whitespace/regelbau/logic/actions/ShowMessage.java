@@ -2,7 +2,7 @@ package de.fuberlin.whitespace.regelbau.logic.actions;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import de.fuberlin.whitespace.RuleMainview;
+import de.fuberlin.whitespace.RuleMainviewActivity;
 import de.fuberlin.whitespace.regelbau.logic.Action;
 
 public class ShowMessage extends Action {
@@ -21,7 +21,7 @@ public class ShowMessage extends Action {
     @Override
     public void Do() {
 	
-	new AlertDialog.Builder(RuleMainview.getInstance())
+	new AlertDialog.Builder(RuleMainviewActivity.getInstance())
 		.setTitle("Erinnerung")
 		.setMessage((String) parameter[1])
 		.setNeutralButton(android.R.string.ok,

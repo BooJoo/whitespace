@@ -14,6 +14,8 @@ public class MyTextPicker {
 		this.context = context;
 		
 		input = new EditText(context);
+		input.setText("MeinRegelname");
+		
 		AlertDialog.Builder alert = new AlertDialog.Builder(context);
 		alert.setView(input);
 		alert.setTitle(alertName);
@@ -29,6 +31,8 @@ public class MyTextPicker {
 
 	    
 		alert.show();
+		
+	  	
 
 	}
 

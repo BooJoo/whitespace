@@ -6,7 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.widget.Button;
 import de.fuberlin.whitespace.KnightRider;
-import de.fuberlin.whitespace.RuleMainview;
+import de.fuberlin.whitespace.RuleMainviewActivity;
 import de.fuberlin.whitespace.ScherzActivity;
 
 public class SpecialSprintMessage extends ShowMessage{

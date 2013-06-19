@@ -19,9 +19,9 @@ public class RuleView {
 	Rule rule;
 	private LayoutInflater mInflater;
 	String[] res;
-	private RuleMainview main;
+	private RuleMainviewActivity main;
 
-	public RuleView(Context context,Rule rule, RuleMainview main) {
+	public RuleView(Context context,Rule rule, RuleMainviewActivity main) {
 		super();
 		this.rule = rule;
 		this.main = main;
