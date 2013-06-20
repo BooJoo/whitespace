@@ -57,9 +57,10 @@
         android:id="@+id/addbutton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/addbuttonshape"
         android:text="@string/neueRegel"
-        android:textColor="#000000"
-        android:textSize="@dimen/addbuttontextsize" />
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/addbuttontextsize"
+        android:background="@drawable/regelbaubuttonspeichernshape"
+        android:drawableLeft="@drawable/plus" />
     
 </LinearLayout>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="80dp"
     android:paddingTop="10dp"
@@ -9,25 +10,24 @@
         android:id="@+id/buttonAction"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_weight="3"
-        android:text="Button" 
-        android:background="@drawable/regelbackgroundshape"
-        />
- <Button
-        android:id="@+id/buttonActionOpt"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-          android:layout_weight="3"
-        android:text="Button" 
-        android:background="@drawable/regelbackgroundshape"
-        />
+        android:layout_weight="4"
+        android:background="@drawable/regelbackgroundshapebutton1"
+        android:textColor="#000000"/>
 
-  <Button
-      android:id="@+id/buttonTrigger"
-      android:layout_width="fill_parent"
-      android:layout_height="fill_parent"
-      android:layout_weight="3"
-      android:background="@drawable/regelbackgroundshape"
-      android:text="Button" />
+    <ImageButton
+        android:id="@+id/buttonActionOpt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/regelbackgroundshapebutton2"
+        android:src="@drawable/pfeil2"
+        android:contentDescription="@null" />
+
+	  <Button
+	      android:id="@+id/buttonTrigger"
+	      android:layout_width="fill_parent"
+	      android:layout_height="fill_parent"
+	      android:layout_weight="4"
+	      android:background="@drawable/regelbackgroundshapebutton3"
+	      android:textColor="#000000" /> 
 
 </LinearLayout>

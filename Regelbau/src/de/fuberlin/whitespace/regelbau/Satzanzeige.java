@@ -3,6 +3,7 @@ package de.fuberlin.whitespace.regelbau;
 import java.util.Vector;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
@@ -63,7 +64,6 @@ public class Satzanzeige extends LinearLayout {
 			@Override
 			public void onClick(View v) {
 				ActionChanged();
-				
 			}
 		});
 		
