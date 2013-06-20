@@ -41,7 +41,7 @@ public class RuleMainviewActivity extends Activity {
 	LinkedList<Action> actions = new LinkedList<Action>();
 	LinkedList<Trigger> trigger = new LinkedList<Trigger>();
 	
-	String[] tmp = {"Meine","erste","Testregel","Meine Super Regel"};
+	String[] tmp = {"Zeige mir Raststätten", "", "um 12 Uhr."};
 	actions.add(new SpecialSprintMessage(this,tmp));	
 		trigger.add(null);
 
@@ -49,6 +49,7 @@ public class RuleMainviewActivity extends Activity {
 	myregeladapter.add(regel);
 	GridView gridview = (GridView) findViewById(R.id.gridView1);
 	gridview.setAdapter(myregeladapter);
+	
 	
 	//gridview.setAdapter(myadapter);
 	

@@ -26,6 +26,7 @@ public class ebene2und3listener_auto implements OnItemClickListener {
 		Satzanzeige satzanzeige = (Satzanzeige) obereregelbuttonview;
 		Drawable img = listview.getContext().getResources().getDrawable( drawable.mycheck );
 		String item = (String)((TextView)arg1).getText();
+		
 		if(item.contains("Zeit")){ // Fertig gedrückt.
 			String[] elemente = listview.getResources().getStringArray(R.array.Button3WennZeit);
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(listview.getContext(),android.R.layout.simple_list_item_1,elemente);

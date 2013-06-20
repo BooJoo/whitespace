@@ -1,6 +1,7 @@
 package de.fuberlin.whitespace.regelbau;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -57,8 +58,8 @@ public class Optionsanzeige extends LinearLayout implements IButtonChangeListene
 	@Override
 	public void aktionchanged(String oldbuttontext) {
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,getContext().getResources().getStringArray(de.fuberlin.whitespace.regelbau.R.array.Button1Array));
-			listview.setAdapter(adapter);
-			listview.setOnItemClickListener(new ebene0listener(satzanzeige, listview));
+		listview.setAdapter(adapter);
+		listview.setOnItemClickListener(new ebene0listener(satzanzeige, listview));
 	}
 
 	/** Wird aufgerufen, wenn Button 2 gedrückt wurde.*/

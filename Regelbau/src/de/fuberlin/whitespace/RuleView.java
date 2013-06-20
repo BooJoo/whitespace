@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import de.fuberlin.whitespace.regelbau.R;
 import de.fuberlin.whitespace.regelbau.logic.Rule;
@@ -34,11 +35,11 @@ public class RuleView {
 	public View getView(ViewGroup parent){
 		View v = mInflater.inflate(R.layout.regelansicht, parent, false);
 		Button action = (Button)v.findViewById(R.id.buttonAction);
-		Button actionopt = (Button)v.findViewById(R.id.buttonActionOpt);
+		ImageButton actionopt = (ImageButton)v.findViewById(R.id.buttonActionOpt);
 		Button trigger = (Button)v.findViewById(R.id.buttonTrigger);
 		try{
-		action.setText(res[0]);
-		actionopt.setText(res[1]);
+		action.setText(res[0]+" "+res[1]);
+		//actionopt.setText(res[1]);
 		trigger.setText(res[2]);
 		}catch(Exception e){}
 		action.setOnClickListener(new View.OnClickListener() {
@@ -48,7 +49,8 @@ public class RuleView {
 				((ShowMessage)(rule.getActions().get(0))).Do();
 			}
 		});
-		trigger.setOnClickListener(new View.OnClickListener() {
+		trigger.setOnClickListener(new View.OnClickListener(){
+		//action.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {

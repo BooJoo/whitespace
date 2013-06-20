@@ -26,7 +26,8 @@ public class ebene3listener_ortstrecke implements OnItemClickListener{
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		Satzanzeige satzanzeige = (Satzanzeige) obereregelbuttonview;
 		final Drawable img = listview.getContext().getResources().getDrawable( drawable.mycheck );
-		if (((String) ((TextView) arg1).getText()).contains("nach ...")) {
+		String item = (String) ((TextView) arg1).getText();
+		if (item.contains("nach")) {
 			final String[] nums = new String[10];
 			for (int i = 0; i < nums.length; i++) 
 				nums[i] = Integer.toString(i * 15);

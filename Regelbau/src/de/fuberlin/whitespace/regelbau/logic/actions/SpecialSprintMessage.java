@@ -1,12 +1,9 @@
 package de.fuberlin.whitespace.regelbau.logic.actions;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.widget.Button;
 import de.fuberlin.whitespace.KnightRider;
-import de.fuberlin.whitespace.RuleMainviewActivity;
 import de.fuberlin.whitespace.ScherzActivity;
 
 public class SpecialSprintMessage extends ShowMessage{
