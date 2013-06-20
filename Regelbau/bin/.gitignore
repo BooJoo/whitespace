@@ -1,0 +1,7 @@
+/dexedLibs
+/res
+/classes
+/jarlist.cache
+*.apk
+*.ap_
+*.dex
