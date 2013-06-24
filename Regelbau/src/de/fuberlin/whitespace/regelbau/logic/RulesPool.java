@@ -2,6 +2,10 @@ package de.fuberlin.whitespace.regelbau.logic;
 
 import java.util.LinkedList;
 
+import android.content.Context;
+
+import de.fuberlin.whitespace.regelbau.logic.SQLDB.SQLDataBase;
+
 
 /**
  * Speichert alle erzeugten Regeln und Führt Aktionen Aus wenn Auslöser whar werden
@@ -10,25 +14,54 @@ import java.util.LinkedList;
  */
 public  class RulesPool {
 	
+	private static SQLDataBase DB;
 	/** 
 	 * liste der Regln
 	 */
 	 static LinkedList<Rule> rules = new LinkedList<Rule>();
-
-	 /**
-	  * hinzufügen einer Neuen Regel mit Triggern und Aktionen
-	  * @param actions
-	  * @param trigger
-	  * @throws Exception wir geworfen bei Aktionen =0 oder Trigger =0
-	  */
+	
+	
+	public RulesPool(Context context)
+	{
+		DB= new SQLDataBase(context);
+		//Regeln aus der Datenbank holen
+		LinkedList<byte[] > DBRulrList=   DB.getAllEntries();
+		for (byte[] rule : DBRulrList) {
+			Rule newRule=(Rule)DB.deserialize(rule);
+			//triger wieder anmelden bei Proxyclient
+			for (Trigger t : newRule.trigger) {
+				t.subscribe();
+			}
+			rules.add(newRule);
+		}
+	}
+	
+	/**
+	* hinzufügen einer Neuen Regel mit Triggern und Aktionen
+	* @param actions
+	* @param trigger
+	* @throws Exception wir geworfen bei Aktionen =0 oder Trigger =0
+	*/
 	public static void AddRule(LinkedList<Action> actions, LinkedList<Trigger> trigger ) throws Exception
 	{
 		if(actions.isEmpty())
 			throw new Exception("Keine Aktion vorhanden für die Ragel.");
 		if(trigger.isEmpty())
 			throw new Exception("Keine Trigger vorhanden für die Ragel.");
+		Rule newRule=new Rule(actions,trigger);
+		rules.add(newRule);
+		DB.AddToDB(DB.serialize(newRule));
 		
-		rules.add(new Rule(actions,trigger));
+	}
+	
+	
+	public void UpgradDB()
+	{
+		LinkedList<byte[] > brules = new LinkedList<byte[]>();
+		for (Rule r : rules) {
+			brules.add(DB.serialize(r));
+		}
+		DB.Update(brules);
 	}
 	
 	/**

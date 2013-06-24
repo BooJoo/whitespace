@@ -17,12 +17,16 @@ public class OnceDriveDistance  extends Trigger {
 	
 	public OnceDriveDistance() throws IllegalArgumentException, IOException, ExlapException
 	{
+		subscribe();
+
+	}
+	public void subscribe()
+	{
 		ProxyClient pc=ProxyClient.get();//instanc des Proxclients holen
 		
 		//Packete abonieren
 		pc.addListener("Odometer", this);
 		pc.addListener("Motor status geändert (An 1/aus 0)", this);  //@TODO diese objekt anlegen
-
 	}
 	@Override
 	public void trigger(DataObject dataObject) 

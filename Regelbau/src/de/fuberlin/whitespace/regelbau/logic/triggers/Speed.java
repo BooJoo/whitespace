@@ -15,13 +15,19 @@ public class Speed extends Trigger {
 	
 	public Speed() throws IllegalArgumentException, IOException, ExlapException
 	{
+		
+		subscribe();
+	}
+
+	
+	public void subscribe()
+	{
 		ProxyClient pc=ProxyClient.get();//instanc des Proxclients holen
 		
 		//Packete abonieren
 		pc.addListener("VehicleSpeed", this);
-		
 	}
-
+	
 	@Override
 	public void trigger(DataObject dataObject) 
 	{

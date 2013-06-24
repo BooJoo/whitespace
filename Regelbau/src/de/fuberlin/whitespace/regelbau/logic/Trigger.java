@@ -41,6 +41,7 @@ public abstract class Trigger implements Serializable {
 	    return (o instanceof Trigger) && true; // @TODO: Implementierung offen
 	}
     
+	public abstract void subscribe();
 	
 	
 	

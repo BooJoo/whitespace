@@ -14,14 +14,17 @@ public class AirHumidity extends Trigger {
 	
 	public AirHumidity() throws IllegalArgumentException, IOException, ExlapException
 	{
+		subscribe();
+		
+	}
+
+	public void subscribe()
+	{
 		ProxyClient pc=ProxyClient.get();//instanz des Proxclients holen
 		
 		//Packete abonieren
 		pc.addListener("AirHumidity", this);//@TODO noch erstellen
-		
 	}
-
-	
 	
 	
 	

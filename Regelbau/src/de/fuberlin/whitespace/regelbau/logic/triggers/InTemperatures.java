@@ -14,14 +14,17 @@ public class InTemperatures extends Trigger {
 	
 	public InTemperatures() throws IllegalArgumentException, IOException, ExlapException
 	{
+		subscribe();
+	}
+	
+	public void subscribe()
+	{
 		ProxyClient pc=ProxyClient.get();//instanz des Proxclients holen
 		
 		//Packete abonieren
 		pc.addListener("InTemperature", this);//@TODO noch erstellen
 		
 	}
-	
-	
 	@Override
 	public void trigger(DataObject dataObject) {
 		if(consumed)

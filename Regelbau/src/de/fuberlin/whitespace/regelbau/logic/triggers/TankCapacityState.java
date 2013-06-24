@@ -14,13 +14,21 @@ public class TankCapacityState extends Trigger {
 	
 	public TankCapacityState() throws IllegalArgumentException, IOException, ExlapException
 	{
+		subscribe();
+		
+	}
+
+	
+	public void subscribe()
+	{
 		ProxyClient pc=ProxyClient.get();//instanc des Proxclients holen
 		
 		//Packete abonieren
 		pc.addListener("TankLevel", this);
-		
 	}
-
+	
+	
+	
 	@Override
 	public void trigger(DataObject dataObject) {
 		double fuel=(Double)dataObject.getElement("Premium").getValue();
