@@ -25,8 +25,20 @@ public class OnceDriveDistance  extends Trigger {
 		ProxyClient pc=ProxyClient.get();//instanc des Proxclients holen
 		
 		//Packete abonieren
-		pc.addListener("Odometer", this);
-		pc.addListener("Motor status geändert (An 1/aus 0)", this);  //@TODO diese objekt anlegen
+		try {
+			pc.addListener("Odometer", this);
+			pc.addListener("Motor status geändert (An 1/aus 0)", this); //@TODO dieses objekt anlegen
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExlapException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 
 	}
 	@Override
 	public void trigger(DataObject dataObject) 

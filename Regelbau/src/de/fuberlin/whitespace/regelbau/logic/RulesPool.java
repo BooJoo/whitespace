@@ -42,13 +42,13 @@ public  class RulesPool {
 	* @param trigger
 	* @throws Exception wir geworfen bei Aktionen =0 oder Trigger =0
 	*/
-	public static void AddRule(LinkedList<Action> actions, LinkedList<Trigger> trigger ) throws Exception
+	public static void AddRule(String name,LinkedList<Action> actions, LinkedList<Trigger> trigger ) throws Exception
 	{
 		if(actions.isEmpty())
 			throw new Exception("Keine Aktion vorhanden für die Ragel.");
 		if(trigger.isEmpty())
 			throw new Exception("Keine Trigger vorhanden für die Ragel.");
-		Rule newRule=new Rule(actions,trigger);
+		Rule newRule=new Rule( name,actions,trigger);
 		rules.add(newRule);
 		DB.AddToDB(DB.serialize(newRule));
 		
@@ -75,10 +75,10 @@ public  class RulesPool {
 		{
 			for ( Trigger trig : r.trigger) 
 			{
-				if(trig==t)//Wenn wir den Trigger gefungen
+				if(trig==t)//Wenn wir den Trigger gefunden haben
 				{
-					//Überprüen ob alle Trigger dieser Regel War sind
-					//und fuert ggf. Aktionen dieser Regel aus
+					//Überprüen ob alle Trigger dieser Regel wahr sind
+					//und fuehrt ggf. Aktionen dieser Regel aus
 					boolean allTrigger=true; //bleibt True wenn alle Trigger der Regel wahr sind
 					
 					for ( Trigger trig2 : r.trigger)  

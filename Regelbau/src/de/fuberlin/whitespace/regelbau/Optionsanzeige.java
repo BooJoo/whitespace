@@ -22,7 +22,7 @@ public class Optionsanzeige extends LinearLayout implements IButtonChangeListene
 	ListView listview;
 	OptionsanzeigeListAdapter myListAdapter;
 	Satzanzeige satzanzeige;
-    MainActivity mainActivity;
+    //MainActivity mainActivity;
 	
 	public Optionsanzeige(Context context, String[] options, ListView list, Satzanzeige satzanzeige) {
 		super(context);
@@ -30,7 +30,7 @@ public class Optionsanzeige extends LinearLayout implements IButtonChangeListene
 		this.satzanzeige = satzanzeige;
 		satzanzeige.registerForButtonChanges(this);
 		listview = list;
-		mainActivity = (MainActivity) context;
+		//mainActivity = (MainActivity) context;
 	}
 	
 	public void setNewElements(String[] elemente){

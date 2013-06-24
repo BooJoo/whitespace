@@ -35,6 +35,7 @@
         </activity>
         <activity android:name="de.fuberlin.whitespace.RuleConstruction"></activity>
         <activity android:name="de.fuberlin.whitespace.ScherzActivity"></activity>
+        <activity android:name="RegelBearbeitenActivity"></activity>
     
     </application>
 

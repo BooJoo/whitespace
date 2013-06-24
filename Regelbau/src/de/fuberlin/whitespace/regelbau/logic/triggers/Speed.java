@@ -25,7 +25,18 @@ public class Speed extends Trigger {
 		ProxyClient pc=ProxyClient.get();//instanc des Proxclients holen
 		
 		//Packete abonieren
-		pc.addListener("VehicleSpeed", this);
+		try {
+			pc.addListener("VehicleSpeed", this);
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExlapException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Override

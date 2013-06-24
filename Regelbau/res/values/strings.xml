@@ -15,6 +15,8 @@
 	<string name="HomeHeaderOption">Option</string>
 	<string name="HomeHeaderAuslöser">Auslöser</string>
 	<string name="neueRegel">neue Regel</string>
+	<string name="regelname">MeinRegelname</string>
+	<string name="aktiv">aktiv</string>
 	
     <string-array name="Button1Array">
         <item >Zeige mir</item>

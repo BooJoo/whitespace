@@ -23,7 +23,18 @@ public class AirHumidity extends Trigger {
 		ProxyClient pc=ProxyClient.get();//instanz des Proxclients holen
 		
 		//Packete abonieren
-		pc.addListener("AirHumidity", this);//@TODO noch erstellen
+		try {
+			pc.addListener("AirHumidity", this);
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExlapException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}//@TODO noch erstellen
 	}
 	
 	

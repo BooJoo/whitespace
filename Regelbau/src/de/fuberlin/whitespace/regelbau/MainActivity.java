@@ -69,7 +69,7 @@ public class MainActivity extends Activity { // OoO
 						
 							trigger.add(null);
 					
-						Rule regel = new Rule(actions, trigger);
+						Rule regel = new Rule(value,actions, trigger);
 						
 					   // bundle.putStringArray("selectedItems", output);
 					    bundle.putSerializable("regel", regel);

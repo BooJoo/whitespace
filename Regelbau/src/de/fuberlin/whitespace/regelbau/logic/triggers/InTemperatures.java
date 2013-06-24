@@ -22,7 +22,18 @@ public class InTemperatures extends Trigger {
 		ProxyClient pc=ProxyClient.get();//instanz des Proxclients holen
 		
 		//Packete abonieren
-		pc.addListener("InTemperature", this);//@TODO noch erstellen
+		try {
+			pc.addListener("InTemperature", this);
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExlapException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}//@TODO noch erstellen
 		
 	}
 	@Override

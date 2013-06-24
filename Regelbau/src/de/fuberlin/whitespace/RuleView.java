@@ -3,6 +3,7 @@ package de.fuberlin.whitespace;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -21,6 +22,15 @@ public class RuleView {
 	private LayoutInflater mInflater;
 	String[] res;
 	private RuleMainviewActivity main;
+	OnClickListener ocl = new View.OnClickListener(){
+		//action.setOnClickListener(new View.OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Bearbeitung der Regel aufrufen
+			main.rufeRegelkontruktionAuf(rule);
+		}
+	};
 
 	public RuleView(Context context,Rule rule, RuleMainviewActivity main) {
 		super();
@@ -42,22 +52,9 @@ public class RuleView {
 		//actionopt.setText(res[1]);
 		trigger.setText(res[2]);
 		}catch(Exception e){}
-		action.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				((ShowMessage)(rule.getActions().get(0))).Do();
-			}
-		});
-		trigger.setOnClickListener(new View.OnClickListener(){
-		//action.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Bearbeitung der Regel aufrufen
-				main.rufeRegelkontruktionAuf(rule);
-			}
-		});
+		action.setOnClickListener(ocl);
+		actionopt.setOnClickListener(ocl);
+		trigger.setOnClickListener(ocl);
 		return v;
 	}
 	
