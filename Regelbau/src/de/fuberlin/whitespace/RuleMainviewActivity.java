@@ -16,6 +16,7 @@ import de.fuberlin.whitespace.regelbau.RegelBearbeitenActivity;
 import de.fuberlin.whitespace.regelbau.Satzanzeige;
 import de.fuberlin.whitespace.regelbau.logic.Action;
 import de.fuberlin.whitespace.regelbau.logic.Rule;
+import de.fuberlin.whitespace.regelbau.logic.RulesPool;
 import de.fuberlin.whitespace.regelbau.logic.Trigger;
 import de.fuberlin.whitespace.regelbau.logic.SQLDB.SQLDataBase;
 import de.fuberlin.whitespace.regelbau.logic.actions.ShowMessage;
@@ -26,7 +27,8 @@ public class RuleMainviewActivity extends Activity {
     //MyAdapter myadapter;
 
 	private RegelAdapter myregeladapter;
-
+	private RulesPool rp;
+	
 	GridView gridview;
     private static RuleMainviewActivity _instance = null;
 
@@ -35,7 +37,10 @@ public class RuleMainviewActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_rule_mainview);
 		//myadapter = new MyAdapter(this,this);
+		rp = new RulesPool(this); 
+		
 		myregeladapter = new RegelAdapter(this, android.R.layout.simple_list_item_1);
+		
 		Button addbutton = (Button) findViewById(R.id.addbutton);
 		addbutton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -43,16 +48,18 @@ public class RuleMainviewActivity extends Activity {
 				rufeRegelkontruktionAuf();
 			}
 		});
-		LinkedList<Action> actions = new LinkedList<Action>();
-		LinkedList<Trigger> trigger = new LinkedList<Trigger>();
+		//LinkedList<Action> actions = new LinkedList<Action>();
+		//LinkedList<Trigger> trigger = new LinkedList<Trigger>();
 		
-		String[] tmp = {"Zeige mir Raststätten", "", "um 12 Uhr."};
-		actions.add(new SpecialSprintMessage(this,tmp));	
-			trigger.add(null);
+		//String[] tmp = {"Zeige mir Raststätten", "", "um 12 Uhr."};
+	//	actions.add(new SpecialSprintMessage(this,tmp));	
+	//		trigger.add(null);
 	
-		Rule regel = new Rule("KnightRider",actions, trigger);
-		myregeladapter.add(regel);
+	//	Rule regel = new Rule("KnightRider",actions, trigger);
+	//	myregeladapter.add(regel);
 		gridview = (GridView) findViewById(R.id.gridView1);
+		for(Rule r: RulesPool.rules) myregeladapter.add(r);
+		//myregeladapter.addAll(RulesPool.rules);
 		gridview.setAdapter(myregeladapter);
 		
 		
@@ -107,9 +114,12 @@ public class RuleMainviewActivity extends Activity {
 			if(!deleted){
 				regeln.add(rule);
 			}
+			RulesPool.rules = new LinkedList<Rule>(regeln);
+			rp.updateDB();
 			
 			myregeladapter = new RegelAdapter(this, android.R.layout.simple_list_item_1);
-			myregeladapter.addAll(regeln);
+			for(Rule r: regeln) myregeladapter.add(r);
+			//myregeladapter.addAll(regeln);
 			gridview.setAdapter(myregeladapter);
 			
 			// Toast als Feedback

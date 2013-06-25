@@ -16,25 +16,31 @@ public  class RulesPool {
 	
 	private static SQLDataBase DB;
 	/** 
-	 * liste der Regln
+	 * liste der Regln 
 	 */
-	 static LinkedList<Rule> rules = new LinkedList<Rule>();
+	 static public LinkedList<Rule> rules;
 	
 	
 	public RulesPool(Context context)
 	{
-		DB= new SQLDataBase(context);
+		rules = new LinkedList<Rule>();
+		DB = new SQLDataBase(context);
+		
 		//Regeln aus der Datenbank holen
-		LinkedList<byte[] > DBRulrList=   DB.getAllEntries();
+		LinkedList<byte[] > DBRulrList = DB.getAllEntries();
 		for (byte[] rule : DBRulrList) {
 			Rule newRule=(Rule)DB.deserialize(rule);
 			//triger wieder anmelden bei Proxyclient
-			for (Trigger t : newRule.trigger) {
+		/*	for (Trigger t : newRule.trigger) {
 				t.subscribe();
 			}
+		
+			 */
+			//Absturz durch Nullpointer Exception
 			rules.add(newRule);
 		}
-	}
+		//rules.removeLast();
+	} 
 	
 	/**
 	* hinzufügen einer Neuen Regel mit Triggern und Aktionen
@@ -55,8 +61,9 @@ public  class RulesPool {
 	}
 	
 	
-	public void UpgradDB()
+	public void updateDB()
 	{
+		DB.reset();
 		LinkedList<byte[] > brules = new LinkedList<byte[]>();
 		for (Rule r : rules) {
 			brules.add(DB.serialize(r));

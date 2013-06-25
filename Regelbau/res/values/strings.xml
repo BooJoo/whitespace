@@ -17,6 +17,7 @@
 	<string name="neueRegel">neue Regel</string>
 	<string name="regelname">MeinRegelname</string>
 	<string name="aktiv">aktiv</string>
+	<string name="überschrift">Meine Regeln</string>
 	
     <string-array name="Button1Array">
         <item >Zeige mir</item>

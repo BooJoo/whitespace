@@ -78,7 +78,7 @@ public class SQLDataBase {
 		return list;
 	}
 	
-	protected void reset()
+	public void reset()
 	{
 		open();
 		dbHelper.onUpgrade(db, 0, 0);

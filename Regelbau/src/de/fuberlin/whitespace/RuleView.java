@@ -1,6 +1,7 @@
 package de.fuberlin.whitespace;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import de.fuberlin.whitespace.regelbau.MainActivity;
 import de.fuberlin.whitespace.regelbau.R;
 import de.fuberlin.whitespace.regelbau.logic.Rule;
 import de.fuberlin.whitespace.regelbau.logic.actions.ShowMessage;
@@ -53,7 +55,15 @@ public class RuleView {
 		trigger.setText(res[2]);
 		}catch(Exception e){}
 		action.setOnClickListener(ocl);
-		actionopt.setOnClickListener(ocl);
+		actionopt.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent i = new Intent(v.getContext(), ScherzActivity.class);
+		    	v.getContext().startActivity(i);
+			}
+		});
 		trigger.setOnClickListener(ocl);
 		return v;
 	}
