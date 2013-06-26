@@ -19,6 +19,9 @@ public abstract class Trigger implements Serializable {
         private static final long serialVersionUID = -3386299757013046952L;
         
 	protected HashMap<String, Object> params;
+	
+	
+	
 	/**
 	 * gibt an ob der Trigger derzeitig erfüllt ist oder nicht 
 	 */
@@ -33,6 +36,12 @@ public abstract class Trigger implements Serializable {
 	public abstract void trigger (DataObject dataObject) ;
 	
 	public void set (String name, Object value) {
+		System.out.println("erreicht2.1");
+		if(params==null)
+		{
+		params= new HashMap<String, Object>();
+		}
+		System.out.println("ereicht 2,5");
 		params.put(name, value);
 	}
 	

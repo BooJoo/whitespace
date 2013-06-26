@@ -11,9 +11,13 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import de.fuberlin.whitespace.regelbau.R.layout;
 import de.fuberlin.whitespace.regelbau.logic.Action;
+import de.fuberlin.whitespace.regelbau.logic.ProxyClient;
 import de.fuberlin.whitespace.regelbau.logic.Rule;
+import de.fuberlin.whitespace.regelbau.logic.RulesPool;
 import de.fuberlin.whitespace.regelbau.logic.Trigger;
+import de.fuberlin.whitespace.regelbau.logic.SQLDB.SQLDataBase;
 import de.fuberlin.whitespace.regelbau.logic.actions.ShowMessage;
+import de.fuberlin.whitespace.regelbau.logic.triggers.Speed;
 
 public class MainActivity extends Activity { // OoO
 	Optionsanzeige optionsanzeigeListe;
@@ -57,23 +61,52 @@ public class MainActivity extends Activity { // OoO
 					
 					@Override
 					public void valueset(String value)  {
+						System.out.println("Methode erreicht");
 						System.out.println("Der Benutzer hat Regelname "+ value + " eingegeben");
 						Intent intent = new Intent();
 						//Bundle Objekt
+						
+						
 						Bundle bundle = new Bundle();
 						String[] output = {satzanzeige.getButtona().getText().toString(),satzanzeige.getButtonb().getText().toString(),satzanzeige.getButtonc().getText().toString(),value};
 						LinkedList<Action> actions = new LinkedList<Action>();
 						LinkedList<Trigger> trigger = new LinkedList<Trigger>();
 						
 						actions.add(new ShowMessage(output));
+						try{
+					    
+						Trigger t1= new Speed();
 						
-							trigger.add(null);
-					
+						t1.set("Speed", 50);
+						t1.set("Operation", 0);
+						
+						trigger.add(t1);
+					    
+						}
+						catch(Exception e)
+						{
+							e.printStackTrace();
+						}
+							
+					   
 						Rule regel = new Rule(value,actions, trigger);
-						
-					   // bundle.putStringArray("selectedItems", output);
+						try {
+							RulesPool.AddRule(" sas ", actions, trigger);
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					    // bundle.putStringArray("selectedItems", output);
 					    bundle.putSerializable("regel", regel);
-					//	bundle.putAll(map)
+					    try{
+					    	
+					    
+					    }
+					    catch(Exception e)
+					    {
+					    	System.out.println(e.getMessage());
+					    }
+					    //	bundle.putAll(map)
 						
 						//Bundle zu intent hinzufügen
 						intent.putExtras(bundle);

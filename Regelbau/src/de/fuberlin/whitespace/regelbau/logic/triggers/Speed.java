@@ -16,27 +16,31 @@ public class Speed extends Trigger {
 	public Speed() throws IllegalArgumentException, IOException, ExlapException
 	{
 		
+		
+		System.out.println("speed1");
 		subscribe();
+		System.out.println("speed3");
 	}
 
 	
 	public void subscribe()
 	{
-		ProxyClient pc=ProxyClient.get();//instanc des Proxclients holen
-		
-		//Packete abonieren
-		try {
-			pc.addListener("VehicleSpeed", this);
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExlapException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		System.out.println("");
+//		ProxyClient pc=ProxyClient.get();//instanc des Proxclients holen
+//		
+//		//Packete abonieren
+//		try {
+//			pc.addListener("VehicleSpeed", this);
+//		} catch (IllegalArgumentException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (ExlapException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 	
 	@Override

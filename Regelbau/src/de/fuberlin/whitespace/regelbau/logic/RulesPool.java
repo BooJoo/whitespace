@@ -22,9 +22,13 @@ public  class RulesPool {
 	
 	
 	public RulesPool(Context context)
-	{
+	{ 
+		System.out.println("rulespool 1");
 		rules = new LinkedList<Rule>();
 		DB = new SQLDataBase(context);
+		DB.reset();
+		ProxyClient.get();
+		System.out.println("rulespool 2");
 		
 		//Regeln aus der Datenbank holen
 		LinkedList<byte[] > DBRulrList = DB.getAllEntries();
