@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruledata>
+	<triggers>
+		<trigger id="TankLevel" classname="de.fuberlin.whitespace.regelbau.logic.triggers.TankCapacityState">
+			<arg name="Threshold" type="Integer" description="Tankfüllstand in Prozent, dessen Unterschreitung zur Auslösung führt." />
+		</trigger>
+		<trigger id="DrivingDistance" classname="de.fuberlin.whitespace.regelbau.logic.triggers.OnceDriveDistance">
+			<arg name="Threshold" type="Integer" description="Gefahrene Entfernung, nach der die Auslösung erfolgen soll." />
+		</trigger>
+		<trigger id="Speed" classname="de.fuberlin.whitespace.regelbau.logic.triggers.Speed">
+			<arg name="Threshold" type="Integer" description="Geschwindigkeit, deren Überschreitung zur Auslösung führen soll." />
+		</trigger>
+		<trigger id="InteriorTemperature" classname="de.fuberlin.whitespace.regelbau.logic.triggers.InTemperatures">
+			<arg name="Threshold" type="Integer" description="Temperaturschwellwert" />
+		</trigger>
+	</triggers>
+	<trigger-groups>
+	    <group id="Time" word="Zeit">
+	        <member>TimeElapsed</member>
+	        <member>TimeOfDay</member>
+	    </group>
+	    <group id="Geo" word="Ort / Strecke">
+	        <member>DrivingDistance</member>
+	        <member>GeoLocation</member>
+	        <member>GeoTarget</member>
+	    </group>
+	    <group id="Car" word="Auto">
+	        <member>InteriorTemperature</member>
+	        <member>Speed</member>
+	        <member>TankLevel</member>
+	    </group>
+	</trigger-groups>
+	<actions>
+		<action id="Voice" displayname="Sprachausgabe" classname="de.fuberlin.whitespace.regelbau.logic.actions.Voice">
+			<arg name="message" type="String" description="Anzusagende Nachricht" />
+		</action>
+		<action id="ShowMessage" displayname="Nachricht anzeigen" classname="de.fuberlin.whitespace.regelbau.logic.actions.ShowMessage">
+			<arg name="message" type="String" description="Anzuzeigende Nachricht" />
+		</action>
+		<action id="ShowPOIs" displayname="POIs anzeigen" classname="de.fuberlin.whitespace.regelbau.logic.actions.ShowPOIs">
+			<arg name="type" type="Integer" description="Typ der anzuzeigenden POIs" />
+		</action>
+	</actions>
+	<action-trigger-mappings>
+	    <mapping action="Voice">
+	        <trigger>Speed</trigger>
+	    </mapping>
+	    <mapping action="ShowMessage">
+	        <trigger>Speed</trigger>
+	        <trigger>TankLevel</trigger>
+	        <trigger>DrivingDistance</trigger>
+	    </mapping>
+	    <mapping action="ShowPOIs">
+	        <trigger>Speed</trigger>
+	    </mapping>
+	</action-trigger-mappings>
+</ruledata>

@@ -10,19 +10,19 @@ public class MyMergedPicker {
 	EditText input;
 	View obereregelbuttonview;
 	ListView listview; 
-	String[] nums;
+	Number[] nums;
 	String[] ops;
 	String[] units;
 	
-	final MyNumberPicker values;
+	final MyNumberPicker<Number> values;
 	final MyTextPicker operator;
 	final MyTextPicker unit;
 	
-	public MyMergedPicker(Context context, final MyNumberPickerCallback mynumberpickercallback, String alertName){
+	public MyMergedPicker(Context context, final MyNumberPickerCallback<String> mynumberpickercallback, String alertName){
 		this.context = context;
 		input = new EditText(context);
 		
-		nums = new String[20];
+		nums = new Number[20];
 		ops = new String[3];
 		units = new String[10];
 		
@@ -30,16 +30,13 @@ public class MyMergedPicker {
 		final String defaultUnit = "km";
 		final String defaultOperator = "<";
 		
-		for (int i = 0; i < nums.length; i++) nums[i] = Integer.toString(i*15);
+		for (int i = 0; i < nums.length; i++) nums[i] = i*15;
 		ops = listview.getResources().getStringArray(R.array.Operator);
-		units = listview.getResources().getStringArray(R.array.Einheit);
+		//units = listview.getResources().getStringArray(R.array.Einheit);
 		
 		//Operator Picker
-		operator = new MyTextPicker(listview.getContext(), new MyNumberPickerCallback(){
-
-			@Override
-			public void valueset(int value) {}
-
+		operator = new MyTextPicker(listview.getContext(), new MyNumberPickerCallback<String>(){
+		    	
 			@Override
 			public void valueset(String value) {}
 			
@@ -47,10 +44,7 @@ public class MyMergedPicker {
 		
 		
 		//Einheiten Picker
-		unit = new MyTextPicker(listview.getContext(), new MyNumberPickerCallback(){
-
-			@Override
-			public void valueset(int value) {}
+		unit = new MyTextPicker(listview.getContext(), new MyNumberPickerCallback<String>(){
 
 			@Override
 			public void valueset(String value) {}
@@ -59,17 +53,14 @@ public class MyMergedPicker {
 
 		
 		//Zahlen Picker
-		values = new MyNumberPicker(listview.getContext(),listview, nums, new MyNumberPickerCallback() {
+		values = new MyNumberPicker<Number>(listview.getContext(),listview, nums, "", new MyNumberPickerCallback<Number>() {
 		
 			@Override
-			public void valueset(int value) {
+			public void valueset(Number value) {
 				Satzanzeige satz = ((Satzanzeige)obereregelbuttonview); 
-				satz.setButtonLabelDrei(defaultOperator+" " +defaultValue+" "+defaultUnit);
+				//satz.setButtonLabelDrei(defaultOperator+" " +defaultValue+" "+defaultUnit);
 				
 			}
-
-			@Override
-			public void valueset(String value) {}
 			
 		},"Zahlenwert");
 

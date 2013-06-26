@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<action-vocabularies>
+	<vocabulary action-id="ShowMessage" word="Erinnere mich" multiple-choices="false">
+		<option word="Pause">
+			<arg name="message">Pause nicht vergessen!</arg>
+		</option>
+		<option word="Tanken">
+			<arg name="message">Tanken nicht vergessen!</arg>
+		</option>
+		<option word="Regenschirm">
+			<arg name="message">Regenschirm nicht vergessen!</arg>
+		</option>
+		<option word="Regenschirm">
+			<arg name="message">Termin nicht vergessen!</arg>
+		</option>
+	</vocabulary>
+	<vocabulary action-id="ShowPOIs" word="Zeige mir" multiple-choices="true">
+		<option word="Raststätten">
+			<arg name="type">1</arg>
+		</option>
+		<option word="Sehenswürdigkeiten">
+			<arg name="type">2</arg>
+		</option>
+		<option word="Tankstellen">
+			<arg name="type">3</arg>
+		</option>
+		<option word="Wetter">
+			<arg name="type">4</arg>
+		</option>
+	</vocabulary>
+	<!-- <vocabulary id="informMe" word="Informiere mich" synonym="display" /> -->
+</action-vocabularies>
