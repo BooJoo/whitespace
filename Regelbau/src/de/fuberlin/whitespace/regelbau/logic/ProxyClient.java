@@ -53,7 +53,7 @@ public class ProxyClient implements DataListener {
 
 		//subscribe to interface
 		if (listeners.get(dataObjectUrl).isEmpty()) {
-			ec.subscribeObject(dataObjectUrl, 100);
+			//ec.subscribeObject(dataObjectUrl, 100);
 		}
 
 		listeners.get(dataObjectUrl).add(listener);
@@ -65,7 +65,7 @@ public class ProxyClient implements DataListener {
 		}
 
 		if (listeners.get(dataObjectUrl).isEmpty()) {
-			ec.unsubscribeObject(dataObjectUrl);
+			//ec.unsubscribeObject(dataObjectUrl);
 		}
 	}
 

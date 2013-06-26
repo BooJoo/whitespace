@@ -15,73 +15,7 @@
 	<string name="HomeHeaderOption">Option</string>
 	<string name="HomeHeaderAuslöser">Auslöser</string>
 	<string name="neueRegel">neue Regel</string>
-	
-    <string-array name="Button1Array">
-        <item >Zeige mir</item>
-        <item >Erinnere mich</item>
-        <item >Informiere mich</item>
-    </string-array>
-    
-    <string-array name="Button2WennZeigeMirArray">
-        <item>Raststätten</item>
-        <item>Sehenswürdigkeiten</item>
-        <item>Tankstellen</item>
-        <item>Wetter</item>
-    </string-array>
-    
-    <string-array name="Button2WennErinnereMichArray">
-        <item>Pause</item>
-        <item>Tanken</item>
-        <item>Regenschirm</item>
-        <item>Termin</item>
-    </string-array>
-    
-    <string-array name="Button2WennInformiereMichArray">
-        <item>Außentemperatur</item>
-        <item>Innentemperatur</item>
-        <item>Durchschnittsgeschwindigkeit</item>
-        <item>Tankstand</item>
-        <item>Tankstellen</item>
-    </string-array>
-    
-    <string-array name="Button3WennAuto">
-        <item>Außentemperatur</item>
-        <item>Innentemperatur</item>
-        <item>Durchschnittsgeschwindigkeit</item>
-        <item>Tankstand</item>
-        <item>Tankstellen</item>
-        <item>Regensensor</item>
-    </string-array>
-    
-    <string-array name="Button3WennZeit">
-        <item>nach &#8230; Minuten</item>
-        <item>nach &#8230; Stunden</item>
-        <item>um &#8230; Uhr</item>
-    </string-array>
-    
-    <string-array name="Button3WennOrtStrecke">
-        <item>nach &#8230; Kilometern</item>
-        <item>in &#8230; (Ort)</item>
-        <item>auf der Strecke nach &#8230;</item>
-    </string-array>
-    
-    <string-array name="Button3Array">
-        <item>Zeit</item>
-        <item>Ort / Strecke</item>
-        <item>Auto</item>
-    </string-array>
-    
-    <string-array name="Einheit">
-	    <item>Kilometer</item>
-	    <item>km/h</item>
-	    <item>Minuten</item>
-	    <item>Stunden</item>
-	    <item>°Celsius</item>
-	    <item>Fahrenheit</item>
-	    <item>%</item>
-	    <item>Uhr</item>
-	</string-array>
-	
+		
 	<string-array name="Operator">
 	    <item>&lt;</item>
 	    <item>&gt;</item>

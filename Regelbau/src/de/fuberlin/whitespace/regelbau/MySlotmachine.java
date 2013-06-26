@@ -66,51 +66,33 @@ public class MySlotmachine {
 	    adapter1.addAll(values1);
 	    lv1.setAdapter(adapter1);
 	    lv1.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-	    lv1.setOnItemClickListener(new MySlotmachineOnItemClickListener(null, lv1, new MyNumberPickerCallback() {
+	    lv1.setOnItemClickListener(new MySlotmachineOnItemClickListener(null, lv1, new MyNumberPickerCallback<String>() {
 			
 			@Override
-			public void valueset(String value) {
+			public void valueset (String value) {
 				wert1 = value;
-			}
-			
-			@Override
-			public void valueset(int value) {
-	
-				
 			}
 		}));
 	    ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_activated_1);
 	    adapter2.addAll(values2);
 	    lv2.setAdapter(adapter2);
 	    lv2.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-		lv2.setOnItemClickListener(new MySlotmachineOnItemClickListener(null, lv2, new MyNumberPickerCallback() {
+		lv2.setOnItemClickListener(new MySlotmachineOnItemClickListener(null, lv2, new MyNumberPickerCallback<String>() {
 					
 					@Override
 					public void valueset(String value) {
 						wert2 = value;
-					}
-					
-					@Override
-					public void valueset(int value) {
-						// TODO Auto-generated method stub
-						
 					}
 				}));
 	    ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_activated_1);
 	    adapter3.addAll(values3);
 	    lv3.setAdapter(adapter3);
 	    lv3.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-		lv3.setOnItemClickListener(new MySlotmachineOnItemClickListener(null, lv3, new MyNumberPickerCallback() {
+		lv3.setOnItemClickListener(new MySlotmachineOnItemClickListener(null, lv3, new MyNumberPickerCallback<String>() {
 					
 					@Override
 					public void valueset(String value) {
 						wert3 = value;
-					}
-					
-					@Override
-					public void valueset(int value) {
-						// TODO Auto-generated method stub
-						
 					}
 				}));
 			}

@@ -1,7 +1,17 @@
 package de.fuberlin.whitespace.regelbau; 
 
+import java.io.IOException;
 import java.util.LinkedList;
+import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.DOMException;
+import org.xml.sax.SAXException;
+
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,17 +19,23 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 import de.fuberlin.whitespace.regelbau.R.layout;
 import de.fuberlin.whitespace.regelbau.logic.Action;
 import de.fuberlin.whitespace.regelbau.logic.Rule;
 import de.fuberlin.whitespace.regelbau.logic.Trigger;
 import de.fuberlin.whitespace.regelbau.logic.actions.ShowMessage;
+import de.fuberlin.whitespace.regelbau.logic.data.DataLoader;
+import de.fuberlin.whitespace.regelbau.logic.data.ActionVocabulary;
 
 public class MainActivity extends Activity { // OoO
+    	
 	Optionsanzeige optionsanzeigeListe;
 	Satzanzeige satzanzeige;
 	static Activity act;
-	String[] tmp = {"Zeige mir", "Erinnere mich", "Informiere mich"};
+	
+	private DataLoader dataLoader;
+	//String[] tmp = {"Zeige mir", "Erinnere mich", "Informiere mich"};
 	Rule r;
 	
 	@Override
@@ -32,6 +48,12 @@ public class MainActivity extends Activity { // OoO
 			r = (Rule)getIntent().getExtras().getSerializable("rule");
 		}catch(Exception e){ r= null;}
 		
+		try {
+		    this.dataLoader = new DataLoader(this);
+		} catch (Throwable t) {
+		    throw new RuntimeException(t);
+		}
+		
 		LinearLayout layout = (LinearLayout) findViewById(R.id.mainlayout);
 		Button button1 = (Button) findViewById(R.id.buttoneins);
 		Button button2 = (Button) findViewById(R.id.button2);
@@ -39,9 +61,9 @@ public class MainActivity extends Activity { // OoO
 		Button button4 = (Button) findViewById(R.id.button4);
 		ListView listview = (ListView) findViewById(R.id.listView1);
 		
-		satzanzeige = new Satzanzeige(this, null, button1, button2, button3);
-		optionsanzeigeListe = new Optionsanzeige(this,tmp,listview,satzanzeige);
-		//satzanzeige.setPadding(20, 20, 20, 40);
+		satzanzeige = new Satzanzeige(this, dataLoader, null, button1, button2, button3);
+		optionsanzeigeListe = new Optionsanzeige(this, listview, satzanzeige);
+		
 		if(r != null){
 			ShowMessage s = (ShowMessage)r.getActions().get(0);
 			String[] res = s.getParameter();
@@ -50,10 +72,11 @@ public class MainActivity extends Activity { // OoO
 			button3.setText(res[2]);
 			System.out.println("Bearbeite Regel:"+res[0]+" "+res[1]);
 		}
+		
 		button4.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-					new MyTextPicker(satzanzeige.getContext(), new MyNumberPickerCallback() {
+					new MyTextPicker(satzanzeige.getContext(), new MyNumberPickerCallback<String>() {
 					
 					@Override
 					public void valueset(String value)  {
@@ -67,7 +90,7 @@ public class MainActivity extends Activity { // OoO
 						
 						actions.add(new ShowMessage(output));
 						
-							trigger.add(null);
+						trigger.add(null);
 					
 						Rule regel = new Rule(actions, trigger);
 						
@@ -84,12 +107,6 @@ public class MainActivity extends Activity { // OoO
 						}
 						finish();
 					}
-					
-					@Override
-					public void valueset(int value) {
-						// TODO Auto-generated method stub
-						
-					}
 				}, "Mein Regelname:");
 			}
 		});
@@ -100,12 +117,12 @@ public class MainActivity extends Activity { // OoO
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		 System.out.println("Activity Result 1"); 
-	     String[] res = data.getStringArrayExtra("selectedItems");
-	     satzanzeige.setButtonLabelZwei(res);
-	     System.out.println("Activity Result kam an");
-	     if (requestCode == 1337) {
-	        // Make sure the request was successful 
+	    System.out.println("Activity Result 1"); 
+	    String[] res = data.getStringArrayExtra("selectedItems");
+	   // satzanzeige.setButtonLabelZwei(res);
+	    System.out.println("Activity Result kam an");
+	    if (requestCode == 1337) {
+		// Make sure the request was successful 
 	    }
 	}
 	

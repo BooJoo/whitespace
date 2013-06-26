@@ -17,7 +17,7 @@ public abstract class Action implements Serializable {
         
 	protected HashMap<String, Object> params;
 	
-	public void set (String name, Object value) {
+	public void setParamValue (String name, Object value) {
 		params.put(name, value);
 	}
 	/**
