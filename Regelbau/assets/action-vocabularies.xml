@@ -10,7 +10,7 @@
 		<option word="Regenschirm">
 			<arg name="message">Regenschirm nicht vergessen!</arg>
 		</option>
-		<option word="Regenschirm">
+		<option word="Termin">
 			<arg name="message">Termin nicht vergessen!</arg>
 		</option>
 	</vocabulary>
