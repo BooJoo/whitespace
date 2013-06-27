@@ -36,6 +36,3 @@ public class SQLHelper extends SQLiteOpenHelper{
 
 
 }
-
-
-

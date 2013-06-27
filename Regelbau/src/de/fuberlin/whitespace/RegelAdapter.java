@@ -1,10 +1,10 @@
 package de.fuberlin.whitespace;
 
-import de.fuberlin.whitespace.regelbau.logic.Rule;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import de.fuberlin.whitespace.regelbau.logic.Rule;
 
 public class RegelAdapter extends ArrayAdapter<Rule> {
 RuleMainviewActivity rulemain;

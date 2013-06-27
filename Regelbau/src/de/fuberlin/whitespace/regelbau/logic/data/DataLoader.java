@@ -1,7 +1,6 @@
 package de.fuberlin.whitespace.regelbau.logic.data;
 
 import java.io.IOException;
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;

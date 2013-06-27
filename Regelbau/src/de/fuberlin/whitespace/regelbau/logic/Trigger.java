@@ -7,7 +7,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 import de.exlap.DataObject;
-import de.exlap.ExlapException;
 import de.fuberlin.whitespace.regelbau.logic.data.DataLoader;
 
 /**
