@@ -3,9 +3,6 @@ package de.fuberlin.whitespace.regelbau.logic;
 import java.io.Serializable;
 import java.util.LinkedList;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 /**
  * Stellt eine Regel aus ein oder mehreren Auslösern(Trigger) und Aktionen
  * @author BJO
@@ -18,8 +15,6 @@ public class Rule implements Serializable {
     String name;
     boolean active = true;
     double id;
-
-
 
     LinkedList<Trigger> trigger;// = new LinkedList<Trigger>();
     LinkedList<Action> actions;// = new LinkedList<Action>();
@@ -48,6 +43,7 @@ public class Rule implements Serializable {
 	this.actions = actions;
 	this.trigger = trigger;
     }
+
 
     public String getName() {
 	return name;

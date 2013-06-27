@@ -1,6 +1,5 @@
 package de.fuberlin.whitespace.regelbau;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -9,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import de.fuberlin.whitespace.regelbau.logic.data.ActionVocabulary;
-import de.fuberlin.whitespace.regelbau.logic.data.ActionVocabulary.ActionOption;
 import de.fuberlin.whitespace.regelbau.logic.data.DataLoader;
 import de.fuberlin.whitespace.regelbau.logic.data.TriggerGroup;
 import de.fuberlin.whitespace.regelbau.logic.data.TriggerVocabulary;

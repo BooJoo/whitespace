@@ -10,9 +10,6 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import de.fuberlin.whitespace.regelbau.logic.data.ActionVocabulary.ActionOption;
-import de.fuberlin.whitespace.regelbau.logic.data.TriggerVocabulary.ArgumentData;
-
 /**
  * Ein ActionVocabulary repräsentiert eine {@link Action} zusammen
  * mit einer Menge von möglichen Parametern und den entsprechenden

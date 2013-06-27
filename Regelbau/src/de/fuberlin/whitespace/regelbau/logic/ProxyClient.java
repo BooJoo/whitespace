@@ -3,12 +3,8 @@ package de.fuberlin.whitespace.regelbau.logic;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import android.util.Log;
-
-import de.exlap.DataElement;
 import de.exlap.DataListener;
 import de.exlap.DataObject;
 import de.exlap.ExlapClient;

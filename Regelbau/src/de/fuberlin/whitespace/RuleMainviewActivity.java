@@ -13,14 +13,8 @@ import android.widget.Toast;
 import de.fuberlin.whitespace.regelbau.MainActivity;
 import de.fuberlin.whitespace.regelbau.R;
 import de.fuberlin.whitespace.regelbau.RegelBearbeitenActivity;
-import de.fuberlin.whitespace.regelbau.Satzanzeige;
-import de.fuberlin.whitespace.regelbau.logic.Action;
 import de.fuberlin.whitespace.regelbau.logic.Rule;
 import de.fuberlin.whitespace.regelbau.logic.RulesPool;
-import de.fuberlin.whitespace.regelbau.logic.Trigger;
-import de.fuberlin.whitespace.regelbau.logic.SQLDB.SQLDataBase;
-import de.fuberlin.whitespace.regelbau.logic.actions.ShowMessage;
-import de.fuberlin.whitespace.regelbau.logic.actions.SpecialSprintMessage;
 
 public class RuleMainviewActivity extends Activity {
 

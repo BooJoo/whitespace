@@ -1,21 +1,15 @@
 package de.fuberlin.whitespace;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
-import de.fuberlin.whitespace.regelbau.MainActivity;
-import de.fuberlin.whitespace.regelbau.R;
-import de.fuberlin.whitespace.regelbau.logic.Action;
-import de.fuberlin.whitespace.regelbau.logic.Rule;
-import de.fuberlin.whitespace.regelbau.logic.Trigger;
-import de.fuberlin.whitespace.regelbau.logic.actions.SpecialSprintMessage;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridView;
+import de.fuberlin.whitespace.regelbau.MainActivity;
+import de.fuberlin.whitespace.regelbau.R;
 
 public class ScherzActivity extends Activity {
 	private static final int SPEECH_REQUEST_CODE = 432985;

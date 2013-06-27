@@ -1,8 +1,6 @@
 package de.fuberlin.whitespace;
 
 import android.content.Context;
-import android.provider.MediaStore.Images;
-import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
