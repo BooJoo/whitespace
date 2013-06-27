@@ -44,8 +44,8 @@ public class ebene0listener implements OnItemClickListener {
 		satzanzeige.setActionVocabulary(newVocabulary);
 		newActionOption.select();
 		
-		satzanzeige.updateButtonA();
-		satzanzeige.updateButtonB();
+		satzanzeige.getButtona().setText(newVocabulary.getSelectedActionString());
+		satzanzeige.getButtonb().setText(newVocabulary.getSelectedActionOptionsString());
 		
 		satzanzeige.getButtona().setCompoundDrawablesWithIntrinsicBounds(null, null, img, null );
 		satzanzeige.getButtonb().setCompoundDrawablesWithIntrinsicBounds(null, null, null, null );

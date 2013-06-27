@@ -11,6 +11,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import de.fuberlin.whitespace.regelbau.logic.data.ActionVocabulary.ActionOption;
+import de.fuberlin.whitespace.regelbau.logic.data.TriggerVocabulary.ArgumentData;
 
 /**
  * Ein ActionVocabulary repräsentiert eine {@link Action} zusammen
@@ -66,10 +67,10 @@ public class ActionVocabulary implements Comparable<ActionVocabulary> {
 	    optionAttributes = currentOptionData.getAttributes();
 	    optionArgs = currentOptionData.getChildNodes();
 
-	    currentOption = new ActionOption(optionAttributes.getNamedItem("word").getTextContent());
+	    currentOption = new ActionOption(optionAttributes.getNamedItem("word").getTextContent(), this);
 
 	    for (int j=0; j < optionArgs.getLength(); j++) {
-		
+
 		if (optionArgs.item(j).getNodeType() != Node.ELEMENT_NODE) {
 		    continue;
 		}
@@ -84,6 +85,15 @@ public class ActionVocabulary implements Comparable<ActionVocabulary> {
 	}
 
 	Collections.sort(this.options);
+    }
+
+    /**
+     * Dieser Konstruktor erzeugt keine gültige Instanz. Er dient nur der Erzeugung
+     * eines Dummies zum Suchen in Collections;
+     * @param actionId
+     */
+    private ActionVocabulary(String actionId) {
+	this.actionId = actionId;
     }
 
     /**
@@ -116,6 +126,16 @@ public class ActionVocabulary implements Comparable<ActionVocabulary> {
     public boolean isMultipleChoice () {
 	return this.multipleChoice;
     }
+    
+    @Override
+    public int hashCode () {
+	return this.actionId.hashCode();
+    }
+
+    @Override
+    public boolean equals (Object other) {
+	return (other instanceof ActionVocabulary) && this.actionId.equals(((ActionVocabulary) other).actionId);
+    }
 
     @Override
     public int compareTo (ActionVocabulary other) {
@@ -126,7 +146,40 @@ public class ActionVocabulary implements Comparable<ActionVocabulary> {
     public String toString() {
 	return this.word;
     }
+    
+    /**
+     * Diese Methode erzeugt eine Dummy-Instanz, anhand der in
+     * Collections gesucht werden kann.
+     * @param actionId
+     */
+    public static ActionVocabulary buildDummy (String actionId) {
+	return new ActionVocabulary(actionId);
+    }
+    
+    public String getSelectedActionString() {
+	return this.getWord();
+    }
 
+    public String getSelectedActionOptionsString (){
+	
+	List<ActionOption> activeOptions = ActionOption.getSelection(this);
+	int count = Math.min(3, activeOptions.size());
+	String label = activeOptions.get(0).getWord();
+
+	for (int i = 1; i < count; i++) {
+
+	    if (i == count - 1) {
+		label += " und ";
+	    } else {
+		label += ", ";
+	    }
+
+	    label += activeOptions.get(i);
+	}
+	
+	return label;
+    }
+    
     /**
      * Eine ActionOption-Instanz repräsentiert eine konkrete
      * Belegung der Argumente einer {@link Action} zusammen
@@ -140,14 +193,17 @@ public class ActionVocabulary implements Comparable<ActionVocabulary> {
 	 */
 	private String word;
 
-	private Map<String, Object> argValues;
-	
+	private Map<String, String> argValues;
+
 	private boolean selected;
 
-	private ActionOption (String word) {
+	private ActionVocabulary parent;
+
+	private ActionOption (String word, ActionVocabulary parent) {
 	    this.word = word;
 	    this.selected = false;
-	    this.argValues = new HashMap<String, Object>();
+	    this.parent = parent;
+	    this.argValues = new HashMap<String, String>();
 	}
 
 	/**
@@ -157,11 +213,11 @@ public class ActionVocabulary implements Comparable<ActionVocabulary> {
 	    return this.word;
 	}
 
-	public Object getArgValue (String name) {
+	public String getArgValue (String name) {
 	    return this.argValues.get(name);
 	}
-	
-	public Map<String, Object> getArgValues() {
+
+	public Map<String, String> getArgValues() {
 	    return argValues;
 	}
 
@@ -170,25 +226,28 @@ public class ActionVocabulary implements Comparable<ActionVocabulary> {
 	 * für die ausgewählte {@link ActionVocabulary}
 	 */
 	public void select() {
+	    if (!this.parent.isMultipleChoice()) {
+		ActionOption.clearSelection(this.parent);
+	    }
 	    this.selected = true;
 	}
-	
+
 	/**
 	 * Gibt die ausgewählten {@link ActionOption}s zurück.
 	 * @param vocab
 	 */
 	public static List<ActionOption> getSelection(ActionVocabulary vocab) {
 	    List<ActionOption> result = new ArrayList<ActionOption>();
-	    
+
 	    for (ActionOption opt : vocab.options) {
 		if (opt.selected) {
 		    result.add(opt);
 		}
 	    }
-	    
+
 	    return result;
 	}
-	
+
 	/**
 	 * Setzt eine eventuell vorangegangene Auswahl zurück
 	 * @param vocab
@@ -198,20 +257,20 @@ public class ActionVocabulary implements Comparable<ActionVocabulary> {
 		opt.selected = false;
 	    }
 	}
-	
+
 	/**
 	 * Gibt die Anzahl der ausgewählten Optionen zurück.
 	 * @param vocab
 	 */
 	public static int numSelectedItems(ActionVocabulary vocab) {
 	    int result = 0;
-	    
+
 	    for (ActionOption opt : vocab.options) {
 		if (opt.selected) {
 		    result++;
 		}
 	    }
-	    
+
 	    return result;
 	}
 

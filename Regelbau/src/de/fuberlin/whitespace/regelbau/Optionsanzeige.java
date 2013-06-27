@@ -2,6 +2,7 @@ package de.fuberlin.whitespace.regelbau;
 
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
@@ -22,14 +23,14 @@ public class Optionsanzeige extends LinearLayout implements IButtonChangeListene
 
     ListView listview;
     Satzanzeige satzanzeige;
-    MainActivity mainActivity;
+    Activity activity;
 
     public Optionsanzeige(Context context, ListView list, Satzanzeige satzanzeige) {
 	super(context);
 	this.satzanzeige = satzanzeige;
 	satzanzeige.registerForButtonChanges(this);
 	listview = list;
-	mainActivity = (MainActivity) context;
+	activity = (Activity) context;
     }
     
     // Hier werden die Listenelemente angezeigt
@@ -47,7 +48,7 @@ public class Optionsanzeige extends LinearLayout implements IButtonChangeListene
     public void ausloeserchanged(String oldbuttontext,String textVonButton1, String textVonButton2) {
 
 	ArrayAdapter<TriggerGroup> adapter = new ArrayAdapter<TriggerGroup>(getContext(),android.R.layout.simple_list_item_1,
-		satzanzeige.getDataLoader().getTriggerGroupsByActionVocabulary(satzanzeige.getCurrentActionVocabulary()));
+		satzanzeige.getDataLoader().getTriggerGroupsByActionVocabulary(satzanzeige.getActionVocabulary()));
 	listview.setAdapter(adapter);
 	listview.setOnItemClickListener(new ebene2listener(satzanzeige, listview));
     }
@@ -68,9 +69,9 @@ public class Optionsanzeige extends LinearLayout implements IButtonChangeListene
 	int layout;
 	ArrayAdapter<ActionOption> adapter;
 	
-	ActionOption.clearSelection(satzanzeige.getCurrentActionVocabulary());
+	ActionOption.clearSelection(satzanzeige.getActionVocabulary());
 	
-	if (satzanzeige.getCurrentActionVocabulary().isMultipleChoice()) {
+	if (satzanzeige.getActionVocabulary().isMultipleChoice()) {
 	    listview.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 	    layout = android.R.layout.simple_list_item_multiple_choice;
 	} else {
@@ -81,7 +82,7 @@ public class Optionsanzeige extends LinearLayout implements IButtonChangeListene
 	adapter = new ArrayAdapter<ActionOption>(
 		listview.getContext(), 
 		layout,
-		satzanzeige.getCurrentActionVocabulary().getOptions());
+		satzanzeige.getActionVocabulary().getOptions());
 
 	listview.setAdapter(adapter);
 	listview.setOnItemClickListener(new ebene1listener(satzanzeige, listview));

@@ -11,7 +11,7 @@ public class SpecialSprintMessage extends ShowMessage{
 	private Context context;
 	private Button button;
 	public SpecialSprintMessage(Context context,String[] args) {
-		super(args);
+//		super(args);
 		this.context = context;
 		this.button = button;
 		rider = new KnightRider(context);

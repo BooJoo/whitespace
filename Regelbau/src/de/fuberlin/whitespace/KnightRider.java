@@ -36,6 +36,7 @@ public class KnightRider implements OnInitListener {
 	   if(!readytospeek){
 		   
 	   }else{
+		 //  tts.setPitch((float) 0.2);
 		tts.speak(s, TextToSpeech.QUEUE_ADD, null);
 	   }
 	}

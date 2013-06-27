@@ -60,7 +60,7 @@ public class Satzanzeige extends LinearLayout {
 
 	// Button A und Vocabulary initialisieren
 	this.setActionVocabulary(this.dataLoader.getAllActionVocabularies().get(0));
-	this.updateButtonA();
+	this.buttona.setText(this.currentActionVocabulary.getSelectedActionString());
 	this.buttona.setOnClickListener(new View.OnClickListener() {
 
 	    @Override
@@ -71,7 +71,7 @@ public class Satzanzeige extends LinearLayout {
 
 	// Buttion B und Option initialisieren
 	this.currentActionVocabulary.getOptions().get(0).select();
-	this.updateButtonB();
+	this.buttonb.setText(this.currentActionVocabulary.getSelectedActionOptionsString());
 	this.buttonb.setOnClickListener(new OnClickListener() {
 
 	    @Override
@@ -100,7 +100,7 @@ public class Satzanzeige extends LinearLayout {
 	    }
 	}
 	
-	this.updateButtonC();
+	this.buttonc.setText(this.currentTriggerVocabulary.getSelectedTriggerString());
 	this.buttonc.setOnClickListener(new View.OnClickListener() {
 
 	    @Override
@@ -138,68 +138,11 @@ public class Satzanzeige extends LinearLayout {
 	}
     }
     
-    public void updateButtonA() {
-	if (this.currentActionVocabulary != null) {
-	    this.buttona.setText(this.currentActionVocabulary.getWord());
-	}
-    }
-
-    public void updateButtonB (){
-	
-	List<ActionOption> activeOptions = ActionOption.getSelection(this.currentActionVocabulary);
-	int count = Math.min(3, activeOptions.size());
-	String buttonLabel = activeOptions.get(0).getWord();
-
-	for (int i = 1; i < count; i++) {
-
-	    if (i == count - 1) {
-		buttonLabel += " und ";
-	    } else {
-		buttonLabel += ", ";
-	    }
-
-	    buttonLabel += activeOptions.get(i);
-	}
-	
-	this.buttonb.setText(buttonLabel);
-    }
-    
-    public void updateButtonC (){
-
-	String buttonLabel = "";
-
-	if (this.currentTriggerVocabulary != null) {
-	    
-	    buttonLabel += this.currentTriggerVocabulary.getWord();
-
-	    if (this.currentTriggerVocabulary.getArgumentData().size() > 0) {
-
-		ArgumentData arg = this.currentTriggerVocabulary.getArgumentData().get(0);
-
-		if (arg.getSelectedOperator() != null) {
-		    buttonLabel += " " + arg.getSelectedOperatorDisplaystring();
-		}
-
-		if (arg.getSelectedValue() != null) {
-		    buttonLabel += " " + arg.getSelectedValue();
-
-		    if (arg.getSelectedUnit() != null) {
-			buttonLabel += " " + arg.getSelectedUnit();
-		    } else if (arg.numUnits() == 1) {
-			buttonLabel += " " + arg.getUnits().get(0);
-		    }
-		}
-	    }
-	}
-	
-	buttonc.setText(buttonLabel);
-    }
-
     public DataLoader getDataLoader () {
 	return this.dataLoader;
     }
 
-    public ActionVocabulary getCurrentActionVocabulary() {
+    public ActionVocabulary getActionVocabulary() {
         return currentActionVocabulary;
     }
     
@@ -207,7 +150,7 @@ public class Satzanzeige extends LinearLayout {
 	this.currentActionVocabulary = newVocabulary;
     }
     
-    public TriggerVocabulary getCurrentTriggerVocabulary() {
+    public TriggerVocabulary getTriggerVocabulary() {
         return currentTriggerVocabulary;
     }
 

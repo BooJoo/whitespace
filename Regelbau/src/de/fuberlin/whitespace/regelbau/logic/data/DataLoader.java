@@ -1,6 +1,7 @@
 package de.fuberlin.whitespace.regelbau.logic.data;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -82,6 +83,73 @@ public class DataLoader {
 
 	return DataLoader.actionVocabularies;
     }
+    
+
+    public ActionVocabulary getActionVocabulatoryByAction (Action action) {
+	
+	List<ActionOption> options;
+	Map<String, String> optionArgValues;
+	Object actionArgValue;
+	
+	// Dummy-Instanz zur Suche in Liste erzeugen
+	ActionVocabulary vocab = ActionVocabulary.buildDummy(action.getId());
+	
+	if (!DataLoader.actionVocabularies.contains(vocab)) {
+	    return null;
+	}
+	
+	// Dummy-Instanz durch gesuchte Instanz ersetzen
+	vocab = DataLoader.actionVocabularies.get(DataLoader.actionVocabularies.indexOf(vocab));
+	
+	options = vocab.getOptions();
+	
+	// Prüfen, welche ActionOptions zu den Parametern der Action korrespondieren,
+	// und entsprechende ActionOptions als selected() markieren.
+	for (ActionOption opt : options) {
+	    
+	    optionArgValues = opt.getArgValues();
+	    
+	    boolean argSetEqual = true;
+	    for (String name : optionArgValues.keySet()) {
+		
+		if (null == (actionArgValue = action.getParam(name))
+			|| !((String) actionArgValue).equals(optionArgValues.get(name))) {
+		 
+		    argSetEqual = false;
+		    break;
+		}
+	    }
+	    
+	    if (argSetEqual) {
+		opt.select();
+	    }
+	}
+	
+	return vocab;
+    }
+    
+    public TriggerVocabulary getTriggerVocabularyByTrigger (Trigger trigger) {
+	
+	TriggerVocabulary vocab;
+	List<ArgumentData> args;
+	Trigger.Param triggerParam;
+	
+	vocab = TriggerVocabulary.get(trigger.getId());
+	args = vocab.getArgumentData();
+	
+	for (ArgumentData arg : args) {
+	    
+	    if (null != (triggerParam = trigger.getParam(arg.getName()))
+		    && arg.getValues().contains(triggerParam.value())) {
+		
+		arg.selectValue(triggerParam.value());
+		arg.selectOperator(triggerParam.getOperatorString());
+		arg.selectUnit(triggerParam.unit());
+	    }
+	}
+	
+	return vocab;
+    }
 
     /**
      * Gibt die in {@link TriggerGroup}s (&lt;trigger-groups&gt; in ruledata.xml) gruppierten {@link TriggerVocabulatory}s
@@ -123,27 +191,25 @@ public class DataLoader {
      * @param vocab
      */
     public static Action instantiateAction (ActionVocabulary vocab) {
-
+	
 	Action result = null;
 
 	try {
-
-	    result = DataLoader.actions.get(vocab.getActionId()).newInstance();
+	    
+	    result =  DataLoader.actions.get(vocab.getActionId()).newInstance();
+	    result.setId(vocab.getActionId());
+	    result.setStringRepresentation(vocab.getSelectedActionString() + " " + vocab.getSelectedActionOptionsString());
 	    
 	    for (ActionOption opt : vocab.getOptions()) {
-		Map<String, Object> argValues = opt.getArgValues();
+		Map<String, String> argValues = opt.getArgValues();
 
 		for (String name : argValues.keySet()) {
-		    result.setParamValue(name, argValues.get(name));
+		    result.setParam(name, argValues.get(name));
 		}
 	    }
 
-	} catch (InstantiationException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	} catch (IllegalAccessException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	} catch (Throwable t) {
+	    throw new RuntimeException(t);
 	}
 
 	return result;
@@ -155,12 +221,14 @@ public class DataLoader {
      * @param vocab
      */
     public static Trigger instantiateTrigger (TriggerVocabulary vocab) {
-
+	
 	Trigger result = null;
 
 	try {
 
-	    result = DataLoader.triggers.get(vocab.getTriggerId()).newInstance();
+	    result =  DataLoader.triggers.get(vocab.getTriggerId()).newInstance();
+	    result.setId(vocab.getTriggerId());
+	    result.setStringRepresentation(vocab.getSelectedTriggerString());
 
 	    for (ArgumentData arg : vocab.getArgumentData()) {
 		
@@ -177,14 +245,10 @@ public class DataLoader {
 		    param.setUnit(arg.getSelectedUnit());
 		}
 
-		result.set(param.name(), param);
+		result.setParam(param.name(), param);
 	    }
-	} catch (InstantiationException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	} catch (IllegalAccessException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	} catch (Throwable t) {
+	    throw new RuntimeException(t);
 	}
 
 	return result;

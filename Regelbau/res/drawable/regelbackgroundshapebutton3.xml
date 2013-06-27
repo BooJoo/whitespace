@@ -4,17 +4,17 @@
         <shape>
             <solid
                 android:color="#008BBD" /> 
-            <stroke
-                android:width="3dp"
-                android:color="#33b5e5" />
+<!--             <stroke -->
+<!--                 android:width="3dp" -->
+<!--                 android:color="#33b5e5" /> -->
            <corners
                 android:topRightRadius="15dp"
                 android:bottomRightRadius="15dp" />
-            <padding
-                android:left="10dp"
-                android:top="10dp"
-                android:right="10dp"
-                android:bottom="10dp" />
+<!--             <padding -->
+<!--                 android:left="10dp" -->
+<!--                 android:top="10dp" -->
+<!--                 android:right="10dp" -->
+<!--                 android:bottom="10dp" /> -->
         </shape>
     </item>
     <item>
