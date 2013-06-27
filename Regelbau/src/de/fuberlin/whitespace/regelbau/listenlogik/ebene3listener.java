@@ -46,7 +46,7 @@ public class ebene3listener implements OnItemClickListener {
 	    final ArgumentData currentArg = arguments.get(0);
 
 	    currentArg.cleanSelection();
-	    satzanzeige.updateButtonC();
+	    satzanzeige.getButtonc().setText(selectedVocabulary.getSelectedTriggerString());
 
 	    if (currentArg.numOperators() > 1 || currentArg.numUnits() > 1) {	// Es gibt Optionen für Operator/Einheit.
 
@@ -68,7 +68,7 @@ public class ebene3listener implements OnItemClickListener {
 				currentArg.selectUnit(einheit);
 
 				// Auswahl sichtbar bekanntmachen.
-				satzanzeige.updateButtonC();
+				satzanzeige.getButtonc().setText(selectedVocabulary.getSelectedTriggerString());
 
 				satzanzeige.getButtona().setCompoundDrawablesWithIntrinsicBounds(null, null, img, null );
 				satzanzeige.getButtonb().setCompoundDrawablesWithIntrinsicBounds(null, null, img, null );
@@ -90,7 +90,7 @@ public class ebene3listener implements OnItemClickListener {
 				currentArg.selectValueByContainer(value);
 
 				// Auswahl sichtbar.
-				satzanzeige.updateButtonC();
+				satzanzeige.getButtonc().setText(selectedVocabulary.getSelectedTriggerString());
 
 				satzanzeige.getButtona().setCompoundDrawablesWithIntrinsicBounds(null, null, img, null );
 				satzanzeige.getButtonb().setCompoundDrawablesWithIntrinsicBounds(null, null, img, null );

@@ -30,7 +30,7 @@ public class ebene1listener implements OnItemClickListener {
 	Drawable img = listview.getContext().getResources().getDrawable( drawable.mycheck );
 	
 	ActionOption currentOption;
-	ActionVocabulary currentVocabulary = satzanzeige.getCurrentActionVocabulary();
+	ActionVocabulary currentVocabulary = satzanzeige.getActionVocabulary();
 	SparseBooleanArray checked = listview.getCheckedItemPositions();
 	
 	for (int i = 0; i < listview.getCount(); i++){
@@ -44,7 +44,7 @@ public class ebene1listener implements OnItemClickListener {
 	satzanzeige.getButtonc().setCompoundDrawablesWithIntrinsicBounds(null, null, null, null );
 	
 	if (ActionOption.numSelectedItems(currentVocabulary) > 0) {
-	    satzanzeige.updateButtonB();
+	    satzanzeige.getButtonb().setText(currentVocabulary.getSelectedActionOptionsString());
 	    satzanzeige.getButtonb().setCompoundDrawablesWithIntrinsicBounds(null, null, img, null );
 	} else {
 	    satzanzeige.getButtonb().setCompoundDrawablesWithIntrinsicBounds(null, null, null, null );

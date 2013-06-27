@@ -9,7 +9,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import de.fuberlin.whitespace.regelbau.logic.Trigger;
-import de.fuberlin.whitespace.regelbau.logic.data.TriggerVocabulary.ListItemValueContainer;
 
 /**
  * Ein TriggerVocabulary repräsentiert einen {@link Trigger} zusammen
@@ -110,6 +109,35 @@ public class TriggerVocabulary {
 
     public List<ArgumentData> getArgumentData () {
 	return this.arguments;
+    }
+    
+
+    public String getSelectedTriggerString (){
+
+	String label = "";
+
+	label += this.getWord();
+
+	if (this.getArgumentData().size() > 0) {
+
+	    ArgumentData arg = this.getArgumentData().get(0);
+
+	    if (arg.getSelectedOperator() != null) {
+		label += " " + arg.getSelectedOperatorDisplaystring();
+	    }
+
+	    if (arg.getSelectedValue() != null) {
+		label += " " + arg.getSelectedValue();
+
+		if (arg.getSelectedUnit() != null) {
+		    label += " " + arg.getSelectedUnit();
+		} else if (arg.numUnits() == 1) {
+		    label += " " + arg.getUnits().get(0);
+		}
+	    }
+	}
+	
+	return label;
     }
 
     private static List<String> fetchArgumentData(Node node, String rootNodeName, String valueNodeName) {

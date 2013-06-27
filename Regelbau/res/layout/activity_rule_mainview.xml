@@ -20,26 +20,26 @@
         android:layout_height="wrap_content"
         android:layout_weight=".33"
         android:gravity="center"
-        android:text="@string/HomeHeaderAktion"
+        android:text="@string/überschrift"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     
-    <TextView
-        android:id="@+id/textViewOption"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight=".33"
-        android:gravity="center"
-        android:text="@string/HomeHeaderOption"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+<!--     <TextView -->
+<!--         android:id="@+id/textViewOption" -->
+<!--         android:layout_width="0dp" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         android:layout_weight=".33" -->
+<!--         android:gravity="center" -->
+<!--         android:text="@string/HomeHeaderOption" -->
+<!--         android:textAppearance="?android:attr/textAppearanceLarge" /> -->
 
-    <TextView
-        android:id="@+id/textViewAuslöser"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight=".33"
-        android:gravity="center"
-        android:text="@string/HomeHeaderAuslöser"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+<!--     <TextView -->
+<!--         android:id="@+id/textViewAuslöser" -->
+<!--         android:layout_width="0dp" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         android:layout_weight=".33" -->
+<!--         android:gravity="center" -->
+<!--         android:text="@string/HomeHeaderAuslöser" -->
+<!--         android:textAppearance="?android:attr/textAppearanceLarge"/> -->
 
     
 

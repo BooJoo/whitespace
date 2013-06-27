@@ -15,7 +15,10 @@
 	<string name="HomeHeaderOption">Option</string>
 	<string name="HomeHeaderAuslöser">Auslöser</string>
 	<string name="neueRegel">neue Regel</string>
-		
+	<string name="regelname">MeinRegelname</string>
+	<string name="aktiv">aktiv</string>
+	<string name="überschrift">Meine Regeln</string>
+	
 	<string-array name="Operator">
 	    <item>&lt;</item>
 	    <item>&gt;</item>

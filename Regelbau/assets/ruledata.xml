@@ -13,6 +13,9 @@
 		<trigger id="InteriorTemperature" classname="de.fuberlin.whitespace.regelbau.logic.triggers.InTemperatures">
 			<arg name="Threshold" type="Integer" description="Temperaturschwellwert" />
 		</trigger>
+		<trigger id="AirHumidity" classname="de.fuberlin.whitespace.regelbau.logic.triggers.AirHumidity">
+			<arg name="Threshold" type="Float" description="Luftfeuchtigkeitsschwellwert" />
+		</trigger>
 	</triggers>
 	<trigger-groups>
 	    <group id="Time" word="Zeit">

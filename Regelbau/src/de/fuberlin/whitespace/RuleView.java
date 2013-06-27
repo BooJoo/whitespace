@@ -1,15 +1,15 @@
 package de.fuberlin.whitespace;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import de.fuberlin.whitespace.regelbau.R;
 import de.fuberlin.whitespace.regelbau.logic.Rule;
-import de.fuberlin.whitespace.regelbau.logic.actions.ShowMessage;
 
 /**
  * Neue Regelansicht für Sprintpraesentation
@@ -21,13 +21,22 @@ public class RuleView {
 	private LayoutInflater mInflater;
 	String[] res;
 	private RuleMainviewActivity main;
+	OnClickListener ocl = new View.OnClickListener(){
+		//action.setOnClickListener(new View.OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Bearbeitung der Regel aufrufen
+			main.rufeRegelkonstruktionAuf(rule);
+		}
+	};
 
-	public RuleView(Context context,Rule rule, RuleMainviewActivity main) {
+	public RuleView(Context context, Rule rule, RuleMainviewActivity main) {
 		super();
 		this.rule = rule;
 		this.main = main;
 		try{
-		res = ((ShowMessage)(rule.getActions().get(0))).getParameter();
+		//res = ((ShowMessage)(rule.getActions().get(0))).getParameter();
 		}catch(Exception e){}
 		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
@@ -37,27 +46,21 @@ public class RuleView {
 		Button action = (Button)v.findViewById(R.id.buttonAction);
 		ImageButton actionopt = (ImageButton)v.findViewById(R.id.buttonActionOpt);
 		Button trigger = (Button)v.findViewById(R.id.buttonTrigger);
-		try{
-		action.setText(res[0]+" "+res[1]);
-		//actionopt.setText(res[1]);
-		trigger.setText(res[2]);
+		try {
+		    action.setText(this.rule.getActions().get(0).toString());
+		    trigger.setText(this.rule.getTriggers().get(0).toString());
 		}catch(Exception e){}
-		action.setOnClickListener(new View.OnClickListener() {
+		action.setOnClickListener(ocl);
+		actionopt.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				((ShowMessage)(rule.getActions().get(0))).Do();
+				// TODO Auto-generated method stub
+				Intent i = new Intent(v.getContext(), ScherzActivity.class);
+		    	v.getContext().startActivity(i);
 			}
 		});
-		trigger.setOnClickListener(new View.OnClickListener(){
-		//action.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Bearbeitung der Regel aufrufen
-				main.rufeRegelkontruktionAuf(rule);
-			}
-		});
+		trigger.setOnClickListener(ocl);
 		return v;
 	}
 	

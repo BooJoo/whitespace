@@ -6,24 +6,18 @@ import de.fuberlin.whitespace.RuleMainviewActivity;
 import de.fuberlin.whitespace.regelbau.logic.Action;
 
 public class ShowMessage extends Action {
-
-    private String[] parameter;
     
-    public ShowMessage(String[] args) {
-	// TODO Auto-generated method stub
-	this.parameter = args;
-    }
-
-    public String[] getParameter() {
-	return parameter;
-    }
-
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -5113572234174380962L;
+    
     @Override
     public void Do() {
 	
 	new AlertDialog.Builder(RuleMainviewActivity.getInstance())
 		.setTitle("Erinnerung")
-		.setMessage((String) parameter[1])
+		.setMessage(String.valueOf(this.getParam("message")))
 		.setNeutralButton(android.R.string.ok,
 			new DialogInterface.OnClickListener() {
 

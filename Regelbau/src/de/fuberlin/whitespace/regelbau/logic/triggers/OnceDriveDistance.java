@@ -4,26 +4,27 @@ import java.io.IOException;
 
 import de.exlap.DataObject;
 import de.exlap.ExlapException;
-import de.fuberlin.whitespace.regelbau.logic.ProxyClient;
 import de.fuberlin.whitespace.regelbau.logic.RulesPool;
 import de.fuberlin.whitespace.regelbau.logic.Trigger;
 
-public class OnceDriveDistance  extends Trigger {
+public class OnceDriveDistance extends Trigger {
 
-	
+    	/**
+    	 * 
+     	*/
+    	private static final long serialVersionUID = -1653813861082467609L;
+    
 	public double startOdometerState=-1;
 	public boolean enginOn=false;
 	
 	
 	public OnceDriveDistance() throws IllegalArgumentException, IOException, ExlapException
 	{
-		ProxyClient pc=ProxyClient.get();//instanc des Proxclients holen
-		
-		//Packete abonieren
-		pc.addListener("Odometer", this);
-		pc.addListener("Motor status geändert (An 1/aus 0)", this);  //@TODO diese objekt anlegen
+		subscribe("Odometer");
+		subscribe("Motor status geändert (An 1/aus 0)"); //@TODO dieses objekt anlegen
 
 	}
+	
 	@Override
 	public void trigger(DataObject dataObject) 
 	{
@@ -35,9 +36,9 @@ public class OnceDriveDistance  extends Trigger {
 			}
 			else
 			{
-				if((Double)params.get("Sistance") < (Double)dataObject.getElement("Odometer").getValue()-startOdometerState)
+				if(Double.valueOf(this.getParam("Threshold").value()) < (Double)dataObject.getElement("Odometer").getValue()-startOdometerState)
 				{
-					aktive =true;
+					aktiviert =true;
 					RulesPool.TriggerCall(this);
 					startOdometerState=(Double)dataObject.getElement("Odometer").getValue();
 				}
