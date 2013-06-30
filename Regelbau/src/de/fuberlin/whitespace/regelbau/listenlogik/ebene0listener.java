@@ -35,7 +35,7 @@ public class ebene0listener implements OnItemClickListener {
 		ActionOption newActionOption;
 		//List<TriggerOption> newTriggerOptions;
 		
-		Drawable img = listview.getContext().getResources().getDrawable( drawable.mycheck);
+		Drawable img = listview.getContext().getResources().getDrawable(drawable.check_white_small);
 		
 		newVocabulary = (ActionVocabulary) parent.getItemAtPosition(position);
 		ActionOption.clearSelection(newVocabulary);

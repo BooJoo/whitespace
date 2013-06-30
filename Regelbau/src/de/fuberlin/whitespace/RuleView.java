@@ -42,7 +42,7 @@ public class RuleView {
 	}
 	
 	public View getView(ViewGroup parent){
-		View v = mInflater.inflate(R.layout.regelansicht, parent, false);
+		View v = mInflater.inflate(R.layout.regel_kapsel, parent, false);
 		Button action = (Button)v.findViewById(R.id.buttonAction);
 		ImageButton actionopt = (ImageButton)v.findViewById(R.id.buttonActionOpt);
 		Button trigger = (Button)v.findViewById(R.id.buttonTrigger);

@@ -46,7 +46,7 @@ public class RegelBearbeitenActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	setContentView(layout.activity_regelbau_edit);
+	setContentView(layout.regelbau_edit);
 	
 	try {
 	    this.dataLoader = new DataLoader(this);

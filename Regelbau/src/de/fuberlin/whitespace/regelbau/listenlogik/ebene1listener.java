@@ -27,7 +27,7 @@ public class ebene1listener implements OnItemClickListener {
 	
 	satzanzeige = (Satzanzeige) obereregelbuttonview;
 
-	Drawable img = listview.getContext().getResources().getDrawable( drawable.mycheck );
+	Drawable img = listview.getContext().getResources().getDrawable(drawable.check_white_small);
 	
 	ActionOption currentOption;
 	ActionVocabulary currentVocabulary = satzanzeige.getActionVocabulary();
