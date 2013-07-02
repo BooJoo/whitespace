@@ -11,6 +11,9 @@
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="17" />
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
 
     <application
         android:allowBackup="true"
@@ -40,6 +43,8 @@
         <activity android:name="de.fuberlin.whitespace.RuleConstruction"></activity>
         <activity android:name="de.fuberlin.whitespace.ScherzActivity"></activity>
         <activity android:name="RegelBearbeitenActivity"></activity>
+        <activity android:name="de.fuberlin.whitespace.regelbau.logic.actions.VoiceActivity"></activity>
+        <activity android:name="de.fuberlin.sms.SMSActivity"></activity>
     
     </application>
 

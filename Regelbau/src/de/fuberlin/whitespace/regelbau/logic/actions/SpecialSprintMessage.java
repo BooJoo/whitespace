@@ -3,8 +3,8 @@ package de.fuberlin.whitespace.regelbau.logic.actions;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Button;
-import de.fuberlin.whitespace.KnightRider;
 import de.fuberlin.whitespace.ScherzActivity;
+import de.fuberlin.whitespace.kitt.KnightRider;
 
 public class SpecialSprintMessage extends ShowMessage{
 	KnightRider rider;

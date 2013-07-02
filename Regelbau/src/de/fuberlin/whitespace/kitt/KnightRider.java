@@ -1,4 +1,4 @@
-package de.fuberlin.whitespace;
+package de.fuberlin.whitespace.kitt;
 
 import java.util.Locale;
 

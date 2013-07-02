@@ -2,14 +2,17 @@ package de.fuberlin.whitespace;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import de.fuberlin.sms.SMSActivity;
 import de.fuberlin.whitespace.regelbau.R;
 import de.fuberlin.whitespace.regelbau.logic.Rule;
+import de.fuberlin.whitespace.regelbau.logic.actions.VoiceActivity;
 
 /**
  * Neue Regelansicht für Sprintpraesentation
@@ -56,7 +59,9 @@ public class RuleView {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent i = new Intent(v.getContext(), ScherzActivity.class);
+				
+				//startActivity(it); 
+				Intent i = new Intent(v.getContext(), SMSActivity.class);
 		    	v.getContext().startActivity(i);
 			}
 		});

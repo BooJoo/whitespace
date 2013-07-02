@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.view.View;
 import android.widget.Button;
+import de.fuberlin.whitespace.kitt.KnightRider;
 import de.fuberlin.whitespace.regelbau.MainActivity;
 import de.fuberlin.whitespace.regelbau.R;
 
@@ -34,6 +35,7 @@ public class ScherzActivity extends Activity {
 	
 	private void sendRecognizeIntent() {
 		rider.say("Möchten sie eine Regel erstellen?");
+		//rider.say("ba ba da ba da ba da ba ba ba ba da da da ba da da da da ba ba ba da da");
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {
