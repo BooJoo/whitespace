@@ -53,7 +53,7 @@ public class ScherzActivity extends Activity {
 		
 	}
 	
-	public boolean containsAll(String[] testwords,ArrayList<String> matches){
+	public static boolean containsAll(String[] testwords,ArrayList<String> matches){
 		int i = 1;
 		for(String word: testwords){
 			for(int j = 0; j < matches.size(); j++){
@@ -63,7 +63,6 @@ public class ScherzActivity extends Activity {
 				}
 			}
 		}
-		System.out.println("containsAll: "+i+"testwords.length: "+testwords.length);
 		if(i >= testwords.length) return true;
 		else return false;
 	}

@@ -1,5 +1,6 @@
 package de.fuberlin.whitespace.regelbau.logic.actions;
 
+import android.content.Context;
 import de.fuberlin.whitespace.kitt.KnightRider;
 
 /**
@@ -11,10 +12,17 @@ import de.fuberlin.whitespace.kitt.KnightRider;
  * @see de.fuberlin.whitespace.logic.actions.VoiceActivity
  * @see de.fuberlin.whitespace.logic.actions.Voice
  */
-public abstract class VoiceActivityAbstractElement {
+public abstract class VoiceActivityAbstractElement implements VoiceActivityCallback, Runnable{
+	KnightRider rider;VoiceActivityObserver observer;
+	public VoiceActivityAbstractElement(KnightRider rider, VoiceActivityObserver vobs){
+		this.rider = rider;
+		this.observer = vobs;
+	}
+	
 	/**
-	 * Definiert das Verhalten des Elementes.
-	 * @param rider
+	 * Stellt eine Frage
+	 * @param text 
+	 * @param textSpeechTime So lange wird der Computer brauchen den Text vorzulesen.
 	 */
-	public abstract void Ask(KnightRider rider);
+	public abstract void Ask(String text,int textSpeechTime);
 }

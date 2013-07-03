@@ -12,21 +12,50 @@ import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 
 public class SMSActivity extends Activity {
-
+    
+	Uri uri;
+	String text;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// Starte Kontaktauswahl
-		Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
-				ContactsContract.Contacts.CONTENT_URI);// Phone.CONTENT_URI);
-		startActivityForResult(contactPickerIntent, 1001);
+		try{
+		//	String empf = getIntent().getExtras().getString("empfaenger");
+			String tmp = getIntent().getStringExtra("empfaenger");
+			String tmp2 = getIntent().getStringExtra("text");
+			//String text = getIntent().getExtras().getString("text");
+			if(tmp != null) 
+	     	{
+				uri = Uri.parse(tmp);
+	     	}
+	     	else{
+	     		
+	     	}
+			if(text != null){
+				text = tmp2;//savedInstanceState.getString("text");
+			}
+		}
+		catch(Exception e){ uri = Uri.parse("smsto:01234556"); System.out.println(e);}
+		
+		if(uri == null){
+			// Starte Kontaktauswahl
+			Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
+					ContactsContract.Contacts.CONTENT_URI);// Phone.CONTENT_URI);
+			startActivityForResult(contactPickerIntent, 1001);
+		}else{
+			// Starte SMS
+			
+			Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+			it.putExtra("sms_body", text);
+			startActivity(it);
+		}
+	
 
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Uri uri;
+		
 		if (requestCode == 1001) {
 			if (resultCode == RESULT_OK) {
 				// Kontakt wurde ausgewählt

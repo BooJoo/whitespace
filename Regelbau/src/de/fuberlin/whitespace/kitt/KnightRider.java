@@ -33,6 +33,7 @@ public class KnightRider implements OnInitListener {
 	 * (Initialisierung des Knightriders vor Benutzung, am Besten in onCreate).
 	 */
 	public void say(String s){
+		
 	   if(!readytospeek){
 		   
 	   }else{

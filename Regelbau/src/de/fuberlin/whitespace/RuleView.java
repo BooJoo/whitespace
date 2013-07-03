@@ -61,7 +61,7 @@ public class RuleView {
 				// TODO Auto-generated method stub
 				
 				//startActivity(it); 
-				Intent i = new Intent(v.getContext(), SMSActivity.class);
+				Intent i = new Intent(v.getContext(), VoiceActivity.class);
 		    	v.getContext().startActivity(i);
 			}
 		});
