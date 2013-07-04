@@ -60,7 +60,7 @@
         </activity>
         <activity android:name="de.fuberlin.whitespace.RuleConstruction"></activity>
         <activity android:name="de.fuberlin.whitespace.ScherzActivity"></activity>
-        <activity android:name="RegelBearbeitenActivity"></activity>
+        <activity android:name="de.fuberlin.whitespace.regelbau.RegelBearbeitenActivity"></activity>
         <activity android:name="de.fuberlin.whitespace.regelbau.logic.actions.VoiceActivity"></activity>
         <activity android:name="de.fuberlin.whitespace.sms.SMSActivity"></activity>
         <activity android:name="de.fuberlin.whitespace.GoogleMapsActivity"></activity>

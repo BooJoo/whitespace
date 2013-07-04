@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-import de.fuberlin.sms.SMSActivity;
 import de.fuberlin.whitespace.kitt.KnightRider;
 import de.fuberlin.whitespace.regelbau.logic.Action;
+import de.fuberlin.whitespace.sms.SMSActivity;
 
 public class Voice extends Action {
 

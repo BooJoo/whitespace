@@ -10,10 +10,10 @@ import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import de.fuberlin.sms.SMSActivity;
 import de.fuberlin.whitespace.kitt.Blinklicht;
 import de.fuberlin.whitespace.kitt.KnightRider;
 import de.fuberlin.whitespace.regelbau.R;
+import de.fuberlin.whitespace.sms.SMSActivity;
 
 /**
  * Activity, die Sprach ein-/ausgabe behandelt und Textnachrichten anzeigen kann.

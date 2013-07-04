@@ -6,6 +6,7 @@ import com.google.android.gms.maps.GoogleMap;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import de.fuberlin.whitespace.regelbau.R;
+import de.fuberlin.whitespace.regelbau.RegelBearbeitenActivity;
 import de.fuberlin.whitespace.regelbau.logic.Rule;
 import de.fuberlin.whitespace.regelbau.logic.actions.Voice;
 import de.fuberlin.whitespace.regelbau.logic.actions.VoiceActivity;
@@ -57,22 +59,33 @@ public class RuleView {
 		    action.setText(this.rule.getActions().get(0).toString());
 		    trigger.setText(this.rule.getTriggers().get(0).toString());
 		}catch(Exception e){}
-		action.setOnClickListener(ocl);
+		action.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				new Voice().Do(v.getContext());
+			}
+		});
 		actionopt.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
-				//startActivity(it); 
-			//	Intent i = new Intent(v.getContext(), VoiceActivity.class);
-		    //	v.getContext().startActivity(i);
 				Intent i = new Intent(v.getContext(), GoogleMapsActivity.class);
 				v.getContext().startActivity(i);
-				//new Voice().Do(v.getContext());
 			}
 		});
-		trigger.setOnClickListener(ocl);
+		trigger.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(v.getContext(), RegelBearbeitenActivity.class);
+				Bundle b = new Bundle();
+			    b.putLong("rule_id", rule.getId());
+			    i.putExtras(b);
+			    main.startActivityForResult(i, 667);
+			}
+		});
+		
 		return v;
 	}
 	
