@@ -1,4 +1,4 @@
-package de.fuberlin.sms;
+package de.fuberlin.whitespace.sms;
 
 import java.util.ArrayList;
 import java.util.List;

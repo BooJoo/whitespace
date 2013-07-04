@@ -1,5 +1,8 @@
 package de.fuberlin.whitespace;
 
+
+import com.google.android.gms.maps.GoogleMap;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -9,11 +12,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import de.fuberlin.sms.SMSActivity;
 import de.fuberlin.whitespace.regelbau.R;
 import de.fuberlin.whitespace.regelbau.logic.Rule;
 import de.fuberlin.whitespace.regelbau.logic.actions.Voice;
 import de.fuberlin.whitespace.regelbau.logic.actions.VoiceActivity;
+import de.fuberlin.whitespace.sms.SMSActivity;
 
 /**
  * Neue Regelansicht für Sprintpraesentation
@@ -64,7 +67,9 @@ public class RuleView {
 				//startActivity(it); 
 			//	Intent i = new Intent(v.getContext(), VoiceActivity.class);
 		    //	v.getContext().startActivity(i);
-				new Voice().Do(v.getContext());
+				Intent i = new Intent(v.getContext(), GoogleMapsActivity.class);
+				v.getContext().startActivity(i);
+				//new Voice().Do(v.getContext());
 			}
 		});
 		trigger.setOnClickListener(ocl);

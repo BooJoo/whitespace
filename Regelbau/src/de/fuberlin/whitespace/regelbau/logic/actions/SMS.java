@@ -2,8 +2,8 @@ package de.fuberlin.whitespace.regelbau.logic.actions;
 
 import android.content.Context;
 import android.content.Intent;
-import de.fuberlin.sms.SMSActivity;
 import de.fuberlin.whitespace.regelbau.logic.Action;
+import de.fuberlin.whitespace.sms.SMSActivity;
 
 public class SMS extends Action {
 
