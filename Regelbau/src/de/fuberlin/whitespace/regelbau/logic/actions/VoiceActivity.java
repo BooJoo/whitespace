@@ -97,7 +97,7 @@ public class VoiceActivity extends Activity implements VoiceActivityObserver {
 					}
 					}else
 					{
-					vaac.evaluate(matches, rider, getApplicationContext());	
+					   vaac.evaluate(matches, rider, mainView.getContext());	
 					
 					}
 			}

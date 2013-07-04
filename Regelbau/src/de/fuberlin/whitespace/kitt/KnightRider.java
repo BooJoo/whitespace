@@ -1,5 +1,6 @@
 package de.fuberlin.whitespace.kitt;
 
+import java.io.Serializable;
 import java.util.Locale;
 
 import android.content.Context;
@@ -13,8 +14,12 @@ import android.util.Log;
  * @author Christoph
  *
  */
-public class KnightRider implements OnInitListener {
+public class KnightRider implements OnInitListener, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 339074648583659479L;
 	private Context context;
 	TextToSpeech tts;
 	private boolean readytospeek;

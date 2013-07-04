@@ -15,7 +15,7 @@ public class SMSActivity extends Activity {
     
 	Uri uri;
 	String text;
-	@Override
+	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
@@ -31,7 +31,7 @@ public class SMSActivity extends Activity {
 	     	else{
 	     		
 	     	}
-			if(text != null){
+			if(tmp2 != null){
 				text = tmp2;//savedInstanceState.getString("text");
 			}
 		}

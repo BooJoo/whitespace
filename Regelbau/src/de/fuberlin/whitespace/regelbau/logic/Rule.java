@@ -49,7 +49,7 @@ public class Rule implements Serializable {
     /**
      * Pool, in dem diese Regel sich befindet
      */
-    private RulesPool pool;
+    private transient RulesPool pool;
     
     /**
      * Konstruktor

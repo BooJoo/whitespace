@@ -28,5 +28,10 @@
 			<arg name="type">4</arg>
 		</option>
 	</vocabulary>
+	<vocabulary action-id="Voice" display-string="Kontaktiere" display-name="Kontaktiere" multiple-choices="false">
+	    <option word="SMS">
+			<arg name="message">Hallo!</arg>
+		</option>
+	</vocabulary>
 	<!-- <vocabulary id="informMe" word="Informiere mich" synonym="display" /> -->
 </action-vocabularies>

@@ -99,8 +99,8 @@ public class RegelBearbeitenActivity extends Activity {
 	Button button1 = (Button) findViewById(R.id.buttoneins);
 	Button button2 = (Button) findViewById(R.id.button2);
 	Button button3 = (Button) findViewById(R.id.button3);
-	ImageButton button4 = (ImageButton) findViewById(R.id.button4);
-	ImageButton buttonDelete = (ImageButton) findViewById(R.id.buttondelete);
+	Button button4 = (Button) findViewById(R.id.button4);
+	Button buttonDelete = (Button) findViewById(R.id.buttondelete);
 
 	text = (EditText) findViewById(R.id.editTextRegelname);
 
