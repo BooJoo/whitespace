@@ -244,9 +244,11 @@ public class Rule implements Serializable {
     public void removeTrigger(Trigger t) {
 	this.trigger.remove(t);
 	this.triggerStates.remove(t);
+
 	if (t.getState()) {
 	    this.fullfilledTriggerCount--;
 	}
+	
 	t.signalDestruction();
     }
     

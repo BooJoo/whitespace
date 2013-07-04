@@ -193,7 +193,7 @@ public class ProxyClient {
 
 		    break;
 
-		    // Abmeldung von Triggern von bestimmten Datenobjekten
+		// Abmeldung von Triggern von bestimmten Datenobjekten
 
 		case UNSUBSCRIPTION:
 
@@ -213,7 +213,7 @@ public class ProxyClient {
 
 		    break;
 
-		    // Datenobjekte
+		// Datenobjekte
 
 		case DATA_OBJECT:
 
@@ -223,7 +223,9 @@ public class ProxyClient {
 			}
 		    }
 
-		    // Terminierungssignal
+		    break;
+
+		// Terminierungssignal
 
 		case TERMINATION:
 

@@ -209,7 +209,7 @@ public class DataLoader {
 	    result.setId(vocab.getActionId());
 	    result.setStringRepresentation(vocab.getSelectedActionString() + ": " + vocab.getSelectedActionOptionsString());
 	    
-	    for (ActionOption opt : vocab.getOptions()) {
+	    for (ActionOption opt : ActionOption.getSelection(vocab)) {
 		Map<String, String> argValues = opt.getArgValues();
 
 		for (String name : argValues.keySet()) {

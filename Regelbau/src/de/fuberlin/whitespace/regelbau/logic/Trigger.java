@@ -251,15 +251,15 @@ public abstract class Trigger implements Serializable {
 	this.stringRepresentation = str;
     }
 
-    @Override
+    /*@Override
     public int hashCode () {
-	return this.id.hashCode();
+	return (this.id + (this.parent != null ? this.parent.hashCode() : null) + this.params.size() + (this.params.toString())).hashCode();
     }
 
     @Override
     public boolean equals (Object o) {
 	return (o instanceof Trigger) && this.id.equals(((Trigger) o).id);
-    }
+    }*/
 
     @Override
     public String toString () {
@@ -364,13 +364,13 @@ public abstract class Trigger implements Serializable {
 	  */
 	 public boolean op (String inputValue) {
 	     
-	     if (this.compareValue == null) {
+	     if (inputValue == null || this.compareValue == null) {
 		 return false;
 	     }
-
+	     
 	     int comparatorValue = this.comparator.compare(inputValue, this.value);
 	     
-	     return this.compareValue * comparatorValue > 0 || this.compareValue.equals(compareValue);
+	     return this.compareValue * comparatorValue > 0 || this.compareValue.equals(comparatorValue);
 	 }	    
 
 	 /**
@@ -381,7 +381,7 @@ public abstract class Trigger implements Serializable {
 	  * @param inputValue
 	  */
 	 public boolean op (Object inputValue) {
-	     return this.op(inputValue != null ? inputValue.toString() : "0");
+	     return this.op(inputValue != null ? inputValue.toString() : null);
 	 }
 	 
 	 /**
@@ -438,6 +438,23 @@ public abstract class Trigger implements Serializable {
 
 		     return result;
 		 }};
+	 }
+	 
+	 @Override
+	 public String toString () {
+	     String s = "";
+	     
+	     if (this.operator != null) {
+		s += this.operator + " "; 
+	     }
+	     
+	     s += this.value;
+	     
+	     if (this.unit != null) {
+		 s += " " + this.unit;
+	     }
+	     
+	     return s;
 	 }
 
 	 private synchronized void readObject (ObjectInputStream s ) throws IOException, ClassNotFoundException {
