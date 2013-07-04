@@ -77,7 +77,7 @@ public class VoiceActivity extends Activity implements VoiceActivityObserver {
 						finish();
 					}else{
 						rider.say("Ich habe sie nicht verstanden, bitte wiederholen sie");
-						Ask("",1000);
+						Ask("",1500);
 					}
 				
 			}
@@ -85,12 +85,13 @@ public class VoiceActivity extends Activity implements VoiceActivityObserver {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				Ask("Möchten sie, dass ich ihrer Frau eine SMS sende?",3000);
+				Ask("Möchten sie dass ich ihrer Freundin eine SMS sende?",3500);
 			}
 		};
      	setContentView(R.layout.voiceactivity);
      	mainView = (TextView)findViewById(R.id.textView1);
      	((LinearLayout)mainView.getParent()).addView(new Blinklicht(this));
+     	mainView.setText("Möchten sie, dass ich ihrer Freundin eine SMS sende?");
      /*	if(savedInstanceState.getString(MAINTEXT) != null) 
      	{
      		   mainView.setText(savedInstanceState.getString(MAINTEXT));
