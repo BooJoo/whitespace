@@ -34,8 +34,7 @@ public class MainActivity extends Activity { // OoO
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	
-	setContentView(layout.activity_regelbau_main);
+	setContentView(layout.regelbau);
 	
 	try {
 	    this.dataLoader = new DataLoader(this);

@@ -31,7 +31,7 @@ public class ebene3listener implements OnItemClickListener {
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 	final Satzanzeige satzanzeige = (Satzanzeige) obereregelbuttonview;
-	final Drawable img = listview.getContext().getResources().getDrawable( drawable.mycheck );
+	final Drawable img = listview.getContext().getResources().getDrawable(drawable.check_white_small);
 	
 	final TriggerVocabulary selectedVocabulary = (TriggerVocabulary) parent.getItemAtPosition(position);
 	

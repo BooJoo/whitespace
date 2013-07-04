@@ -1,6 +1,7 @@
 package de.fuberlin.whitespace.regelbau.logic.actions;
 
 import android.content.Context;
+import android.content.Intent;
 import de.fuberlin.whitespace.regelbau.logic.Action;
 
 public class Voice extends Action {
@@ -12,7 +13,8 @@ public class Voice extends Action {
 
     @Override
     public void Do (Context context) {
-	// TODO Auto-generated method stub
+    	Intent i = new Intent(context,VoiceActivity.class);
+    	context.startActivity(i);
 
     }
 

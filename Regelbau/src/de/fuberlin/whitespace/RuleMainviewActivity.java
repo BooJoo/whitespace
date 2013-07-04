@@ -37,7 +37,7 @@ public class RuleMainviewActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	setContentView(R.layout.activity_rule_mainview);
+	setContentView(R.layout.title);
 	
 	System.out.println("regelbau.MainActivity: onCreate");
 	
@@ -65,20 +65,23 @@ public class RuleMainviewActivity extends Activity {
 	
 	this.poolConnection = new ServiceConnection () {
 
+
 	    @Override
 	    public void onServiceConnected(ComponentName component, IBinder binder) {
-		
+
 		pool = (PoolBinder) binder;
 		handler = new PoolHandler(RuleMainviewActivity.this, pool);
 		pool.setHandler(handler);
 		
 		updateReceiver = new UpdateReceiver(myregeladapter, pool);
 		
+
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(RulesPool.RULE_ADDITION);
 		filter.addAction(RulesPool.RULE_UPDATE);
 		filter.addAction(RulesPool.RULE_REMOVAL);
 		
+
 		RuleMainviewActivity.this.registerReceiver(
 			updateReceiver,
 			filter);

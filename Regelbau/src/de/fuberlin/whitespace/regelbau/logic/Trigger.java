@@ -363,6 +363,7 @@ public abstract class Trigger implements Serializable {
 	  * @param inputValue
 	  */
 	 public boolean op (String inputValue) {
+	     
 	     if (this.compareValue == null) {
 		 return false;
 	     }
@@ -380,7 +381,7 @@ public abstract class Trigger implements Serializable {
 	  * @param inputValue
 	  */
 	 public boolean op (Object inputValue) {
-	     return this.op(inputValue.toString());
+	     return this.op(inputValue != null ? inputValue.toString() : "0");
 	 }
 	 
 	 /**

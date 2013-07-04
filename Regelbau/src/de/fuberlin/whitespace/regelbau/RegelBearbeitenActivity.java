@@ -45,7 +45,7 @@ public class RegelBearbeitenActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	setContentView(layout.activity_regelbau_edit);
+	setContentView(layout.regelbau_edit);
 	
 	try {
 	    this.dataLoader = new DataLoader(this);
@@ -127,7 +127,7 @@ public class RegelBearbeitenActivity extends Activity {
 
 	if(r != null){	  
 	    
-	    Drawable img = this.getResources().getDrawable( drawable.mycheck );
+	    Drawable img = this.getResources().getDrawable(drawable.check_white_small);
 
 	    // Datenstrukturen für Regelerstellung erzeugen
 	    ActionVocabulary actionVocab = satzanzeige.getDataLoader().getActionVocabulatoryByAction(r.getActions().get(0));
