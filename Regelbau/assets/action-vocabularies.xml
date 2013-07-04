@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <action-vocabularies>
-	<vocabulary action-id="ShowMessage" word="Erinnere mich" multiple-choices="false">
+	<vocabulary action-id="ShowMessage" display-string="Erinnere mich" display-name="Erinnerung" multiple-choices="false">
 		<option word="Pause">
 			<arg name="message">Pause nicht vergessen!</arg>
 		</option>
@@ -14,7 +14,7 @@
 			<arg name="message">Termin nicht vergessen!</arg>
 		</option>
 	</vocabulary>
-	<vocabulary action-id="ShowPOIs" word="Zeige mir" multiple-choices="true">
+	<vocabulary action-id="ShowPOIs" display-string="Zeige mir" display-name="Zeige" multiple-choices="true">
 		<option word="Raststätten">
 			<arg name="type">1</arg>
 		</option>

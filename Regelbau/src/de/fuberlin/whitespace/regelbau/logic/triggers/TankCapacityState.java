@@ -1,10 +1,6 @@
 package de.fuberlin.whitespace.regelbau.logic.triggers;
 
-import java.io.IOException;
-
 import de.exlap.DataObject;
-import de.exlap.ExlapException;
-import de.fuberlin.whitespace.regelbau.logic.RulesPool;
 import de.fuberlin.whitespace.regelbau.logic.Trigger;
 
 public class TankCapacityState extends Trigger {
@@ -16,33 +12,34 @@ public class TankCapacityState extends Trigger {
     	
 	boolean consumed=false;
 	
-	public TankCapacityState() throws IllegalArgumentException, IOException, ExlapException
-	{
-		this.subscribe("TankLevel");
+	@Override
+	protected void onWakeUp() {
+	    this.subscribeDataObject("TankLevel");
 	}
 	
 	@Override
-	public void trigger(DataObject dataObject) {
+	protected boolean isFullfilled (DataObject dataObject) {
 	    
-		double fuel=(Double)dataObject.getElement("Premium").getValue();
-		double threshold = Integer.valueOf(this.getParam("Threshold").value()) * 0.1;
-		
-		if(consumed)
-		{
-			if(fuel > threshold)
-			{
-				consumed=false;
-			}
-		}
-		else
-		{
-			if(fuel < threshold)
-			{
-				aktiviert =true;
-				RulesPool.TriggerCall(this);
-				consumed=true;
-			}
-		}
-	}
+	    double fuel=(Double)dataObject.getElement("Premium").getValue();
+	    double threshold = Integer.valueOf(this.getParam("Threshold").value()) * 0.1;
 
+	    if(consumed)
+	    {
+		if(fuel > threshold)
+		{
+		    consumed=false;
+		}
+	    }
+	    else
+	    {
+		if(fuel < threshold)
+		{
+		    consumed=true;
+		    return true;
+		}
+	    }
+	    
+	    return false;
+	}
+	
 }

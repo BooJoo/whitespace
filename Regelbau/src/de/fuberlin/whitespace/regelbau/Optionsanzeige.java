@@ -39,7 +39,7 @@ public class Optionsanzeige extends LinearLayout implements IButtonChangeListene
 	List<ActionVocabulary> vocab = this.satzanzeige.getDataLoader().getAllActionVocabularies();
 
 	for (int i = 0; i < vocab.size(); i++) {
-	    System.out.println(vocab.get(i).getWord());
+	    System.out.println(vocab.get(i).getDisplayString());
 	}
     }
 

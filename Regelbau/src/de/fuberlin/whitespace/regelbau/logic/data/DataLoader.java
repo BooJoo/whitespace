@@ -19,6 +19,7 @@ import org.xml.sax.SAXException;
 
 import android.content.Context;
 import de.fuberlin.whitespace.regelbau.logic.Action;
+import de.fuberlin.whitespace.regelbau.logic.Rule;
 import de.fuberlin.whitespace.regelbau.logic.Trigger;
 import de.fuberlin.whitespace.regelbau.logic.data.ActionVocabulary.ActionOption;
 import de.fuberlin.whitespace.regelbau.logic.data.TriggerVocabulary.ArgumentData;
@@ -83,7 +84,11 @@ public class DataLoader {
 	return DataLoader.actionVocabularies;
     }
     
-
+    /**
+     * Erzeugt ein {@link ActionVocabulary} auf Grundlage der in <tt>action</tt>
+     * enthaltenen Informationen.
+     * @param action
+     */
     public ActionVocabulary getActionVocabulatoryByAction (Action action) {
 	
 	List<ActionOption> options;
@@ -127,6 +132,11 @@ public class DataLoader {
 	return vocab;
     }
     
+    /**
+     * Erzeugt ein {@link TriggerVocabulary} auf Grundlage der Informationen
+     * in <tt>trigger</tt>.
+     * @param trigger
+     */
     public TriggerVocabulary getTriggerVocabularyByTrigger (Trigger trigger) {
 	
 	TriggerVocabulary vocab;
@@ -197,7 +207,7 @@ public class DataLoader {
 	    
 	    result =  DataLoader.actions.get(vocab.getActionId()).newInstance();
 	    result.setId(vocab.getActionId());
-	    result.setStringRepresentation(vocab.getSelectedActionString() + " " + vocab.getSelectedActionOptionsString());
+	    result.setStringRepresentation(vocab.getSelectedActionString() + ": " + vocab.getSelectedActionOptionsString());
 	    
 	    for (ActionOption opt : vocab.getOptions()) {
 		Map<String, String> argValues = opt.getArgValues();
@@ -225,7 +235,7 @@ public class DataLoader {
 
 	try {
 
-	    result =  DataLoader.triggers.get(vocab.getTriggerId()).newInstance();
+	    result = DataLoader.triggers.get(vocab.getTriggerId()).newInstance();
 	    result.setId(vocab.getTriggerId());
 	    result.setStringRepresentation(vocab.getSelectedTriggerString());
 
@@ -247,10 +257,107 @@ public class DataLoader {
 		result.setParam(param.name(), param);
 	    }
 	} catch (Throwable t) {
+	    t.printStackTrace();
 	    throw new RuntimeException(t);
 	}
 
 	return result;
+    }
+    
+    /**
+     * Aktualisiert <tt>action</tt> auf Grundlage von <tt>vocab</tt>.
+     * @param action
+     * @param vocab
+     */
+    public static void updateAction(Action action, ActionVocabulary vocab) {
+	
+	Action result;
+	Rule parent;
+	List<String> actionParams;
+	
+	if (!DataLoader.actions.get(vocab.getActionId()).equals(action.getClass())) {
+	    
+	    result = DataLoader.instantiateAction(vocab);
+	    parent = action.getParent();
+	    
+	    if (parent != null) {
+		parent.removeAction(action);
+		parent.addAction(result);
+	    }
+	    
+	} else {
+	    
+	    result = action;
+	    actionParams = action.getParamNames();
+	    
+	    for (ActionOption opt : vocab.getOptions()) {
+		Map<String, String> argValues = opt.getArgValues();
+
+		for (String name : argValues.keySet()) {
+		    actionParams.remove(name);
+		    result.setParam(name, argValues.get(name));
+		}
+	    }
+	    
+	    if (!actionParams.isEmpty()) {
+		for (String paramName : actionParams) {
+		    result.removeParam(paramName);
+		}
+	    }
+	}
+	
+	result.setStringRepresentation(vocab.getSelectedActionString() + ": " + vocab.getSelectedActionOptionsString());
+    }
+
+    /**
+     * Aktualisiert <tt>trigger</tt> auf Grundlage von <tt>vocab</tt>.
+     * @param trigger
+     * @param vocab
+     */
+    public static void updateTrigger(Trigger trigger, TriggerVocabulary vocab) {
+	
+	Trigger result;
+	Rule parent;
+	List<String> triggerParams;
+	
+	if (!DataLoader.triggers.get(vocab.getTriggerId()).equals(trigger.getClass())) {
+	    
+	    result = DataLoader.instantiateTrigger(vocab);
+	    parent = trigger.getParent();
+	    
+	    if (parent != null) {
+		parent.removeTrigger(trigger);
+		parent.addTrigger(result);
+	    }
+	    
+	} else {
+	    
+	    result = trigger;
+	    triggerParams = trigger.getParamNames();
+	    
+	    for (ArgumentData d : vocab.getArgumentData()) {
+		
+		Trigger.Param param;
+		
+		triggerParams.remove(d.getName());
+		param = new Trigger.Param(
+			d.getName(),
+			d.getSelectedValue(),
+			DataLoader.triggerArguments.get(vocab.getTriggerId()).get(d.getName()));
+		
+		if (d.getSelectedOperator() != null) {
+		    param.setOperator(d.getSelectedOperator());
+		}
+		
+		if (d.getSelectedUnit() != null) {
+		    param.setUnit(d.getSelectedUnit());
+		}
+		
+		result.setParam(param.name(), param);
+	    }
+	}
+	
+	result.setStringRepresentation(vocab.getSelectedTriggerString());
     }
 
     private static void loadVocabularies (Context ctx) throws SAXException, IOException, ParserConfigurationException {

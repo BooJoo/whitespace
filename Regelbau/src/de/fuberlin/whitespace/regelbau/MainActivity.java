@@ -3,8 +3,12 @@ package de.fuberlin.whitespace.regelbau;
 import java.util.LinkedList;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -13,6 +17,8 @@ import de.fuberlin.whitespace.regelbau.logic.Action;
 import de.fuberlin.whitespace.regelbau.logic.Rule;
 import de.fuberlin.whitespace.regelbau.logic.Trigger;
 import de.fuberlin.whitespace.regelbau.logic.data.DataLoader;
+import de.fuberlin.whitespace.regelbau.logic.pool.PoolBinder;
+import de.fuberlin.whitespace.regelbau.logic.pool.RulesPool;
 
 public class MainActivity extends Activity { // OoO
 
@@ -22,9 +28,13 @@ public class MainActivity extends Activity { // OoO
 
     private DataLoader dataLoader;
     
+    private ServiceConnection poolConnection;
+    private PoolBinder pool;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
+	
 	setContentView(layout.activity_regelbau_main);
 	
 	try {
@@ -32,6 +42,20 @@ public class MainActivity extends Activity { // OoO
 	} catch (Throwable t) {
 	    throw new RuntimeException(t);
 	}
+
+	this.poolConnection = new ServiceConnection () {
+
+	    @Override
+	    public void onServiceConnected(ComponentName name, IBinder service) {
+		pool = (PoolBinder) service;
+	    }
+
+	    @Override
+	    public void onServiceDisconnected(ComponentName name) {
+		pool = null;
+	    }
+
+	};
 	
 	Button button1 = (Button) findViewById(R.id.buttoneins);
 	Button button2 = (Button) findViewById(R.id.button2);
@@ -48,30 +72,24 @@ public class MainActivity extends Activity { // OoO
 	    
 	    @Override
 	    public void onClick(View v) {
-		new MyTextPicker(satzanzeige.getContext(), new MyNumberPickerCallback<String>() {
+		new MyTextPicker(satzanzeige.getContext(), new MyPickerCallback<String>() {
 
 		    @Override
 		    public void valueset(String value)  {
-
-			System.out.println("Der Benutzer hat Regelname "+ value + " eingegeben");
-
+			
 			Intent intent = new Intent();
-
-			//Bundle Objekt
-			Bundle bundle = new Bundle();
-
+			
 			LinkedList<Action> actions = new LinkedList<Action>();
 			LinkedList<Trigger> triggers = new LinkedList<Trigger>();
 
 			actions.add(DataLoader.instantiateAction(satzanzeige.getActionVocabulary()));
 			triggers.add(DataLoader.instantiateTrigger(satzanzeige.getTriggerVocabulary()));
-
-			Rule regel = new Rule(value, actions, triggers);
-
-			bundle.putSerializable("regel", regel);
-
+			
+			Rule r = new Rule(value, actions, triggers);
+			MainActivity.this.pool.AddRule(r);
+			
 			//Bundle zu intent hinzufügen
-			intent.putExtras(bundle);
+			intent.putExtra("rule_id", 1L);
 
 			if (getParent() == null) {
 			    setResult(Activity.RESULT_OK, intent);
@@ -81,11 +99,29 @@ public class MainActivity extends Activity { // OoO
 			
 			finish();
 		    }
-		}, "Mein Regelname:");
+		}, "Regelname:",
+		"Meine neue Regel");
 	    }
 	});
 	
 	act = this;	
+    }
+    
+    @Override
+    protected void onResume() {
+	
+	super.onResume();
+	this.bindService(
+		new Intent(this, RulesPool.class),
+		this.poolConnection,
+		Context.BIND_AUTO_CREATE);
+    }
+    
+    @Override
+    protected void onPause() {
+	
+	super.onPause();
+	this.unbindService(this.poolConnection);
     }
     
     public Satzanzeige getSatzanzeige(){

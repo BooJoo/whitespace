@@ -10,11 +10,11 @@ public class MyTextPicker {
     boolean eingabeBeendet;
     EditText input;
 	
-    public MyTextPicker(Context context, final MyNumberPickerCallback mynumberpickercallback, String alertName) {
+    public MyTextPicker(Context context, final MyPickerCallback<String> mynumberpickercallback, String alertName, String defaultValue) {
 		this.context = context;
 		
 		input = new EditText(context);
-		input.setText("MeinRegelname");
+		input.setText(defaultValue);
 		
 		AlertDialog.Builder alert = new AlertDialog.Builder(context);
 		alert.setView(input);

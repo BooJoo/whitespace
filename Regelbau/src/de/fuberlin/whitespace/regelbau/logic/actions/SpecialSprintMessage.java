@@ -18,7 +18,7 @@ public class SpecialSprintMessage extends ShowMessage{
 	}
 
 	 @Override
-    public void Do() {
+    public void Do (Context context) {
 		Thread thread = new Thread(new MakeFun(rider,context));
 		thread.start();
 	}

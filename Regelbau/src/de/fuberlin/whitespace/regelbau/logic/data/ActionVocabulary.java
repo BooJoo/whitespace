@@ -24,9 +24,15 @@ public class ActionVocabulary implements Comparable<ActionVocabulary> {
     private String actionId;
 
     /**
-     * der in der GUI anzuzeigende String (entspricht dem Attribut `word` der &lt;vocabulatory&gt;-Elemente in action-vocabulatories.xml)
+     * der in der GUI anzuzeigende String (>= 1 Wort) entsprechend dem Attribut `word` der &lt;vocabulatory&gt;-Elemente in action-vocabulatories.xml<br />
+     * 
      */
-    private String word;
+    private String displayString;
+    
+    /**
+     * die in der GUI anzuzeigende Name (== 1 Wort) entsprechend dem Attribut `display-name` der &lt;vocabulatory&gt;-Elemente in action-vocabulatories.xml
+     */
+    private String displayName;
 
     /**
      * Signalisiert, ob assoziierte {@link Action} eine Mehrfachauswahl von Argumenten ermöglicht.
@@ -37,7 +43,7 @@ public class ActionVocabulary implements Comparable<ActionVocabulary> {
      * die möglichen Argumente
      */
     private List<ActionOption> options;
-
+    
     protected ActionVocabulary (Node domNode) {
 
 	NamedNodeMap vocabularyAttributes = domNode.getAttributes();
@@ -48,7 +54,8 @@ public class ActionVocabulary implements Comparable<ActionVocabulary> {
 	ActionOption currentOption;
 
 	this.actionId = vocabularyAttributes.getNamedItem("action-id").getTextContent();
-	this.word = vocabularyAttributes.getNamedItem("word").getTextContent();
+	this.displayString = vocabularyAttributes.getNamedItem("display-string").getTextContent();
+	this.displayName = vocabularyAttributes.getNamedItem("display-name").getTextContent();;
 	this.multipleChoice = "true".equalsIgnoreCase(vocabularyAttributes.getNamedItem("multiple-choices").getTextContent());
 
 	this.options = new ArrayList<ActionOption>();
@@ -102,11 +109,18 @@ public class ActionVocabulary implements Comparable<ActionVocabulary> {
     }
 
     /**
-     * Gibt den in der GUI anzuzeigenden String (entsprechend dem Attribut `word` der &lt;vocabulatory&gt;-Elemente in action-vocabulatories.xml)
-     * zurück.
+     * Gibt den in der GUI anzuzeigenden String (>= 1 Wort) zurück.
      */
-    public String getWord() {
-	return word;
+    public String getDisplayString() {
+	return displayString;
+    }
+    
+    /**
+     * Gibt das in der GUI anzuzeigende Wort (== 1 Wort) zurück.
+     * @return
+     */
+    public String getDisplayName () {
+	return displayName;
     }
 
     /**
@@ -136,12 +150,12 @@ public class ActionVocabulary implements Comparable<ActionVocabulary> {
 
     @Override
     public int compareTo (ActionVocabulary other) {
-	return this.word.compareTo(other.word);
+	return this.displayString.compareTo(other.displayString);
     }
 
     @Override
     public String toString() {
-	return this.word;
+	return this.displayString;
     }
     
     /**
@@ -154,7 +168,7 @@ public class ActionVocabulary implements Comparable<ActionVocabulary> {
     }
     
     public String getSelectedActionString() {
-	return this.getWord();
+	return this.displayName;
     }
 
     public String getSelectedActionOptionsString (){

@@ -13,9 +13,9 @@ public class MySlotmachineOnItemClickListener implements OnItemClickListener {
 
 	private View obereregelbuttonview;
 	private ListView listview;
-	private MyNumberPickerCallback mynumberpickercallback;
+	private MyPickerCallback mynumberpickercallback;
 
-	public MySlotmachineOnItemClickListener(View obereregelbuttonview, ListView listview, MyNumberPickerCallback mynumberpickercallback){
+	public MySlotmachineOnItemClickListener(View obereregelbuttonview, ListView listview, MyPickerCallback mynumberpickercallback){
 		this.obereregelbuttonview = obereregelbuttonview;
 		this.listview = listview;
 		this.mynumberpickercallback = mynumberpickercallback;

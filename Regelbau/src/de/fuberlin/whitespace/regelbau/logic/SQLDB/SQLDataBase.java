@@ -7,6 +7,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 import java.util.List;
+
+import de.fuberlin.whitespace.regelbau.logic.Rule;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -17,11 +19,9 @@ public class SQLDataBase {
 
 	private SQLiteDatabase db;
 	private SQLHelper dbHelper;
-	private String[] spalten = {"rule"};
-	private Context context;
+	private String[] spalten = {"id", "rule"};
 
 	public SQLDataBase(Context context){
-		this.context=context;
 		dbHelper = new SQLHelper(context);
 	}
 
@@ -33,33 +33,47 @@ public class SQLDataBase {
 		db.close();
 	}
 	
-	public void AddToDB(byte[] s)
+	public void AddToDB(Rule newRule)
 	{
-		open();
-		ContentValues newRow = new ContentValues();
-		newRow.put("rule", s);
+	    	ContentValues newRow;
+	    	long id;
+	    	
+		newRow = new ContentValues();
+		newRow.put("rule", SQLDataBase.serialize(newRule));
+		id = db.insert("Rules", null, newRow);
 		
-		db.insert("Rules", null, newRow);
-		close();
+		// Id der Rule-Instanz auf die Id der neu erzeugten Tabellenzeile setzen
+		newRule.setId(id);
+	}
+	
+	public void UpdateRow(Rule r) {
+	    
+	    assert(r.getId() != null);
+	    
+	    ContentValues row = new ContentValues();
+	    row.put("rule", SQLDataBase.serialize(r));
+	    
+	    db.update("Rules", row, "id=" + r.getId(), null);
 	}
 
-	public void Update(List<byte[]> b)
+	public void RemoveFromDB(Rule r) {
+	    
+	    assert(r.getId() != null);
+	    
+	    db.delete("Rules", "id=" + r.getId(), null);
+	}
+
+	public void Update(List<Rule> rules)
 	{
 		reset();
-		for (byte[] cs : b) {
-			AddToDB(cs);
+		for (Rule r : rules) {
+			AddToDB(r);
 		}
 	}
 	
-	private byte[] cursorToString(Cursor cursor) {
+	public  LinkedList<Rule> getAllEntries(){
 		
-		return cursor.getBlob(0);
-
-	}
-	
-	public  LinkedList<byte[]> getAllEntries(){
-		open();
-		LinkedList<byte[]> list = new LinkedList<byte[]>();
+		LinkedList<Rule> list = new LinkedList<Rule>();
 		
 		Cursor cursor = db.query("Rules", spalten, null, null, null, null, null);
 		
@@ -68,45 +82,45 @@ public class SQLDataBase {
 
 
 		while(!cursor.isBeforeFirst()){
-			byte[] rule = cursorToString(cursor);
+			Rule rule = (Rule) SQLDataBase.deserialize(cursor.getBlob(1));
+			rule.setId(cursor.getLong(0));
+			
 			list.add(rule);
 			cursor.moveToPrevious();
 		}
 
 		cursor.close();
-		close();
+		
 		return list;
 	}
 	
 	public void reset()
 	{
-		open();
 		dbHelper.onUpgrade(db, 0, 0);
-		close();
 	}
 	
 	public static byte[] serialize(Object obj)  {
-		try{
-        ByteArrayOutputStream b = new ByteArrayOutputStream();
-        ObjectOutputStream o = new ObjectOutputStream(b);
-        o.writeObject(obj);
-        return b.toByteArray();
-		}
-		catch(Exception e)
-		{return null;}
-    }
+	    try{
+		ByteArrayOutputStream b = new ByteArrayOutputStream();
+		ObjectOutputStream o = new ObjectOutputStream(b);
+		o.writeObject(obj);
+		return b.toByteArray();
+	    }
+	    catch(Exception e)
+	    {return null;}
+	}
 
-    public static Object deserialize(byte[] bytes)  {
-    	try
-    	{
-        ByteArrayInputStream b = new ByteArrayInputStream(bytes);
-        ObjectInputStream o = new ObjectInputStream(b);
-        return o.readObject();
-    	}
-    	catch(Exception e)
-    	{
-    		return null;
-    	}
-    }
+	public static Object deserialize(byte[] bytes)  {
+	    try
+	    {
+		ByteArrayInputStream b = new ByteArrayInputStream(bytes);
+		ObjectInputStream o = new ObjectInputStream(b);
+		return o.readObject();
+	    }
+	    catch(Exception e)
+	    {
+		return null;
+	    }
+	}
 
 }

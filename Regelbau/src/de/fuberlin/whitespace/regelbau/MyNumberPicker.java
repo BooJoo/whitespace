@@ -12,7 +12,7 @@ public class MyNumberPicker <T> {
 	 boolean eingabeBeendet;
 	 String suffix;
 
-	public MyNumberPicker (Context context, final ListView listview, final T[] werte, String suffix, final MyNumberPickerCallback<T> mynumberpickercallback, String alertName) {
+	public MyNumberPicker (Context context, final ListView listview, final T[] werte, String suffix, final MyPickerCallback<T> mynumberpickercallback, String alertName) {
 		this.context = context;
 		this.werte = werte;
 		this.suffix = suffix;

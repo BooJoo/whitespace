@@ -18,7 +18,7 @@ public class MyMergedPicker {
 	final MyTextPicker operator;
 	final MyTextPicker unit;
 	
-	public MyMergedPicker(Context context, final MyNumberPickerCallback<String> mynumberpickercallback, String alertName){
+	public MyMergedPicker(Context context, final MyPickerCallback<String> mynumberpickercallback, String alertName){
 		this.context = context;
 		input = new EditText(context);
 		
@@ -35,25 +35,27 @@ public class MyMergedPicker {
 		//units = listview.getResources().getStringArray(R.array.Einheit);
 		
 		//Operator Picker
-		operator = new MyTextPicker(listview.getContext(), new MyNumberPickerCallback<String>(){
+		operator = new MyTextPicker(listview.getContext(), new MyPickerCallback<String>(){
 		    	
 			@Override
 			public void valueset(String value) {}
 			
-		}, "Operator");
+		}, "Operator",
+		"");
 		
 		
 		//Einheiten Picker
-		unit = new MyTextPicker(listview.getContext(), new MyNumberPickerCallback<String>(){
+		unit = new MyTextPicker(listview.getContext(), new MyPickerCallback<String>(){
 
 			@Override
 			public void valueset(String value) {}
 			
-		}, "Einheit");
+		}, "Einheit",
+		"");
 
 		
 		//Zahlen Picker
-		values = new MyNumberPicker<Number>(listview.getContext(),listview, nums, "", new MyNumberPickerCallback<Number>() {
+		values = new MyNumberPicker<Number>(listview.getContext(),listview, nums, "", new MyPickerCallback<Number>() {
 		
 			@Override
 			public void valueset(Number value) {

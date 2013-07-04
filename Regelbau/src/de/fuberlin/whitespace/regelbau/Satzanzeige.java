@@ -16,9 +16,7 @@ import de.fuberlin.whitespace.regelbau.logic.data.TriggerVocabulary.ArgumentData
 public class Satzanzeige extends LinearLayout {
 
     Vector<IButtonChangeListener> listeners = new Vector<IButtonChangeListener>();
-
-    private AbsRule rule;
-
+    
     private Button buttona;
     private Button buttonb;
     private Button buttonc; 
@@ -53,7 +51,6 @@ public class Satzanzeige extends LinearLayout {
 
 	this.dataLoader = dataLoader;
 	
-	this.rule = rule;
 	this.setOrientation(LinearLayout.VERTICAL);
 
 	// Button A und Vocabulary initialisieren

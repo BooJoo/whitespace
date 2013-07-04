@@ -65,7 +65,7 @@ public class MySlotmachine {
 	    adapter1.addAll(values1);
 	    lv1.setAdapter(adapter1);
 	    lv1.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-	    lv1.setOnItemClickListener(new MySlotmachineOnItemClickListener(null, lv1, new MyNumberPickerCallback<String>() {
+	    lv1.setOnItemClickListener(new MySlotmachineOnItemClickListener(null, lv1, new MyPickerCallback<String>() {
 			
 			@Override
 			public void valueset (String value) {
@@ -76,7 +76,7 @@ public class MySlotmachine {
 	    adapter2.addAll(values2);
 	    lv2.setAdapter(adapter2);
 	    lv2.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-		lv2.setOnItemClickListener(new MySlotmachineOnItemClickListener(null, lv2, new MyNumberPickerCallback<String>() {
+		lv2.setOnItemClickListener(new MySlotmachineOnItemClickListener(null, lv2, new MyPickerCallback<String>() {
 					
 					@Override
 					public void valueset(String value) {
@@ -87,7 +87,7 @@ public class MySlotmachine {
 	    adapter3.addAll(values3);
 	    lv3.setAdapter(adapter3);
 	    lv3.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-		lv3.setOnItemClickListener(new MySlotmachineOnItemClickListener(null, lv3, new MyNumberPickerCallback<String>() {
+		lv3.setOnItemClickListener(new MySlotmachineOnItemClickListener(null, lv3, new MyPickerCallback<String>() {
 					
 					@Override
 					public void valueset(String value) {

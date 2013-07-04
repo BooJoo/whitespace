@@ -9,7 +9,7 @@ public class InTemperatures extends AbstractThresholdTrigger {
     private static final long serialVersionUID = 3743960221092707921L;
 
     @Override
-    public String getThresholdObjectUrl() {
+    protected String getThresholdObjectUrl() {
 	return "InTemperature";
     }
     

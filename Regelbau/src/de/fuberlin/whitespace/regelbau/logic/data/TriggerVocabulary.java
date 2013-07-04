@@ -124,6 +124,8 @@ public class TriggerVocabulary {
 
 	    if (arg.getSelectedOperator() != null) {
 		label += " " + arg.getSelectedOperatorDisplaystring();
+	    } else if (arg.numOperators() == 1) {
+		label += " " + arg.getOperatorDisplayStrings().get(0);
 	    }
 
 	    if (arg.getSelectedValue() != null) {
@@ -354,7 +356,7 @@ public class TriggerVocabulary {
 
 		List<String> result = new ArrayList<String>();
 
-		for (String op :this.operators) {
+		for (String op : this.operators) {
 		    result.add(ArgumentData.operatorDisplayStrings.get(op));
 		}
 

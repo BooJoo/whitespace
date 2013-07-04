@@ -8,7 +8,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import de.fuberlin.whitespace.regelbau.MyNumberPicker;
-import de.fuberlin.whitespace.regelbau.MyNumberPickerCallback;
+import de.fuberlin.whitespace.regelbau.MyPickerCallback;
 import de.fuberlin.whitespace.regelbau.MySlotmachine;
 import de.fuberlin.whitespace.regelbau.MySlotmachineCallback;
 import de.fuberlin.whitespace.regelbau.R.drawable;
@@ -66,6 +66,7 @@ public class ebene3listener implements OnItemClickListener {
 
 				currentArg.selectValue(wert);
 				currentArg.selectUnit(einheit);
+				currentArg.selectOperatorByDisplayString(operator);
 
 				// Auswahl sichtbar bekanntmachen.
 				satzanzeige.getButtonc().setText(selectedVocabulary.getSelectedTriggerString());
@@ -83,7 +84,7 @@ public class ebene3listener implements OnItemClickListener {
 			listview, 
 			currentArg.getValueContainers().toArray(new TriggerVocabulary.ListItemValueContainer[0]),
 			currentArg.numUnits() > 0 ? currentArg.getUnits().get(0) : "",
-			new MyNumberPickerCallback<TriggerVocabulary.ListItemValueContainer>() {
+			new MyPickerCallback<TriggerVocabulary.ListItemValueContainer>() {
 
 			    @Override
 			    public void valueset (ListItemValueContainer value) {

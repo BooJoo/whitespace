@@ -9,7 +9,7 @@ public class AirHumidity extends AbstractThresholdTrigger {
     private static final long serialVersionUID = -4274603150539983016L;
 
     @Override
-    public String getThresholdObjectUrl() {
+    protected String getThresholdObjectUrl() {
 	return "AirHumidity";
     }
     
