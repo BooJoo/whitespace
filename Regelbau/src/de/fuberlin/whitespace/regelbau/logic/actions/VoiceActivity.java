@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
@@ -30,13 +31,27 @@ public class VoiceActivity extends Activity implements VoiceActivityObserver {
 	private Vector<VoiceActivityCallback> callbacks = new Vector<VoiceActivityCallback>();
  
 	private VoiceActivityAbstractElement vol;
-	
+	public String text;
+	public int duration = 3000;
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	     VoiceActivityAbstractCallback vaacl = null;
 	    rider = new KnightRider(this);
-	    vol = new VoiceActivityAbstractElement(rider,this) {
+	    try{
+			text = getIntent().getStringExtra("text");
+	    }catch(Exception e){
+	    	text = "Möchten sie, dass ich ihrer Freundin eine SMS sende?";
+	    }
+	    try{duration = getIntent().getIntExtra("duration",3000);}catch(Exception e){}
+	    try{vaacl = (VoiceActivityAbstractCallback)getIntent().getSerializableExtra("abstractelement");}catch(Exception e){}
+	    vol = new VoiceActivityAbstractElement(rider,this,vaacl) {
 			
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 2773457465331868445L;
+
 			@Override
 			public void Ask(String text, int textSpeechTime) {
 				rider.say(text);
@@ -59,8 +74,9 @@ public class VoiceActivity extends Activity implements VoiceActivityObserver {
 			}
 
 			@Override
-			public void evaluate(String[] matches) { 
-				String[] check1 = {"ja"};
+			public void evaluate(String[] matches,KnightRider rider2,Context con2) { 
+				if(vaac == null)
+					{String[] check1 = {"ja"};
 				String[] check2 = {"nein"};
 					if(containsAll(check1, matches)){
 						// Schreibe SMS
@@ -79,19 +95,24 @@ public class VoiceActivity extends Activity implements VoiceActivityObserver {
 						rider.say("Ich habe sie nicht verstanden, bitte wiederholen sie");
 						Ask("",1500);
 					}
-				
+					}else
+					{
+					vaac.evaluate(matches, rider, getApplicationContext());	
+					
+					}
 			}
 
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				Ask("Möchten sie dass ich ihrer Freundin eine SMS sende?",3500);
+				Ask(text,duration);
 			}
 		};
      	setContentView(R.layout.voiceactivity);
      	mainView = (TextView)findViewById(R.id.textView1);
      	((LinearLayout)mainView.getParent()).addView(new Blinklicht(this));
-     	mainView.setText("Möchten sie, dass ich ihrer Freundin eine SMS sende?");
+     	mainView.setText(text);
+     	
      /*	if(savedInstanceState.getString(MAINTEXT) != null) 
      	{
      		   mainView.setText(savedInstanceState.getString(MAINTEXT));
@@ -164,7 +185,7 @@ public class VoiceActivity extends Activity implements VoiceActivityObserver {
 				 String[] treffer = matches.toArray(new String[matches.size()]);
 				 System.out.println("RES OK"+ treffer + " : "+callbacks.get(0));
 				 if(treffer != null && callbacks.get(0) != null){
-					 callbacks.get(0).evaluate(treffer);
+					 callbacks.get(0).evaluate(treffer,rider,this);
 					 callbacks.removeElementAt(0);
 				 }
 			}

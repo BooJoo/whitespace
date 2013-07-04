@@ -1,5 +1,7 @@
 package de.fuberlin.whitespace.regelbau.logic.actions;
 
+import java.io.Serializable;
+
 import android.content.Context;
 import de.fuberlin.whitespace.kitt.KnightRider;
 
@@ -12,13 +14,23 @@ import de.fuberlin.whitespace.kitt.KnightRider;
  * @see de.fuberlin.whitespace.logic.actions.VoiceActivity
  * @see de.fuberlin.whitespace.logic.actions.Voice
  */
-public abstract class VoiceActivityAbstractElement implements VoiceActivityCallback, Runnable{
+public abstract class VoiceActivityAbstractElement implements VoiceActivityCallback, Runnable, Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7864769562913889823L;
 	KnightRider rider;VoiceActivityObserver observer;
+	protected VoiceActivityAbstractCallback vaac;
 	public VoiceActivityAbstractElement(KnightRider rider, VoiceActivityObserver vobs){
 		this.rider = rider;
 		this.observer = vobs;
 	}
 	
+	public VoiceActivityAbstractElement(KnightRider rider,VoiceActivityObserver vobs, VoiceActivityAbstractCallback vaac){
+		this.rider = rider;
+		this.observer = vobs;
+		this.vaac = vaac;
+	}
 	/**
 	 * Stellt eine Frage
 	 * @param text 

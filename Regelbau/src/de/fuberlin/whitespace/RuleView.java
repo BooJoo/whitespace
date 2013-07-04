@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import de.fuberlin.sms.SMSActivity;
 import de.fuberlin.whitespace.regelbau.R;
 import de.fuberlin.whitespace.regelbau.logic.Rule;
+import de.fuberlin.whitespace.regelbau.logic.actions.Voice;
 import de.fuberlin.whitespace.regelbau.logic.actions.VoiceActivity;
 
 /**
@@ -61,8 +62,9 @@ public class RuleView {
 				// TODO Auto-generated method stub
 				
 				//startActivity(it); 
-				Intent i = new Intent(v.getContext(), VoiceActivity.class);
-		    	v.getContext().startActivity(i);
+			//	Intent i = new Intent(v.getContext(), VoiceActivity.class);
+		    //	v.getContext().startActivity(i);
+				new Voice().Do(v.getContext());
 			}
 		});
 		trigger.setOnClickListener(ocl);
