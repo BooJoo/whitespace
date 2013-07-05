@@ -21,7 +21,13 @@ public abstract class AbstractThresholdTrigger extends Trigger {
     @Override
     protected boolean isFullfilled (DataObject dataObject) {
 	
-	return this.getParam("Threshold").op((Double) dataObject.getElement(this.getThresholdObjectUrl()).getValue());
+	Double value = (Double) dataObject.getElement(this.getThresholdObjectUrl()).getValue();
+	
+	if (value != null) {
+	    return this.getParam("Threshold").op(value);
+	} else {
+	    return false;
+	}
     }
     
 }

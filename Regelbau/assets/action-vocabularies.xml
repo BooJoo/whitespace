@@ -16,16 +16,16 @@
 	</vocabulary>
 	<vocabulary action-id="ShowPOIs" display-string="Zeige mir" display-name="Zeige" multiple-choices="true">
 		<option word="Raststätten">
-			<arg name="type">1</arg>
+			<arg name="query">Raststätte</arg>
 		</option>
 		<option word="Sehenswürdigkeiten">
-			<arg name="type">2</arg>
+			<arg name="query">Sehenswürdigkeit|Attraktion</arg>
 		</option>
 		<option word="Tankstellen">
-			<arg name="type">3</arg>
+			<arg name="query">Tankstelle</arg>
 		</option>
-		<option word="Wetter">
-			<arg name="type">4</arg>
+		<option word="Unterkünfte">
+			<arg name="query">Hotel|Motel</arg>
 		</option>
 	</vocabulary>
 	<vocabulary action-id="Voice" display-string="Kontaktiere" display-name="Kontaktiere" multiple-choices="false">

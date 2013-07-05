@@ -251,16 +251,6 @@ public abstract class Trigger implements Serializable {
 	this.stringRepresentation = str;
     }
 
-    /*@Override
-    public int hashCode () {
-	return (this.id + (this.parent != null ? this.parent.hashCode() : null) + this.params.size() + (this.params.toString())).hashCode();
-    }
-
-    @Override
-    public boolean equals (Object o) {
-	return (o instanceof Trigger) && this.id.equals(((Trigger) o).id);
-    }*/
-
     @Override
     public String toString () {
 	return this.stringRepresentation;

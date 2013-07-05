@@ -11,10 +11,17 @@
 			<arg name="Threshold" type="Float" description="Geschwindigkeit, deren Überschreitung zur Auslösung führen soll." />
 		</trigger>
 		<trigger id="InteriorTemperature" classname="de.fuberlin.whitespace.regelbau.logic.triggers.InTemperatures">
-			<arg name="Threshold" type="Integer" description="Temperaturschwellwert" />
+			<arg name="Threshold" type="Float" description="Temperaturschwellwert" />
+		</trigger>
+		<trigger id="ExteriorTemperature" classname="de.fuberlin.whitespace.regelbau.logic.triggers.ExteriorTemperature">
+			<arg name="Threshold" type="Float" description="Temperaturschwellwert" />
 		</trigger>
 		<trigger id="AirHumidity" classname="de.fuberlin.whitespace.regelbau.logic.triggers.AirHumidity">
 			<arg name="Threshold" type="Float" description="Luftfeuchtigkeitsschwellwert" />
+		</trigger>
+		<trigger id="Rain" classname="de.fuberlin.whitespace.regelbau.logic.triggers.Rain" />
+		<trigger id="FuelConsumption" classname="de.fuberlin.whitespace.regelbau.logic.triggers.FuelConsumption">
+			<arg name="Threshold" type="Float" description="Verbrauchsschwellwert" />
 		</trigger>
 	</triggers>
 	<trigger-groups>
@@ -31,6 +38,11 @@
 	        <member>InteriorTemperature</member>
 	        <member>Speed</member>
 	        <member>TankLevel</member>
+	        <member>FuelConsumption</member>
+	    </group>
+	    <group id="Environment" word="Umwelt">
+	        <member>ExteriorTemperature</member>
+	        <member>Rain</member>
 	    </group>
 	</trigger-groups>
 	<actions>
@@ -51,10 +63,17 @@
 	    <mapping action="ShowMessage">
 	        <trigger>Speed</trigger>
 	        <trigger>TankLevel</trigger>
+	        <trigger>FuelConsumption</trigger>
 	        <trigger>DrivingDistance</trigger>
+	        <trigger>InteriorTemperature</trigger>
+	        <trigger>ExteriorTemperature</trigger>
+	        <trigger>Rain</trigger>
 	    </mapping>
 	    <mapping action="ShowPOIs">
 	        <trigger>DrivingDistance</trigger>
+	        <trigger>TankLevel</trigger>
+	        <trigger>Rain</trigger>
+	        <trigger>ExteriorTemperature</trigger>
 	    </mapping>
 	</action-trigger-mappings>
 </ruledata>

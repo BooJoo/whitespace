@@ -103,7 +103,13 @@ public class ebene3listener implements OnItemClickListener {
 	    }
 
 	} else {			// Trigger hat keine Argumente
-	    // TODO
+	    
+	    satzanzeige.getButtonc().setText(selectedVocabulary.getSelectedTriggerString());
+
+	    satzanzeige.getButtona().setCompoundDrawablesWithIntrinsicBounds(null, null, img, null );
+	    satzanzeige.getButtonb().setCompoundDrawablesWithIntrinsicBounds(null, null, img, null );
+	    satzanzeige.getButtonc().setCompoundDrawablesWithIntrinsicBounds(null, null, img, null );
+	    
 	}
     }
 

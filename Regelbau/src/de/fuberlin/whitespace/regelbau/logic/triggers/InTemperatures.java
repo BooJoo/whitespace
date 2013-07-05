@@ -1,7 +1,7 @@
 package de.fuberlin.whitespace.regelbau.logic.triggers;
 
 
-public class InTemperatures extends AbstractThresholdTrigger {
+public class InTemperatures extends AbstractTemperatureTrigger {
 
     /**
      * 
@@ -10,7 +10,7 @@ public class InTemperatures extends AbstractThresholdTrigger {
 
     @Override
     protected String getThresholdObjectUrl() {
-	return "InTemperature";
+	return "InteriorTemperature";
     }
     
 }

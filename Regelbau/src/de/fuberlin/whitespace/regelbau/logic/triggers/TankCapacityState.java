@@ -20,21 +20,30 @@ public class TankCapacityState extends Trigger {
 	@Override
 	protected boolean isFullfilled (DataObject dataObject) {
 	    
-	    double fuel=(Double)dataObject.getElement("Premium").getValue();
-	    double threshold = Integer.valueOf(this.getParam("Threshold").value()) * 0.1;
-
-	    if(consumed)
-	    {
-		if(fuel > threshold)
-		{
-		    consumed=false;
-		}
+	    Double threshold = null;
+	    Double fuel = null;
+	    Double premium = (Double) dataObject.getElement("Premium").getValue();
+	    Double diesel = (Double) dataObject.getElement("Diesel").getValue();
+	    
+	    if (diesel == null && premium == null) {
+		return false;
 	    }
-	    else
-	    {
-		if(fuel < threshold)
-		{
-		    consumed=true;
+	    
+	    threshold = Integer.valueOf(this.getParam("Threshold").value()) * 0.1;
+	    
+	    if (premium != null) {
+		fuel = premium;
+	    } else if (diesel != null) {
+		fuel = diesel;
+	    }
+	    
+	    if(consumed) {
+		if(fuel > threshold) {
+		    consumed = false;
+		}
+	    } else {
+		if(fuel < threshold) {
+		    consumed = true;
 		    return true;
 		}
 	    }
