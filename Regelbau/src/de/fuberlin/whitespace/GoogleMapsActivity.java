@@ -1,12 +1,17 @@
 package de.fuberlin.whitespace;
 
 import android.app.Activity;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.LocationSource.OnLocationChangedListener;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -17,6 +22,7 @@ public class GoogleMapsActivity extends Activity {
 
 	static final LatLng HAMBURG = new LatLng(53.558, 9.927);
 	static final LatLng BERLIN = new LatLng(52.506, 13.424);
+	LatLng CARMEQ;
 	private GoogleMap map;
 	  
 	@Override
@@ -27,14 +33,19 @@ public class GoogleMapsActivity extends Activity {
 		System.out.println("Google Connection = "+GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext()));
 		map = ((MapFragment)getFragmentManager().findFragmentById(R.id.map)).getMap();
 		
-		if (map != null) {			
-			System.out.println("Map ist da!");
-			map.addMarker(new MarkerOptions().position(HAMBURG).title("Moin moin, du Landradde!").icon(BitmapDescriptorFactory
-		              .fromResource(R.drawable.marker)));
-			map.addMarker(new MarkerOptions().position(BERLIN).title("Watt kieckstn so?").icon(BitmapDescriptorFactory
-		              .fromResource(R.drawable.marker)));
-			map.moveCamera(CameraUpdateFactory.newLatLngZoom(HAMBURG, 15));
-			map.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+		if (map != null) {	
+			map.setMyLocationEnabled(true);
+			
+			LocationManager service = (LocationManager) getSystemService(LOCATION_SERVICE);
+		    Criteria criteria = new Criteria();
+		    String provider = service.getBestProvider(criteria, false);
+		    Location location = service.getLastKnownLocation(provider);
+		    LatLng userLocation = new LatLng(location.getLatitude(),location.getLongitude());
+		    map.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 15));
+		    
+		    
+			
+
 		}
 		else{
 			System.out.println("Map ist nicht da!");
