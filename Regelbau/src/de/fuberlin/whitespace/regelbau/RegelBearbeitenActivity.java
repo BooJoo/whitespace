@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 import de.fuberlin.whitespace.regelbau.R.drawable;
@@ -96,30 +95,30 @@ public class RegelBearbeitenActivity extends Activity {
 
     protected void initUI() {
 	
-	Button button1 = (Button) findViewById(R.id.buttoneins);
-	Button button2 = (Button) findViewById(R.id.button2);
-	Button button3 = (Button) findViewById(R.id.button3);
-	Button button4 = (Button) findViewById(R.id.button4);
-	Button buttonDelete = (Button) findViewById(R.id.buttondelete);
-
-	text = (EditText) findViewById(R.id.editTextRegelname);
-
-	final ListView listview = (ListView) findViewById(R.id.listView1);
-	final CheckBox cb1 = (CheckBox) findViewById(R.id.checkBox1);
-
-	cb1.setChecked(r.isActive());
-	cb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-	    @Override
-	    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		if (!isChecked) {
-		    Toast.makeText(listview.getContext(), "Regel deaktiviert.", Toast.LENGTH_SHORT).show();
-		} else {
-		    Toast.makeText(listview.getContext(), "Regel aktiviert.", Toast.LENGTH_SHORT).show();
-		}
-
-		r.setActive(isChecked);
-	    }
+		Button button1 = (Button) findViewById(R.id.buttoneins);
+		Button button2 = (Button) findViewById(R.id.button2);
+		Button button3 = (Button) findViewById(R.id.button3);
+		Button button4 = (Button) findViewById(R.id.button4);
+		Button buttonDelete = (Button) findViewById(R.id.buttondelete);
+	
+		text = (EditText) findViewById(R.id.editTextRegelname);
+	
+		final ListView listview = (ListView) findViewById(R.id.listView1);
+		final CheckBox cb1 = (CheckBox) findViewById(R.id.checkBox1);
+	
+		cb1.setChecked(r.isActive());
+		cb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+	
+		    @Override
+		    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			if (!isChecked) {
+			    Toast.makeText(listview.getContext(), "Regel deaktiviert.", Toast.LENGTH_SHORT).show();
+			} else {
+			    Toast.makeText(listview.getContext(), "Regel aktiviert.", Toast.LENGTH_SHORT).show();
+			}
+	
+			r.setActive(isChecked);
+		    }
 	});
 
 	satzanzeige = new Satzanzeige(this, this.dataLoader , null, button1, button2, button3);

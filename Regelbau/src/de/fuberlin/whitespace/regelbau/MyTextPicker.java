@@ -11,7 +11,7 @@ public class MyTextPicker {
     EditText input;
 	
     public MyTextPicker(Context context, final MyPickerCallback<String> mynumberpickercallback, String alertName, String defaultValue) {
-		this.context = context;
+    	this.context = context;
 		
 		input = new EditText(context);
 		input.setText(defaultValue);

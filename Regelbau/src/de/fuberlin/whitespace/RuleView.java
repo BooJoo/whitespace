@@ -1,11 +1,8 @@
 package de.fuberlin.whitespace;
 
 
-import com.google.android.gms.maps.GoogleMap;
-
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +13,6 @@ import android.widget.ImageButton;
 import de.fuberlin.whitespace.regelbau.R;
 import de.fuberlin.whitespace.regelbau.RegelBearbeitenActivity;
 import de.fuberlin.whitespace.regelbau.logic.Rule;
-import de.fuberlin.whitespace.regelbau.logic.actions.Voice;
-import de.fuberlin.whitespace.regelbau.logic.actions.VoiceActivity;
-import de.fuberlin.whitespace.sms.SMSActivity;
 
 /**
  * Neue Regelansicht für Sprintpraesentation
@@ -35,7 +29,6 @@ public class RuleView {
 		
 		@Override
 		public void onClick(View v) {
-			// TODO Bearbeitung der Regel aufrufen
 			main.rufeRegelkonstruktionAuf(rule);
 		}
 	};
@@ -63,15 +56,25 @@ public class RuleView {
 			
 			@Override
 			public void onClick(View v) {
-				new Voice().Do(v.getContext());
+				Intent i = new Intent(v.getContext(), RegelBearbeitenActivity.class);
+				Bundle b = new Bundle();
+			    b.putLong("rule_id", rule.getId());
+			    i.putExtras(b);
+			    main.startActivityForResult(i, 667);
+//				new Voice().Do(v.getContext());
 			}
 		});
 		actionopt.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(v.getContext(), GoogleMapsActivity.class);
-				v.getContext().startActivity(i);
+				Intent i = new Intent(v.getContext(), RegelBearbeitenActivity.class);
+				Bundle b = new Bundle();
+			    b.putLong("rule_id", rule.getId());
+			    i.putExtras(b);
+			    main.startActivityForResult(i, 667);
+//				Intent i = new Intent(v.getContext(), GoogleMapsActivity.class);
+//				v.getContext().startActivity(i);
 			}
 		});
 		trigger.setOnClickListener(new View.OnClickListener() {
