@@ -44,26 +44,18 @@
             android:label="@string/app_name" 
             android:screenOrientation="portrait">            
         </activity>
-        <activity
-            android:name="multiselect_with_checkboxes.ResultActivity"
-            android:label="@string/result_activity" >
-        </activity>
-        <activity 
-            android:name="multiselect_with_checkboxes.MultiSelectListViewActivity"  
-            android:theme="@android:style/Theme.Dialog" >
-        </activity>
         <activity android:name="de.fuberlin.whitespace.RuleMainviewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="de.fuberlin.whitespace.RuleConstruction"></activity>
         <activity android:name="de.fuberlin.whitespace.ScherzActivity"></activity>
         <activity android:name="de.fuberlin.whitespace.regelbau.RegelBearbeitenActivity"></activity>
         <activity android:name="de.fuberlin.whitespace.regelbau.logic.actions.VoiceActivity"></activity>
         <activity android:name="de.fuberlin.whitespace.sms.SMSActivity"></activity>
         <activity android:name="de.fuberlin.whitespace.GoogleMapsActivity"></activity>
+        <activity android:name="de.fuberlin.whitespace.logic.actions.ShowPOI"></activity>
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyBG0uW7Cz-fgrcvOJimd80G80wvftr8x60" />

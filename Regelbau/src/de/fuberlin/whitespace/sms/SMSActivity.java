@@ -14,7 +14,7 @@ import android.provider.ContactsContract.CommonDataKinds.Phone;
 public class SMSActivity extends Activity {
     
 	Uri uri;
-	String text;
+	String text = "Hallo";
 	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,7 +36,7 @@ public class SMSActivity extends Activity {
 			}
 		}
 		catch(Exception e){ uri = Uri.parse("smsto:01234556"); System.out.println(e);}
-		
+		uri = null;
 		if(uri == null){
 			// Starte Kontaktauswahl
 			Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
@@ -99,7 +99,7 @@ public class SMSActivity extends Activity {
 				}
 				// Starte SMS Versand
 				Intent it = new Intent(Intent.ACTION_SENDTO, uri);
-				it.putExtra("sms_body", "The SMS text");
+				it.putExtra("sms_body", text);
 				startActivity(it);
 			}
 

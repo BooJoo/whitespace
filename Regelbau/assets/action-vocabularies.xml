@@ -28,9 +28,18 @@
 			<arg name="query">Hotel|Motel</arg>
 		</option>
 	</vocabulary>
-	<vocabulary action-id="Voice" display-string="Kontaktiere" display-name="Kontaktiere" multiple-choices="false">
-	    <option word="SMS">
-			<arg name="message">Hallo!</arg>
+	<vocabulary action-id="Voice" display-string="SMS" display-name="SMS" multiple-choices="false">
+	    <option word="Auftrag ausgeführt!">
+			<arg name="message">Die Bösewichte sind besiegt!</arg>
+		</option>
+		<option word="Bei Christoph in der Nähe">
+			<arg name="message">Hallo Christoph, ich bin gerade in der Nähe. Wollen wir nicht einen Kaffee trinken gehen?</arg>
+		</option>
+	    <option word="Verspätung">
+			<arg name="message">Ich verspäte mich!</arg>
+		</option>
+		<option word="Brauchst du etwas?">
+			<arg name="message">Brauchst du noch etwas?</arg>
 		</option>
 	</vocabulary>
 	<!-- <vocabulary id="informMe" word="Informiere mich" synonym="display" /> -->

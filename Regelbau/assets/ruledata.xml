@@ -59,6 +59,7 @@
 	<action-trigger-mappings>
 	    <mapping action="Voice">
 	        <trigger>Speed</trigger>
+	        <trigger>DrivingDistance</trigger>
 	    </mapping>
 	    <mapping action="ShowMessage">
 	        <trigger>Speed</trigger>

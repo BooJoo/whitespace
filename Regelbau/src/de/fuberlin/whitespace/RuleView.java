@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import de.fuberlin.whitespace.regelbau.R;
 import de.fuberlin.whitespace.regelbau.RegelBearbeitenActivity;
 import de.fuberlin.whitespace.regelbau.logic.Rule;
+import de.fuberlin.whitespace.regelbau.logic.actions.ShowPOIs;
 
 /**
  * Neue Regelansicht für Sprintpraesentation
@@ -73,8 +74,8 @@ public class RuleView {
 			    b.putLong("rule_id", rule.getId());
 			    i.putExtras(b);
 			    main.startActivityForResult(i, 667);
-//				Intent i = new Intent(v.getContext(), GoogleMapsActivity.class);
-//				v.getContext().startActivity(i);
+//				ShowPOIs sp = new ShowPOIs();
+//				sp.Do(v.getContext());
 			}
 		});
 		trigger.setOnClickListener(new View.OnClickListener() {

@@ -102,7 +102,7 @@ public class RegelBearbeitenActivity extends Activity {
 		Button buttonDelete = (Button) findViewById(R.id.buttondelete);
 	
 		text = (EditText) findViewById(R.id.editTextRegelname);
-	
+		text.setText(r.getName());
 		final ListView listview = (ListView) findViewById(R.id.listView1);
 		final CheckBox cb1 = (CheckBox) findViewById(R.id.checkBox1);
 	

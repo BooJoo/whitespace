@@ -27,7 +27,7 @@ public class ProxyClient {
     /**
      * Standard-Fallback-Adresse, falls discovery scheitert
      */
-    public static final String DEFAULT_FALLBACK_ADDRESS = "192.168.178.20:28500";
+    public static final String DEFAULT_FALLBACK_ADDRESS = "127.0.0.1:28500"; 
 
     /**
      * Nachrichtenintervall der Proxy-Verbindung.
