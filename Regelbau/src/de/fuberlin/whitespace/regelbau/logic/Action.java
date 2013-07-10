@@ -51,7 +51,7 @@ public abstract class Action implements Serializable {
 	params.put(name, value);
     }
     
-    public Object getParam (String name) {
+    public String getParam (String name) {
 	return params.get(name);
     }
     

@@ -42,5 +42,4 @@
 			<arg name="message">Brauchst du noch etwas?</arg>
 		</option>
 	</vocabulary>
-	<!-- <vocabulary id="informMe" word="Informiere mich" synonym="display" /> -->
 </action-vocabularies>

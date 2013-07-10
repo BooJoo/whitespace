@@ -57,7 +57,7 @@ public class RulesPool extends Service {
 	System.out.println("Pool: Destruction.");
 	
 	for (Rule r : this.rules) {
-	    r.signalDestruction();
+	    r.fallAsleep();
 	}
 	
 	try {

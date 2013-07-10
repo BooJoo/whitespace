@@ -23,12 +23,17 @@
 		<trigger id="FuelConsumption" classname="de.fuberlin.whitespace.regelbau.logic.triggers.FuelConsumption">
 			<arg name="Threshold" type="Float" description="Verbrauchsschwellwert" />
 		</trigger>
+		<trigger id="TimeElapsed" classname="de.fuberlin.whitespace.regelbau.logic.triggers.ElapsedTimeTrigger">
+			<arg name="Minutes" type="Integer" description="Zeit (in Min.) bis zur Ausführung" />
+		</trigger>
+		<trigger id="TimeOfDay" classname="de.fuberlin.whitespace.regelbau.logic.triggers.DaytimeTrigger">
+			<arg name="Minutes" type="Integer" description="Zeit (in Min.) seit 00:00 Uhr (aktueller Tag)" />
+		</trigger>
+		<trigger id="TimeInterval" classname="de.fuberlin.whitespace.regelbau.logic.triggers.IntervalTimeTrigger">
+			<arg name="Minutes" type="Integer" description="Ausführungsintervall in Minuten" />
+		</trigger>
 	</triggers>
 	<trigger-groups>
-	    <group id="Time" word="Zeit">
-	        <member>TimeElapsed</member>
-	        <member>TimeOfDay</member>
-	    </group>
 	    <group id="Geo" word="Ort / Strecke">
 	        <member>DrivingDistance</member>
 	        <member>GeoLocation</member>
@@ -43,6 +48,11 @@
 	    <group id="Environment" word="Umwelt">
 	        <member>ExteriorTemperature</member>
 	        <member>Rain</member>
+	    </group>
+	    <group id="Time" word="Zeit">
+	        <member>TimeElapsed</member>
+	        <member>TimeOfDay</member>
+	        <member>TimeInterval</member>
 	    </group>
 	</trigger-groups>
 	<actions>
@@ -61,7 +71,17 @@
 	        <trigger>Speed</trigger>
 	        <trigger>DrivingDistance</trigger>
 	    </mapping>
+	    <mapping action="Facebook">
+	        <trigger>TimeElapsed</trigger>
+	        <trigger>TimeOfDay</trigger>
+	        <trigger>TimeInterval</trigger>
+	        <trigger>DrivingDistance</trigger>
+	        <trigger>Speed</trigger>
+	    </mapping>
 	    <mapping action="ShowMessage">
+	        <trigger>TimeElapsed</trigger>
+	        <trigger>TimeOfDay</trigger>
+	        <trigger>TimeInterval</trigger>
 	        <trigger>Speed</trigger>
 	        <trigger>TankLevel</trigger>
 	        <trigger>FuelConsumption</trigger>
@@ -71,6 +91,7 @@
 	        <trigger>Rain</trigger>
 	    </mapping>
 	    <mapping action="ShowPOIs">
+	        <trigger>TimeInterval</trigger>
 	        <trigger>DrivingDistance</trigger>
 	        <trigger>TankLevel</trigger>
 	        <trigger>Rain</trigger>

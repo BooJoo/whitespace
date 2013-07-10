@@ -19,6 +19,8 @@
 	<string name="aktiv">aktiv</string>
 	<string name="überschrift">Meine Regeln</string>
 	
+	<string name="fb_app_id">289491514528161</string>
+	
 	<string-array name="Operator">
 	    <item>&lt;</item>
 	    <item>&gt;</item>

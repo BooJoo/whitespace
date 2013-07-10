@@ -1,5 +1,6 @@
 package de.fuberlin.whitespace.regelbau.logic.data;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,22 +28,33 @@ public class TriggerVocabulary {
      * Id des assoziierten {@link Trigger}s (entspricht dem Attribut `id` der &lt;trigger&gt;-Elemente in ruledata.xml)
      */
     protected String triggerId;
+    
+    /**
+     * der anzugzeigende Name
+     */
+    private String displayName;
+    
+    /**
+     * ein optionaler Präfix zur Anzeige vor (Operator + Wert + Einheit)
+     */
+    private String displayPrefix;
 
     /**
-     * der in der GUI anzuzeigende String (entspricht dem Attribut `word` der &lt;vocabulatory&gt;-Elemente in trigger-vocabulatories.xml)
+     * ein optionaler Suffix zur Anzeige nach (Operator + Wert + Einheit)
      */
-    private String word;
-
-    private String displayName;
+    private String displaySuffix;
 
     /**
      * Argumente des Triggers zusammen mit möglichen Operatoren, Werten und Einheiten
      */
-    private List<ArgumentData> arguments;
+    private List<TriggerArgument> arguments;
 
     private TriggerVocabulary (String triggerId) {
 	this.triggerId = triggerId;
-	this.arguments = new ArrayList<ArgumentData>();
+	this.arguments = new ArrayList<TriggerArgument>();
+	this.displayName = null;
+	this.displayPrefix = "";
+	this.displaySuffix = "";
     }
 
     /**
@@ -60,17 +72,28 @@ public class TriggerVocabulary {
 
     /**
      * Initialisierung der aktuellen Instanz anhand des entsprechenden &lt;vocabulatory&gt;-XML-Knotens
-     * aus trigger-vocabulatories.xml 
+     * aus trigger-vocabulatories.xml.
      * @param node
+     * @throws InvocationTargetException 
+     * @throws InstantiationException 
+     * @throws ClassNotFoundException 
+     * @throws ClassCastException 
      */
-    public void init (Node node) {
+    public void init (Node node) throws ClassCastException, ClassNotFoundException, InstantiationException, InvocationTargetException {
 
 	NodeList argNodes = node.getChildNodes();
 	Node currentNode;
-	ArgumentData currentArgumentData;
-
-	this.word = node.getAttributes().getNamedItem("word").getTextContent();
+	TriggerArgument currentArgumentData;
+	
 	this.displayName = node.getAttributes().getNamedItem("display-name").getTextContent();
+	
+	if (null != (currentNode = node.getAttributes().getNamedItem("display-prefix"))) {
+	    this.displayPrefix = currentNode.getTextContent();
+	}
+	
+	if (null != (currentNode =  node.getAttributes().getNamedItem("display-suffix"))) {
+	    this.displaySuffix = currentNode.getTextContent();
+	}
 
 	for (int i=0; i < argNodes.getLength(); i++) {
 
@@ -79,14 +102,9 @@ public class TriggerVocabulary {
 	    if (currentNode.getNodeType() != Node.ELEMENT_NODE) {
 		continue;
 	    }
-
-	    currentArgumentData = new ArgumentData();
 	    
-	    currentArgumentData.name = currentNode.getAttributes().getNamedItem("name").getTextContent();
-	    currentArgumentData.values = TriggerVocabulary.fetchArgumentData(currentNode, "values", "value");
-	    currentArgumentData.operators = TriggerVocabulary.fetchArgumentData(currentNode, "operators", "operator");
-	    currentArgumentData.units = TriggerVocabulary.fetchArgumentData(currentNode, "units", "unit");
-
+	    currentArgumentData = TriggerArgument.build(currentNode);
+	    
 	    this.arguments.add(currentArgumentData);
 	}
     }
@@ -96,77 +114,68 @@ public class TriggerVocabulary {
     }
 
     /**
-     * Gibt den Anzeige-String zur Darstellung in der GUI zurück.
+     * Gibt den anzuzeigenden Namen zurück.
      * @return
      */
-    public String getWord () {
-	return this.word;
-    }
-
     public String getDisplayName () {
 	return this.displayName;
     }
-
-    public List<ArgumentData> getArgumentData () {
-	return this.arguments;
+    
+    /**
+     * Gibt den vor (Operator + Wert + Einheit) anzuzeigenden String zurück.
+     * @return
+     */
+    public String getDisplayPrefix () {
+	return this.displayPrefix;
     }
     
+    /**
+     * Gibt den nach (Operator + Wert + Einheit) anzuzeigenden String zurück.
+     * @return
+     */
+    public String getDisplaySuffix () {
+	return this.displaySuffix;
+    }
 
+    public List<TriggerArgument> getArgumentData () {
+	return this.arguments;
+    }
+
+    /**
+     * Gibt eine vollständige (anzeigbare) String-Repräsentation
+     * des gewählten Argumentwertes zurück.
+     * @return
+     */
     public String getSelectedTriggerString (){
 
 	String label = "";
-
-	label += this.getWord();
-
+	
 	if (this.getArgumentData().size() > 0) {
 
-	    ArgumentData arg = this.getArgumentData().get(0);
-
-	    if (arg.getSelectedOperator() != null) {
-		label += " " + arg.getSelectedOperatorDisplaystring();
-	    } else if (arg.numOperators() == 1) {
-		label += " " + arg.getOperatorDisplayStrings().get(0);
-	    }
+	    TriggerArgument arg = this.getArgumentData().get(0);
 
 	    if (arg.getSelectedValue() != null) {
-		label += " " + arg.getSelectedValue();
+		label += arg.getSelectedValueString();
 
 		if (arg.getSelectedUnit() != null) {
 		    label += " " + arg.getSelectedUnit();
-		} else if (arg.numUnits() == 1) {
-		    label += " " + arg.getUnits().get(0);
 		}
+		
+		if (arg.getSelectedOperator() != null) {
+			label = arg.getSelectedOperatorDisplaystring() + " " + label;
+		    }
 	    }
 	}
 	
-	return label;
-    }
-
-    private static List<String> fetchArgumentData(Node node, String rootNodeName, String valueNodeName) {
-
-	List<String> result = new ArrayList<String>();
-
-	NodeList children = node.getChildNodes();
-
-	for (int i=0; i < children.getLength(); i++) {
-
-	    if (children.item(i).getNodeName().equals(rootNodeName)) {
-
-		children = children.item(i).getChildNodes();
-
-		for (int j=0; j < children.getLength(); j++) {
-		    if (children.item(j).getNodeType() == Node.ELEMENT_NODE) {
-			result.add(children.item(j).getTextContent());
-		    }
-		}
-
-		break;
-	    }
+	if (label.length() > 0) {
+	    label = this.displayPrefix + " " + label + " " + this.displaySuffix;
+	} else {
+	    label = this.displayName;
 	}
 
-	return result;
+	return label;
     }
-
+    
     @Override
     public String toString() {
 	return this.displayName;
@@ -183,226 +192,16 @@ public class TriggerVocabulary {
     }
 
     /**
-     * Eine ArgumentData-Instanz ist eine Menge von möglichen
-     * Operatoren, Werten und Einheiten für einen bestimmten
-     * Parameter eines Triggers.
-     *
-     */
-    public static class ArgumentData {
-
-	private static final HashMap<String, String> operatorDisplayStrings = new HashMap<String, String>() {/**
-	 * 
-	 */
-	    private static final long serialVersionUID = 4294961145814533660L;
-
-	    {
-		put("gt",">");
-		put("eq","=");
-		put("lt","<");
-	    }};
-
-	    /**
-	     * Name des Arguments
-	     */
-	    private String name;
-
-	    private List<String> values;
-	    private List<String> operators;
-	    private List<String> units;
-
-	    /**
-	     * ausgewählter Wert
-	     */
-	    private Integer selectedValue;
-
-	    /**
-	     * ausgewählter Operator
-	     */
-	    private Integer selectedOperator;
-
-	    /**
-	     * ausgewählte Einheit
-	     */
-	    private Integer selectedUnit;
-
-	    private ArgumentData () {
-		this.values = new ArrayList<String>();
-		this.operators = new ArrayList<String>();
-		this.units = new ArrayList<String>();
-		this.cleanSelection();
-	    }
-
-	    /**
-	     * Wert <tt>value</tt> als "ausgewählt" markieren
-	     * @param value
-	     */
-	    public void selectValue (String value) {
-		this.selectedValue = this.values.indexOf(value);
-	    }
-	    
-	    public void selectValueByContainer (ListItemValueContainer value) {
-		if (value.parentDataObject == this) {
-		    this.selectValue((String) value.value);
-		}
-	    }
-
-	    /**
-	     * Operator <tt>operator</tt> als "ausgewählt" markieren
-	     * @param value
-	     */
-	    public void selectOperator (String operator) {
-		this.selectedOperator = this.operators.indexOf(operator);
-	    }
-
-	    /**
-	     * Den zum Anzeige-String <tt>displayString</tt> gehörenden
-	     * Operator als "ausgewählt" markieren.
-	     * @param displayString
-	     */
-	    public void selectOperatorByDisplayString (String displayString) {
-
-		for (String op : ArgumentData.operatorDisplayStrings.keySet()) {
-		    if (ArgumentData.operatorDisplayStrings.get(op).equals(displayString)) {
-			this.selectedOperator = this.operators.indexOf(op);
-			return;
-		    }
-		}
-
-	    }
-
-	    /**
-	     * Einheit <tt>unit</tt> als ausgewählt markieren.
-	     * @param unit
-	     */
-	    public void selectUnit (String unit) {
-		this.selectedUnit = this.units.indexOf(unit);
-	    }
-
-	    /**
-	     * Eventuelle Auswahl-Informationen zurücksetzen.
-	     */
-	    public void cleanSelection() {
-		this.selectedValue = -1;
-		this.selectedOperator = -1;
-		this.selectedUnit = -1;
-	    }
-
-	    /**
-	     * Gibt den ausgewählten Wert zurück.
-	     */
-	    public String getSelectedValue () {
-		return this.selectedValue >= 0 ? this.values.get(this.selectedValue) : null;
-	    }
-
-	    /**
-	     * Gibt den ausgewählten Operator zurück.
-	     */
-	    public String getSelectedOperator () {
-		return this.selectedOperator >= 0 ? this.operators.get(this.selectedOperator) : null;
-	    }
-
-
-	    public String getSelectedOperatorDisplaystring() {
-		return ArgumentData.operatorDisplayStrings.get(this.getSelectedOperator());
-	    }
-
-	    /**
-	     * Gibt die ausgewählte Einheit zurück.
-	     */
-	    public String getSelectedUnit () {
-		return this.selectedUnit >= 0 ? this.units.get(this.selectedUnit) : null;
-	    }
-
-	    public String getName() {
-		return name;
-	    }
-
-	    public void setName(String name) {
-		this.name = name;
-	    }
-
-	    /**
-	     * Gibt die möglichen Werte zurück.
-	     */
-	    public List<String> getValues() {
-		return values;
-	    }
-	    
-	    /**
-	     * Gibt die Möglichen Werte als {@link ListItemValueContainer} zurück.
-	     * @return
-	     */
-	    public List<ListItemValueContainer> getValueContainers () {
-		List<ListItemValueContainer> result = new ArrayList<ListItemValueContainer>();
-		
-		for (String value : this.values) {
-		    result.add(new ListItemValueContainer(value, this));
-		}
-		
-		return result;
-	    }
-
-	    /**
-	     * Gibt die möglichen Operatoren zurück.
-	     */
-	    public List<String> getOperators() {
-		return operators;
-	    }
-
-	    /**
-	     * Gibt die Display-Strings der möglichen Operatoren zurück.
-	     */
-	    public List<String> getOperatorDisplayStrings () {
-
-		List<String> result = new ArrayList<String>();
-
-		for (String op : this.operators) {
-		    result.add(ArgumentData.operatorDisplayStrings.get(op));
-		}
-
-		return result;
-	    }
-
-	    /**
-	     * Gibt die möglichen Einheiten zurück.
-	     */
-	    public List<String> getUnits() {
-		return units;
-	    }
-
-	    /**
-	     * Gibt die Anzahl der möglichen Werte zurück.
-	     */
-	    public int numValues () {
-		return this.values.size();
-	    }
-
-	    /**
-	     * Gibt die Anzahl der möglichen Operatoren zurück.
-	     */
-	    public int numOperators () {
-		return this.operators.size();
-	    }
-
-	    /**
-	     * Gibt die anzahl der möglichen Einheiten zurück.
-	     */
-	    public int numUnits () {
-		return this.units.size();
-	    }
-    }
-
-    /**
      * Diese Klasse dient nur als Container zur Verwendung
      * in der Android-ListView-Komponente.
      *
      */
     public static class ListItemValueContainer {
 
-	private Object value;
-	private ArgumentData parentDataObject;
+	Object value;
+	PreselectedTriggerArgument parentDataObject;
 
-	public ListItemValueContainer(Object value, ArgumentData argumentData) {
+	public ListItemValueContainer(Object value, PreselectedTriggerArgument argumentData) {
 	    this.value = value;
 	    this.parentDataObject = argumentData;
 	}

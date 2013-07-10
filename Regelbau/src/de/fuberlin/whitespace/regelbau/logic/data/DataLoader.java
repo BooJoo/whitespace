@@ -1,6 +1,7 @@
 package de.fuberlin.whitespace.regelbau.logic.data;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -22,7 +23,6 @@ import de.fuberlin.whitespace.regelbau.logic.Action;
 import de.fuberlin.whitespace.regelbau.logic.Rule;
 import de.fuberlin.whitespace.regelbau.logic.Trigger;
 import de.fuberlin.whitespace.regelbau.logic.data.ActionVocabulary.ActionOption;
-import de.fuberlin.whitespace.regelbau.logic.data.TriggerVocabulary.ArgumentData;
 
 /**
  * Der DataLoader ist für das deserialisieren der
@@ -68,7 +68,7 @@ public class DataLoader {
      */
     private static List<ActionVocabulary> actionVocabularies = new ArrayList<ActionVocabulary>();
 
-    public DataLoader (Context ctx) throws SAXException, IOException, ParserConfigurationException, DOMException, ClassNotFoundException {
+    public DataLoader (Context ctx) throws SAXException, IOException, ParserConfigurationException, DOMException, ClassNotFoundException, ClassCastException, InstantiationException, InvocationTargetException {
 
 	if (!DataLoader.initialized) {
 
@@ -140,20 +140,23 @@ public class DataLoader {
     public TriggerVocabulary getTriggerVocabularyByTrigger (Trigger trigger) {
 	
 	TriggerVocabulary vocab;
-	List<ArgumentData> args;
+	List<TriggerArgument> args;
 	Trigger.Param triggerParam;
+	PreselectedTriggerArgument parg;
 	
 	vocab = TriggerVocabulary.get(trigger.getId());
 	args = vocab.getArgumentData();
 	
-	for (ArgumentData arg : args) {
+	for (TriggerArgument arg : args) {
 	    
 	    if (null != (triggerParam = trigger.getParam(arg.getName()))
-		    && arg.getValues().contains(triggerParam.value())) {
-		
+		    && (!(arg instanceof PreselectedTriggerArgument)
+			    || ((PreselectedTriggerArgument) arg).getValues().contains(triggerParam.value()))) {
+
 		arg.selectValue(triggerParam.value());
 		arg.selectOperator(triggerParam.getOperatorString());
 		arg.selectUnit(triggerParam.unit());
+
 	    }
 	}
 	
@@ -239,7 +242,7 @@ public class DataLoader {
 	    result.setId(vocab.getTriggerId());
 	    result.setStringRepresentation(vocab.getSelectedTriggerString());
 
-	    for (ArgumentData arg : vocab.getArgumentData()) {
+	    for (TriggerArgument arg : vocab.getArgumentData()) {
 		
 		Trigger.Param param = new Trigger.Param(
 			arg.getName(),
@@ -335,7 +338,7 @@ public class DataLoader {
 	    result = trigger;
 	    triggerParams = trigger.getParamNames();
 	    
-	    for (ArgumentData d : vocab.getArgumentData()) {
+	    for (TriggerArgument d : vocab.getArgumentData()) {
 		
 		Trigger.Param param;
 		
@@ -360,7 +363,7 @@ public class DataLoader {
 	result.setStringRepresentation(vocab.getSelectedTriggerString());
     }
 
-    private static void loadVocabularies (Context ctx) throws SAXException, IOException, ParserConfigurationException {
+    private static void loadVocabularies (Context ctx) throws SAXException, IOException, ParserConfigurationException, ClassCastException, ClassNotFoundException, InstantiationException, InvocationTargetException {
 
 	Document doc;
 	NodeList vocabularies;

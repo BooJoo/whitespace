@@ -1,5 +1,5 @@
 package de.fuberlin.whitespace.regelbau;
 
-public abstract class MyPickerCallback <T> {
-	public abstract void valueset(T value);
+public interface MyPickerCallback <T> {
+    public abstract void valueset(T value);
 }

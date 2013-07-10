@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <trigger-vocabularies>
-    <vocabulary word="Tankstand unter" display-name="Tankstand" trigger-id="TankLevel">
-        <arg name="Threshold">
+    <vocabulary display-prefix="Tankstand unter" display-name="Tankstand" trigger-id="TankLevel">
+        <arg
+            name="Threshold"
+            description="Tankstandssschwellwert"
+            type="de.fuberlin.whitespace.regelbau.logic.data.PreselectedTriggerArgument"
+			selector="de.fuberlin.whitespace.regelbau.MyNumberPicker" >
+			
 			    <operators />
 			    <units>
 			        <unit>%</unit>
 			    </units>
-				<values>
+				<values type="Integer">
 					<value>10</value>
 					<value>20</value>
 					<value>30</value>
@@ -19,8 +24,13 @@
 				</values>
 			</arg>
     </vocabulary>
-    <vocabulary word="Verbrauch" display-name="Kraftstoffverbrauch" trigger-id="FuelConsumption">
-        <arg name="Threshold">
+    <vocabulary display-prefix="Verbrauch" display-name="Kraftstoffverbrauch" trigger-id="FuelConsumption">
+        <arg
+            name="Threshold" 
+            type="de.fuberlin.whitespace.regelbau.logic.data.PreselectedTriggerArgument"
+            description="Verbrauchssschwellwert"
+            selector="de.fuberlin.whitespace.regelbau.MySlotmachine" >
+				
 			    <operators>
 			        <operator>gt</operator>
 			        <operator>lt</operator>
@@ -29,7 +39,7 @@
 			        <unit>l/100km</unit>
 			        <unit>l/h</unit>
 			    </units>
-				<values>
+				<values type="Integer">
 					<value>3</value>
 					<value>4</value>
 					<value>5</value>
@@ -50,14 +60,19 @@
 				</values>
 			</arg>
     </vocabulary>
-    <vocabulary word="nach" display-name="nach ... km" trigger-id="DrivingDistance">
-        <arg name="Threshold">
+    <vocabulary display-prefix="nach" display-name="nach ... km" trigger-id="DrivingDistance">
+        <arg 
+            name="Threshold"
+            type="de.fuberlin.whitespace.regelbau.logic.data.PreselectedTriggerArgument"
+            description="Distanzschwellwert"
+            selector="de.fuberlin.whitespace.regelbau.MySlotmachine" >
+				
 			    <operators />
 			    <units>
 			        <unit>km</unit>
 			        <unit>miles</unit>
 			    </units>
-				<values>
+				<values type="Float">
 					<value>10</value>
 					<value>25</value>
 					<value>50</value>
@@ -67,8 +82,13 @@
 				</values>
 			</arg>
     </vocabulary>
-    <vocabulary word="Geschwindigkeit" display-name="Geschwindigkeit" trigger-id="Speed">
-        <arg name="Threshold">
+    <vocabulary display-prefix="Temp" display-name="Geschwindigkeit" trigger-id="Speed">
+        <arg 
+            name="Threshold" 
+            type="de.fuberlin.whitespace.regelbau.logic.data.PreselectedTriggerArgument" 
+            description="Geschwindigkeitsschwellwert"
+            selector="de.fuberlin.whitespace.regelbau.MySlotmachine" >
+				
 			    <operators>
 			        <operator>gt</operator>
 			        <operator>lt</operator>
@@ -77,7 +97,7 @@
 			        <unit>km/h</unit>
 			        <unit>m/h</unit>
 			    </units>
-				<values>
+				<values type="Float">
 					<value>10</value>
 					<value>30</value>
 					<value>50</value>
@@ -87,8 +107,13 @@
 				</values>
 			</arg>
     </vocabulary>
-	<vocabulary word="Innentemperatur" display-name="Innentemperatur" trigger-id="InteriorTemperature">
-        <arg name="Threshold" type="Float" description="Temperaturschwellwert">
+	<vocabulary display-prefix="innen" display-name="Innentemperatur" trigger-id="InteriorTemperature">
+        <arg 
+            name="Threshold"
+            type="de.fuberlin.whitespace.regelbau.logic.data.PreselectedTriggerArgument"
+            description="Temperaturschwellwert"
+            selector="de.fuberlin.whitespace.regelbau.MySlotmachine" >
+				
 			    <operators>
 			        <operator>gt</operator>
 			        <operator>lt</operator>
@@ -97,7 +122,7 @@
 			        <unit>°C</unit>
 			        <unit>°F</unit>
 			    </units>
-				<values>
+				<values type="Integer">
 				    <value>0</value>
 				    <value>5</value>
 					<value>10</value>
@@ -108,8 +133,13 @@
 				</values>
 			</arg>
 	</vocabulary>
-	<vocabulary word="Außentemperatur" display-name="Außentemperatur" trigger-id="ExteriorTemperature">
-        <arg name="Threshold" type="Float" description="Temperaturschwellwert">
+	<vocabulary display-prefix="außen" display-name="Außentemperatur" trigger-id="ExteriorTemperature">
+        <arg 
+            name="Threshold"
+            type="de.fuberlin.whitespace.regelbau.logic.data.PreselectedTriggerArgument"
+            description="Temperaturschwellwert"
+            selector="de.fuberlin.whitespace.regelbau.MySlotmachine" >
+				
 			    <operators>
 			        <operator>gt</operator>
 			        <operator>lt</operator>
@@ -118,7 +148,7 @@
 			        <unit>°C</unit>
 			        <unit>°F</unit>
 			    </units>
-				<values>
+				<values type="Float">
 					<value>30</value>
 					<value>25</value>
 					<value>20</value>
@@ -133,5 +163,36 @@
 				</values>
 			</arg>
 	</vocabulary>
+	
 	<vocabulary word="Regen" display-name="Regen" trigger-id="Rain" />
+	
+	<vocabulary display-prefix="alle" display-name="alle ... Minuten" trigger-id="TimeInterval">
+        <arg name="Minutes"
+            type="de.fuberlin.whitespace.regelbau.logic.data.TriggerArgument"
+            description="Ausführungsintervall"
+            selector="de.fuberlin.whitespace.regelbau.MyTimePicker" >
+				
+            <values type="Timespan" />
+		</arg>
+	</vocabulary>
+	
+	<vocabulary display-prefix="um" display-suffix="Uhr" display-name="um ... Uhr" trigger-id="TimeOfDay">
+        <arg name="Minutes"
+            type="de.fuberlin.whitespace.regelbau.logic.data.TriggerArgument"
+            description="Ausführungsuhrzeit"
+            selector="de.fuberlin.whitespace.regelbau.MyTimePicker" >
+				
+            <values type="Timestamp" />
+		</arg>
+	</vocabulary>
+	
+	<vocabulary display-prefix="nach" display-name="nach ... Minuten" trigger-id="TimeElapsed">
+        <arg name="Minutes"
+            type="de.fuberlin.whitespace.regelbau.logic.data.TriggerArgument"
+            description="Zeit bis zur Ausführung"
+            selector="de.fuberlin.whitespace.regelbau.MyTimePicker" >
+				
+            <values type="Timespan" />
+		</arg>
+	</vocabulary>
 </trigger-vocabularies>

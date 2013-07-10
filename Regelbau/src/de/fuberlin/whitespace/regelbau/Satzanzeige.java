@@ -11,7 +11,6 @@ import de.fuberlin.whitespace.regelbau.logic.data.ActionVocabulary;
 import de.fuberlin.whitespace.regelbau.logic.data.DataLoader;
 import de.fuberlin.whitespace.regelbau.logic.data.TriggerGroup;
 import de.fuberlin.whitespace.regelbau.logic.data.TriggerVocabulary;
-import de.fuberlin.whitespace.regelbau.logic.data.TriggerVocabulary.ArgumentData;
 
 public class Satzanzeige extends LinearLayout {
 
@@ -77,25 +76,12 @@ public class Satzanzeige extends LinearLayout {
 	});
 	
 	List<TriggerGroup> tmpGroups = this.dataLoader.getTriggerGroupsByActionVocabulary(this.currentActionVocabulary);
-	ArgumentData tmpArgData;
 	
 	if (tmpGroups.size() > 0) {
 	    this.setTriggerVocabulary(tmpGroups.get(0).getVocabularies().get(0));
-	    
-	    tmpArgData = this.currentTriggerVocabulary.getArgumentData().get(0);
-	    
-	    if (tmpArgData.numOperators() > 0) {
-		tmpArgData.selectOperator(tmpArgData.getOperators().get(0));
-	    }
-	    
-	    tmpArgData.selectValue(tmpArgData.getValues().get(0));
-	    
-	    if (tmpArgData.numUnits() > 0) {
-		tmpArgData.selectUnit(tmpArgData.getUnits().get(0));
-	    }
+	    this.buttonc.setText(this.currentTriggerVocabulary.getSelectedTriggerString());
 	}
 	
-	this.buttonc.setText(this.currentTriggerVocabulary.getSelectedTriggerString());
 	this.buttonc.setOnClickListener(new View.OnClickListener() {
 
 	    @Override

@@ -81,9 +81,10 @@ public class Rule implements Serializable {
     
     /**
      * Diese Methode kann genutzt werden um eine Zustandsänderung (erfüllt oder
-     * nicht erfüllt) des gegebenen {@link Trigger}s <tt>t</tt> bekannt zu machen.<br /><br />
+     * nicht erfüllt) des gegebenen {@link Trigger}s <tt>t</tt> bekannt zu machen.
+     * Der Zustand eines Triggers ist durch die Rückgabe von {@link Trigger#getState()} definiert.<br /><br />
      * Ein Aufruf aktualisiert die Informationen der Rule-Instanz und führt (falls alle
-     * Trigger erfüllt sind) ggf. die Aktionen aus.
+     * Trigger erfüllt sind) ggf. die Aktionen aus.<br />
      * @param t
      */
     public void signalTriggerStateChange (Trigger t) {
@@ -122,14 +123,20 @@ public class Rule implements Serializable {
     public void wakeUp (RulesPool rulesPool) {
 	
 	if (!this.awake && this.active) {
-	    this.awake = true;
 	    this.pool = rulesPool;
+	    this.wakeUp();
+	}
+    }
+    
+    private void wakeUp () {
+	
+	if (!this.awake && this.active) {
+	    this.awake = true;
 
 	    for (Trigger t : this.trigger) {
 		t.wakeUp();
 	    }
 	}
-	
     }
     
     /**
@@ -142,7 +149,6 @@ public class Rule implements Serializable {
 	
 	if (this.awake) {
 	    this.awake = false;
-	    this.pool = null;
 
 	    for (Trigger t : this.trigger) {
 		t.fallAsleep();
@@ -210,7 +216,18 @@ public class Rule implements Serializable {
      * @param active
      */
     public void setActive(boolean active) {
-	this.active = active;
+
+	boolean oldState = this.active;
+
+	if (oldState != active) {
+	    this.active = active;
+
+	    if (!active) {
+		this.fallAsleep();
+	    } else {
+		this.wakeUp();
+	    }
+	}
     }
 
     /**

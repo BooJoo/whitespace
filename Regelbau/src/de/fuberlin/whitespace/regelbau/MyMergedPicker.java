@@ -1,5 +1,6 @@
 package de.fuberlin.whitespace.regelbau;
 
+import de.fuberlin.whitespace.regelbau.logic.data.AbstractArgumentSelector.SelectorCallback;
 import android.content.Context;
 import android.view.View;
 import android.widget.EditText;
@@ -52,19 +53,23 @@ public class MyMergedPicker {
 			
 		}, "Einheit",
 		"");
-
 		
 		//Zahlen Picker
-		values = new MyNumberPicker<Number>(listview.getContext(),listview, nums, "", new MyPickerCallback<Number>() {
-		
-			@Override
-			public void valueset(Number value) {
-				Satzanzeige satz = ((Satzanzeige)obereregelbuttonview); 
-				//satz.setButtonLabelDrei(defaultOperator+" " +defaultValue+" "+defaultUnit);
-				
-			}
-			
-		},"Zahlenwert");
+		values = new MyNumberPicker<Number>(nums, "");
+		values.show(listview, new SelectorCallback () {
+
+		    @Override
+		    public void onSelection(Integer key, String value) {
+			Satzanzeige satz = ((Satzanzeige)obereregelbuttonview); 
+			//satz.setButtonLabelDrei(defaultOperator+" " +defaultValue+" "+defaultUnit);
+		    }
+
+		    @Override
+		    public void onFinished() {
+			/* nichts zu tun */
+		    }
+
+		});
 
 	}
 

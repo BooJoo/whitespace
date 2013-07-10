@@ -49,14 +49,16 @@ public class RuleView {
 		Button action = (Button)v.findViewById(R.id.buttonAction);
 		ImageButton actionopt = (ImageButton)v.findViewById(R.id.buttonActionOpt);
 		Button trigger = (Button)v.findViewById(R.id.buttonTrigger);
-		try {
-		    action.setText(this.rule.getActions().get(0).toString());
-		    trigger.setText(this.rule.getTriggers().get(0).toString());
-		}catch(Exception e){}
+
+		
+		action.setText(this.rule.getActions().get(0).toString());
+		trigger.setText(this.rule.getTriggers().get(0).toString());
+		
 		action.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
+
 				Intent i = new Intent(v.getContext(), RegelBearbeitenActivity.class);
 				Bundle b = new Bundle();
 			    b.putLong("rule_id", rule.getId());

@@ -5,5 +5,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="addbuttontextsize">36dp</dimen>
     <dimen name="voiceactivitystringsize">36dp</dimen>
+    <dimen name="timepickerfontsize">36dp</dimen>
 
 </resources>
