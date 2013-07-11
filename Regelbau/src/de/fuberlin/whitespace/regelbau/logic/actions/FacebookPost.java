@@ -111,7 +111,7 @@ public class FacebookPost extends Action {
 		}
 		
 		if (tankage > 0) {
-		    consumptionInfo += " (Das reicht noch für " + Math.round((tankage*tankLevel)/consumption) + "km)";
+		    consumptionInfo += " (Das reicht noch für " + Math.round((tankage*tankLevel*100)/consumption) + "km)";
 		}
 	    }
 
@@ -124,7 +124,7 @@ public class FacebookPost extends Action {
 	    
 	    String detailString = "";
 
-	    // in Lux (zwischen 0.0 und 6126.0)
+	    //  (zwischen 0.0 und 6126.0)
 	    Double sunIntensity = Double.NaN;
 	    // relativ (zwischen 0.0 und 1.0)
 	    Double rainIntensity = Double.NaN;
@@ -147,11 +147,11 @@ public class FacebookPost extends Action {
 		
 		message += (message.length() > 0 ? "\r\n\r\n" : "") + "Wetter: ";
 
-		if (sunIntensity > 75000.0 && exteriorTemperature >= 20.0) {
+		if (sunIntensity > 4500.0 && exteriorTemperature >= 20.0) {
 		    message += "super";
-		} else if (rainIntensity == 0.0 && sunIntensity < 30000.0 && exteriorTemperature < 18.0) {
+		} else if (rainIntensity == 0.0 && sunIntensity < 3000.0 && exteriorTemperature < 18.0) {
 		    message += "so la la";
-		} else if (rainIntensity > 0.0 || sunIntensity < 20000.0 && exteriorTemperature <= 10.0) {
+		} else if (rainIntensity > 0.0 || sunIntensity < 1500.0 && exteriorTemperature <= 10.0) {
 		    message += "ungemütlich";
 		} else {
 		    message += "ok";
@@ -163,7 +163,7 @@ public class FacebookPost extends Action {
 
 		if (rainIntensity > 0.0) {
 		    detailString += (detailString.length() > 0 ? ", " : "") + "regnerisch";
-		} else if (sunIntensity > 75000.0) {
+		} else if (sunIntensity > 4500.0) {
 		    detailString += (detailString.length() > 0 ? ", " : "") + "sonnig";
 		}
 		

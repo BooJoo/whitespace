@@ -81,7 +81,15 @@ public class MyNumberPicker <T> extends AbstractArgumentSelector {
 			int position = arg2;
 
 			U wert = adapter.getItem(position);
+			
+			TriggerArgument target = MyNumberPicker.this.getTarget();
+			
+			if (target != null && wert instanceof ListItemValueContainer) {
+			    target.selectValue((ListItemValueContainer) wert);
+			}
+			
 			callback.onSelection(0, wert.toString());
+			callback.onFinished();
 
 			view.setAdapter(null);
 		    }

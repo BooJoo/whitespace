@@ -34,7 +34,7 @@ public abstract class AbstractTimeTrigger extends Trigger {
     /**
      * Task der aktuellen Instanz
      */
-    private TimerTask task = null;
+    private transient TimerTask task = null;
     
     private boolean state = false;
     
@@ -47,6 +47,7 @@ public abstract class AbstractTimeTrigger extends Trigger {
     protected void onFallAsleep() {
 	if (this.task != null) {
 	    this.task.cancel();
+	    this.task = null;
 	}
 	
 	if (_taskCount.decrementAndGet() == 0) {

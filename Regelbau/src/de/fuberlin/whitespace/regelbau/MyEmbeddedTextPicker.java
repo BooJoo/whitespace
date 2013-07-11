@@ -4,8 +4,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import de.fuberlin.whitespace.regelbau.logic.data.AbstractArgumentSelector.SelectorCallback;
 
@@ -15,9 +15,8 @@ public class MyEmbeddedTextPicker {
 
     public MyEmbeddedTextPicker(String title, String initialValue, final ListView view, final SelectorCallback callback) {
 	
-	final LinearLayout layout = (LinearLayout) View.inflate(view.getContext(), R.layout.embedded_textpicker, null);
-
-	layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+	final RelativeLayout layout = (RelativeLayout) View.inflate(view.getContext(), R.layout.embedded_textpicker, null);
+	
 	((ViewGroup) view.getParent()).addView(layout);
 	view.setVisibility(View.GONE);
 

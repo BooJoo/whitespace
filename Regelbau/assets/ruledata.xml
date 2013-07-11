@@ -73,13 +73,23 @@
 	    <mapping action="Voice">
 	        <trigger>Speed</trigger>
 	        <trigger>DrivingDistance</trigger>
+	        <trigger>TimeElapsed</trigger>
+	        <trigger>TimeOfDay</trigger>
+	        <trigger>TimeInterval</trigger>
+	        <trigger>ExteriorTemperature</trigger>
+	        <trigger>Rain</trigger>
 	    </mapping>
 	    <mapping action="Facebook">
 	        <trigger>TimeElapsed</trigger>
 	        <trigger>TimeOfDay</trigger>
 	        <trigger>TimeInterval</trigger>
-	        <trigger>DrivingDistance</trigger>
 	        <trigger>Speed</trigger>
+	        <trigger>TankLevel</trigger>
+	        <trigger>FuelConsumption</trigger>
+	        <trigger>DrivingDistance</trigger>
+	        <trigger>InteriorTemperature</trigger>
+	        <trigger>ExteriorTemperature</trigger>
+	        <trigger>Rain</trigger>
 	    </mapping>
 	    <mapping action="ShowMessage">
 	        <trigger>TimeElapsed</trigger>
@@ -94,6 +104,8 @@
 	        <trigger>Rain</trigger>
 	    </mapping>
 	    <mapping action="ShowPOIs">
+	        <trigger>TimeElapsed</trigger>
+	        <trigger>TimeOfDay</trigger>
 	        <trigger>TimeInterval</trigger>
 	        <trigger>DrivingDistance</trigger>
 	        <trigger>TankLevel</trigger>
