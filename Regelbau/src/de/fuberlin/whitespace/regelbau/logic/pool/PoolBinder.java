@@ -1,12 +1,9 @@
 package de.fuberlin.whitespace.regelbau.logic.pool;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import android.os.Binder;
-import de.fuberlin.whitespace.regelbau.logic.Action;
 import de.fuberlin.whitespace.regelbau.logic.Rule;
-import de.fuberlin.whitespace.regelbau.logic.Trigger;
 
 /**
  * Der PoolBinder dient zur Kommunikation vom
@@ -19,22 +16,6 @@ public class PoolBinder extends Binder {
 
     public PoolBinder (RulesPool rulesPool) {
 	this.pool = rulesPool;
-    }
-
-    /**
-     * Fügt eine neue Regel aus den gegebenen Triggern und Aktionen hinzu.
-     * @param actions
-     * @param trigger
-     * @throws Exception falls <tt>actions</tt> oder <tt>trigger</tt> leer
-     */
-    public void AddRule(String name, LinkedList<Action> actions, LinkedList<Trigger> trigger ) throws Exception
-    {
-	if(actions.isEmpty())
-	    throw new Exception("Keine Aktion vorhanden für die Ragel.");
-	if(trigger.isEmpty())
-	    throw new Exception("Keine Trigger vorhanden für die Ragel.");
-
-	this.AddRule(new Rule(name,actions,trigger));
     }
 
     /**

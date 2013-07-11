@@ -1,5 +1,7 @@
 package de.fuberlin.whitespace.regelbau.listenlogik;
 
+import java.util.Map;
+
 import android.graphics.drawable.Drawable;
 import android.util.SparseBooleanArray;
 import android.view.View;
@@ -7,9 +9,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import de.fuberlin.whitespace.regelbau.R.drawable;
+import de.fuberlin.whitespace.regelbau.MyEmbeddedTextPicker;
 import de.fuberlin.whitespace.regelbau.Satzanzeige;
+import de.fuberlin.whitespace.regelbau.logic.data.AbstractArgumentSelector.SelectorCallback;
 import de.fuberlin.whitespace.regelbau.logic.data.ActionVocabulary;
 import de.fuberlin.whitespace.regelbau.logic.data.ActionVocabulary.ActionOption;
+import de.fuberlin.whitespace.regelbau.logic.data.ActionVocabulary.ArgumentValue;
 
 public class ebene1listener implements OnItemClickListener {
 
@@ -37,6 +42,25 @@ public class ebene1listener implements OnItemClickListener {
 	    if (checked.get(i)) {
 		currentOption = (ActionOption) parent.getItemAtPosition(position);
 		currentOption.select();
+		
+		final Map<String, ArgumentValue> argValues = currentOption.getArgValues();
+		
+		for (final String key : argValues.keySet()) {
+		    if (argValues.get(key).isEditable()) {
+			
+			new MyEmbeddedTextPicker(argValues.get(key).getEditingDisplayString(), argValues.get(key).getInitialValue(), listview, new SelectorCallback() {
+
+			    @Override
+			    public void onSelection(Integer selectionKey, String value) {
+				argValues.get(key).setEditedValue(value);
+			    }
+			    
+			    @Override
+			    public void onFinished() {/* nothing to do here */}
+			    
+			});
+		    }
+		}
 	    }
 	}	
 

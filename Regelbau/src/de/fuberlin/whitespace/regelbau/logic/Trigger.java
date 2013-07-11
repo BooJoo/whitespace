@@ -10,12 +10,13 @@ import java.util.List;
 
 import de.exlap.DataObject;
 import de.fuberlin.whitespace.regelbau.logic.data.DataLoader;
+import de.fuberlin.whitespace.regelbau.logic.pool.DataObjectListener;
 
 /**
  * Interface fuer die Ausloeser einer Regel
  * @author Stefan Lange
  */
-public abstract class Trigger implements Serializable {
+public abstract class Trigger extends DataObjectListener implements Serializable {
 
     /**
      * 
@@ -37,8 +38,6 @@ public abstract class Trigger implements Serializable {
 
     private Rule parent;
 
-    private List<String> dataObjectSubscriptions;
-
     /**
      * <i>Anmerkung:</i> Dieser Konstruktor wird von {@link DataLoader#instantiateTrigger} implizit
      * als existent vorausgesetzt.
@@ -47,7 +46,6 @@ public abstract class Trigger implements Serializable {
      */
     public Trigger () {
 	this.params = new HashMap<String, Param>();
-	this.dataObjectSubscriptions = new ArrayList<String>();
 	this.parent = null;
 	this.aktiviert = false;
 	this.awake = false;
@@ -81,7 +79,8 @@ public abstract class Trigger implements Serializable {
      * über {@link Rule#signalTriggerStateChange(Trigger)}.
      * @param dataObject
      */
-    public void trigger (DataObject dataObject) {
+    @Override
+    public final void trigger (DataObject dataObject) {
 
 	// Um zu vermeiden, dass Trigger ausgelöst werden, die nicht `wach` sind.
 	if (!this.isAwake()) {
@@ -104,7 +103,7 @@ public abstract class Trigger implements Serializable {
      * Alle Abonnements von Datenobjekten beim {@link ProxyClient}
      * werden aufgehoben und {@link #onFallAsleep()} aufgerufen.
      */
-    public void signalDestruction() {
+    public final void signalDestruction() {
 	
 	this.fallAsleep();
 	this.parent = null;
@@ -117,16 +116,10 @@ public abstract class Trigger implements Serializable {
      * @param dataObjectUrl
      */
     protected void subscribeDataObject (String dataObjectUrl) {
-
-	if (this.isAwake() && !this.dataObjectSubscriptions.contains(dataObjectUrl)) {
-	    try {
-		this.parent.getPool().getClient().addListener(dataObjectUrl, this);
-		this.dataObjectSubscriptions.add(dataObjectUrl);
-	    } catch (Throwable t) {
-		throw new RuntimeException(t);
-	    }
-	}
 	
+	if (this.isAwake()) {
+	    super.subscribeDataObject(dataObjectUrl, this.parent.getPool());
+	}
     }
     
     /**
@@ -139,13 +132,8 @@ public abstract class Trigger implements Serializable {
      */
     protected void unsubscribeDataObject (String dataObjectUrl) {
 	
-	if (!this.isAwake() && this.dataObjectSubscriptions.contains(dataObjectUrl)) {
-	    try {
-		this.parent.getPool().getClient().removeListener(dataObjectUrl, this);
-		this.dataObjectSubscriptions.remove(dataObjectUrl);
-	    } catch (Throwable t) {
-		throw new RuntimeException(t);
-	    }
+	if (!this.isAwake()) {
+	    super.subscribeDataObject(dataObjectUrl, this.parent.getPool());
 	}
 	
     }
@@ -154,7 +142,7 @@ public abstract class Trigger implements Serializable {
      * Diese Methode weckt die aktuelle Instanz auf und
      * führt {@link #onWakeUp()} aus.
      */
-    public void wakeUp () {
+    public final void wakeUp () {
 	
 	this.awake = true;
 	this.onWakeUp();
@@ -165,14 +153,12 @@ public abstract class Trigger implements Serializable {
      * in den Schlafzustand, hebt alle über {@link #subscribeDataObject(String)}
      * erfolgten Datenabonnements auf und ruft {@link #onFallAsleep()} auf.
      */
-    public void fallAsleep () {
+    public final void fallAsleep () {
 	
 	this.awake = false;
 	this.aktiviert = false;
 	
-	for (String dataObjectUrl : this.dataObjectSubscriptions) {
-	    this.unsubscribeDataObject(dataObjectUrl);
-	}
+	super.tearDown(this.parent.getPool());
 	
 	this.onFallAsleep();
     }

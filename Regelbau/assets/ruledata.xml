@@ -59,6 +59,9 @@
 		<action id="Voice" displayname="Sprachausgabe" classname="de.fuberlin.whitespace.regelbau.logic.actions.Voice">
 			<arg name="message" type="String" description="Anzusagende Nachricht" />
 		</action>
+		<action id="Facebook" displayname="Facebook" classname="de.fuberlin.whitespace.regelbau.logic.actions.FacebookPost">
+			<arg name="message" type="String" description="Zu sendende Nachricht" />
+		</action>
 		<action id="ShowMessage" displayname="Nachricht anzeigen" classname="de.fuberlin.whitespace.regelbau.logic.actions.ShowMessage">
 			<arg name="message" type="String" description="Anzuzeigende Nachricht" />
 		</action>

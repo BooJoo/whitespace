@@ -23,6 +23,7 @@ import de.fuberlin.whitespace.regelbau.logic.Action;
 import de.fuberlin.whitespace.regelbau.logic.Rule;
 import de.fuberlin.whitespace.regelbau.logic.Trigger;
 import de.fuberlin.whitespace.regelbau.logic.data.ActionVocabulary.ActionOption;
+import de.fuberlin.whitespace.regelbau.logic.data.ActionVocabulary.ArgumentValue;
 
 /**
  * Der DataLoader ist für das deserialisieren der
@@ -92,8 +93,8 @@ public class DataLoader {
     public ActionVocabulary getActionVocabulatoryByAction (Action action) {
 	
 	List<ActionOption> options;
-	Map<String, String> optionArgValues;
-	Object actionArgValue;
+	Map<String, ArgumentValue> optionArgValues;
+	String actionArgValue;
 	
 	// Dummy-Instanz zur Suche in Liste erzeugen
 	ActionVocabulary vocab = ActionVocabulary.buildDummy(action.getId());
@@ -116,8 +117,9 @@ public class DataLoader {
 	    boolean argSetEqual = true;
 	    for (String name : optionArgValues.keySet()) {
 		
-		if (null == (actionArgValue = action.getParam(name))
-			|| !((String) actionArgValue).equals(optionArgValues.get(name))) {
+		if (null == (actionArgValue = action.peekParam(name))
+			|| !((String) actionArgValue).equals(optionArgValues.get(name).getInitialValue())
+			&& !optionArgValues.get(name).isEditable()) {
 		 
 		    argSetEqual = false;
 		    break;
@@ -205,6 +207,7 @@ public class DataLoader {
     public static Action instantiateAction (ActionVocabulary vocab) {
 	
 	Action result = null;
+	Map<String, List<ArgumentValue>> paramValues; 
 
 	try {
 	    
@@ -212,12 +215,10 @@ public class DataLoader {
 	    result.setId(vocab.getActionId());
 	    result.setStringRepresentation(vocab.getSelectedActionString() + ": " + vocab.getSelectedActionOptionsString());
 	    
-	    for (ActionOption opt : ActionOption.getSelection(vocab)) {
-		Map<String, String> argValues = opt.getArgValues();
-
-		for (String name : argValues.keySet()) {
-		    result.setParam(name, argValues.get(name));
-		}
+	    paramValues = ActionOption.getArgumentValues(ActionOption.getSelection(vocab));
+	    
+	    for (String name : paramValues.keySet()) {
+		result.setParam(name, paramValues.get(name));
 	    }
 
 	} catch (Throwable t) {
@@ -277,6 +278,7 @@ public class DataLoader {
 	Action result;
 	Rule parent;
 	List<String> actionParams;
+	Map<String, List<ArgumentValue>> vocabOptions;
 	
 	if (!DataLoader.actions.get(vocab.getActionId()).equals(action.getClass())) {
 	    
@@ -293,13 +295,11 @@ public class DataLoader {
 	    result = action;
 	    actionParams = action.getParamNames();
 	    
-	    for (ActionOption opt : vocab.getOptions()) {
-		Map<String, String> argValues = opt.getArgValues();
-
-		for (String name : argValues.keySet()) {
-		    actionParams.remove(name);
-		    result.setParam(name, argValues.get(name));
-		}
+	    vocabOptions = ActionOption.getArgumentValues(ActionOption.getSelection(vocab));
+	    
+	    for (String name : vocabOptions.keySet()) {
+		actionParams.remove(name);
+		result.setParam(name, vocabOptions.get(name));
 	    }
 	    
 	    if (!actionParams.isEmpty()) {

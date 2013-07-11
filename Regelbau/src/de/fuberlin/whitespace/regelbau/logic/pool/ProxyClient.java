@@ -15,7 +15,6 @@ import de.exlap.discovery.DiscoveryManager;
 import de.exlap.discovery.ServiceDescription;
 import de.fuberlin.whitespace.regelbau.MyPickerCallback;
 import de.fuberlin.whitespace.regelbau.MyTextPicker;
-import de.fuberlin.whitespace.regelbau.logic.Trigger;
 
 /**
  * Der ProxyClient verwaltet Verbindung zum und 
@@ -42,7 +41,7 @@ public class ProxyClient {
     /**
      * alle derzeit angemeldenen Abonnementen von Datenobjekten
      */
-    private HashMap<String, Set<Trigger>> listeners;
+    private HashMap<String, Set<DataObjectListener>> listeners;
 
     /**
      * der aktuelle {@link Worker} (verantwortlich für Kommunikation mit dem Proxy)
@@ -59,7 +58,7 @@ public class ProxyClient {
     public ProxyClient (RulesPool parent) {
 
 	this.pool = parent;
-	this.listeners = new HashMap<String, Set<Trigger>>();
+	this.listeners = new HashMap<String, Set<DataObjectListener>>();
 	this.ec = null;
 	this.controlQueue = new LinkedBlockingQueue<WorkerJob>();
 	this.worker = new Worker();
@@ -108,7 +107,7 @@ public class ProxyClient {
      * @param listener
      * @throws InterruptedException
      */
-    public void addListener (String dataObjectUrl, Trigger listener) throws InterruptedException {
+    public void addListener (String dataObjectUrl, DataObjectListener listener) throws InterruptedException {
 
 	WorkerJob job = new WorkerJob(WorkerJob.Action.SUBSCRIPTION);
 	job.dataObjectUrl = dataObjectUrl;
@@ -123,7 +122,7 @@ public class ProxyClient {
      * @param listener
      * @throws InterruptedException
      */
-    public void removeListener (String dataObjectUrl, Trigger listener) throws InterruptedException {
+    public void removeListener (String dataObjectUrl, DataObjectListener listener) throws InterruptedException {
 
 	WorkerJob job = new WorkerJob(WorkerJob.Action.UNSUBSCRIPTION);
 	job.dataObjectUrl = dataObjectUrl;
@@ -177,7 +176,7 @@ public class ProxyClient {
 		    try {
 
 			if (!listeners.containsKey(job.dataObjectUrl)) {
-			    listeners.put(job.dataObjectUrl, new HashSet<Trigger>());
+			    listeners.put(job.dataObjectUrl, new HashSet<DataObjectListener>());
 			}
 
 			//subscribe to interface
@@ -218,7 +217,7 @@ public class ProxyClient {
 		case DATA_OBJECT:
 
 		    if (job.dataObject != null && job.dataObject.size() > 0) {
-			for (Trigger t : listeners.get(job.dataObject.getUrl())) {
+			for (DataObjectListener t : listeners.get(job.dataObject.getUrl())) {
 			    t.trigger(job.dataObject);
 			}
 		    }
@@ -257,26 +256,34 @@ public class ProxyClient {
 	@Override
 	public void discoveryFinished(boolean arg0) {
 
+	    if (ProxyClient.this.ec != null && ProxyClient.this.ec.isConnected()) {
+		return;
+	    }
+	    
 	    // Falls der Discovery-Prozess fehlgeschlagen ist, müssen
 	    // wir die Adresse des Proxy beim Nutzer erfragen.
-
-	    final PoolHandler handler = pool.getHandler();
-	    handler.post(new Runnable() {
-
-		@Override
-		public void run() {
-
-		    new MyTextPicker(handler.getContext(), new MyPickerCallback<String>() {
-
-			@Override
-			public void valueset(String value) {
-			    handler.getPoolBinder().reconnect("socket://" + value);
-			}
-
-		    }, "Bitte Adresse eingeben:",
-		    ProxyClient.DEFAULT_FALLBACK_ADDRESS);
-		}
-	    });
+	    
+	    try {
+        	    final PoolHandler handler = pool.getHandler();
+        	    handler.post(new Runnable() {
+        
+        		@Override
+        		public void run() {
+        
+        		    new MyTextPicker(handler.getContext(), new MyPickerCallback<String>() {
+        
+        			@Override
+        			public void valueset(String value) {
+        			    handler.getPoolBinder().reconnect("socket://" + value);
+        			}
+        
+        		    }, "Bitte Adresse eingeben:",
+        		    ProxyClient.DEFAULT_FALLBACK_ADDRESS);
+        		}
+        	    });
+	    } catch (InterruptedException e) {
+		e.printStackTrace();
+	    }
 	}
 
 	@Override
@@ -306,19 +313,31 @@ public class ProxyClient {
 			ProxyClient.this.ec = new ExlapClient(address);
 			ProxyClient.this.ec.addDataListener(Worker.this);
 			ProxyClient.this.ec.connect();
-
+			
 			if (ProxyClient.this.ec.isConnected()) {
 
-			    pool.getHandler().toast("Connected.");
-			    System.err.println("Connected @ " + address);
-
-			    // Den evt. gerade blockierenden Worker aufwecken.
-			    Worker.this.notifyAll();
-
+			    try {
+				
+				pool.getHandler().toast("Connected.");
+				
+			    } catch (InterruptedException e) {
+				e.printStackTrace();
+			    } finally {
+				
+				System.err.println("Connected @ " + address);
+				
+				// Den evt. gerade blockierenden Worker aufwecken.
+				Worker.this.notifyAll();
+			    }
 			} else {
 
-			    pool.getHandler().toast("Connection failed.");
-			    System.err.println("Connection failed.");
+			    try {
+				pool.getHandler().toast("Connection failed.");
+			    } catch (InterruptedException e) {
+				e.printStackTrace();
+			    } finally {
+				System.err.println("Connection failed.");
+			    }
 			}
 		    }
 		}
@@ -344,7 +363,7 @@ public class ProxyClient {
 
 	private Action action;
 
-	private Trigger subscriber = null;
+	private DataObjectListener subscriber = null;
 	private DataObject dataObject = null;
 	private String dataObjectUrl = null;
 

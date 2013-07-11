@@ -52,7 +52,10 @@ public class ActionVocabulary implements Comparable<ActionVocabulary> {
 	NodeList optionArgs;
 	Node currentOptionData;
 	ActionOption currentOption;
-
+	
+	String name, content;
+	ArgumentValue currentValue;
+	
 	this.actionId = vocabularyAttributes.getNamedItem("action-id").getTextContent();
 	this.displayString = vocabularyAttributes.getNamedItem("display-string").getTextContent();
 	this.displayName = vocabularyAttributes.getNamedItem("display-name").getTextContent();;
@@ -78,10 +81,23 @@ public class ActionVocabulary implements Comparable<ActionVocabulary> {
 		if (optionArgs.item(j).getNodeType() != Node.ELEMENT_NODE) {
 		    continue;
 		}
-
+		
+		name = optionArgs.item(j).getAttributes().getNamedItem("name").getTextContent();
+		content = optionArgs.item(j).getTextContent();
+		
+		currentValue = new ArgumentValue(content);
+		
+		if (null != optionArgs.item(j).getAttributes().getNamedItem("editable")) {
+		    currentValue.editable = !"false".equalsIgnoreCase(optionArgs.item(j).getAttributes().getNamedItem("editable").getTextContent());
+		}
+		
+		if (null != optionArgs.item(j).getAttributes().getNamedItem("edit-display-string")) {
+		    currentValue.editingDisplayString = optionArgs.item(j).getAttributes().getNamedItem("edit-display-string").getTextContent();
+		}
+		
 		currentOption.argValues.put(
-			optionArgs.item(j).getAttributes().getNamedItem("name").getTextContent(),
-			optionArgs.item(j).getTextContent()
+			name,
+			currentValue
 			);
 	    }
 
@@ -204,7 +220,7 @@ public class ActionVocabulary implements Comparable<ActionVocabulary> {
 	 */
 	private String word;
 
-	private Map<String, String> argValues;
+	private Map<String, ArgumentValue> argValues;
 
 	private boolean selected;
 
@@ -214,7 +230,7 @@ public class ActionVocabulary implements Comparable<ActionVocabulary> {
 	    this.word = word;
 	    this.selected = false;
 	    this.parent = parent;
-	    this.argValues = new HashMap<String, String>();
+	    this.argValues = new HashMap<String, ArgumentValue>();
 	}
 
 	/**
@@ -223,12 +239,12 @@ public class ActionVocabulary implements Comparable<ActionVocabulary> {
 	public String getWord () {
 	    return this.word;
 	}
-
-	public String getArgValue (String name) {
+	
+	public ArgumentValue getArgValue (String name) {
 	    return this.argValues.get(name);
 	}
 
-	public Map<String, String> getArgValues() {
+	public Map<String, ArgumentValue> getArgValues() {
 	    return argValues;
 	}
 
@@ -256,6 +272,22 @@ public class ActionVocabulary implements Comparable<ActionVocabulary> {
 		}
 	    }
 
+	    return result;
+	}
+	
+	public static Map<String,List<ArgumentValue>> getArgumentValues (List<ActionOption> options) {
+	    Map<String, List<ArgumentValue>> result = new HashMap<String, List<ArgumentValue>>();
+	    
+	    for (ActionOption opt : options) {
+		for (String valKey : opt.argValues.keySet()) {
+		    if (!result.containsKey(valKey)) {
+			result.put(valKey, new ArrayList<ArgumentValue>());
+		    }
+		    
+		    result.get(valKey).add(opt.argValues.get(valKey));
+		}
+	    }
+	    
 	    return result;
 	}
 
@@ -293,6 +325,51 @@ public class ActionVocabulary implements Comparable<ActionVocabulary> {
 	@Override
 	public String toString() {
 	    return this.word;
+	}
+    }
+    
+    public class ArgumentValue {
+	
+	private String initalValue;
+	private String editedValue;
+	
+	private String editingDisplayString;
+	
+	private boolean editable;
+	
+	ArgumentValue (String value, boolean editable) {
+	    this.initalValue = value;
+	    this.editedValue = null;
+	    this.editingDisplayString = null;
+	    this.editable = editable;
+	}
+	
+	ArgumentValue (String value) {
+	    this(value, false);
+	}
+	
+	public boolean isEditable () {
+	    return this.editable;
+	}
+	
+	public String getInitialValue () {
+	    return this.initalValue;
+	}
+	
+	public String getCurrentValue () {
+	    return this.editedValue != null ? this.editedValue : this.initalValue;
+	}
+	
+	public void reset () {
+	    this.editedValue = null;
+	}
+	
+	public String getEditingDisplayString () {
+	    return this.editingDisplayString;
+	}
+
+	public void setEditedValue(String value) {
+	    this.editedValue = value;
 	}
     }
 }

@@ -54,11 +54,16 @@
         <activity android:name="de.fuberlin.whitespace.regelbau.RegelBearbeitenActivity"></activity>
         <activity android:name="de.fuberlin.whitespace.regelbau.logic.actions.VoiceActivity"></activity>
         <activity android:name="de.fuberlin.whitespace.sms.SMSActivity"></activity>
+        
         <activity android:name="de.fuberlin.whitespace.GoogleMapsActivity"></activity>
         <activity android:name="de.fuberlin.whitespace.logic.actions.ShowPOI"></activity>
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyBG0uW7Cz-fgrcvOJimd80G80wvftr8x60" />
+        
+        <activity android:name="com.facebook.LoginActivity"/>
+        <activity android:name="de.fuberlin.whitespace.FacebookActivity"></activity>
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/fb_app_id"/>
     
         <service android:name=".logic.pool.RulesPool" />
         

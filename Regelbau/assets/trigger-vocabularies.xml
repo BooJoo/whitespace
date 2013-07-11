@@ -82,7 +82,7 @@
 				</values>
 			</arg>
     </vocabulary>
-    <vocabulary display-prefix="Temp" display-name="Geschwindigkeit" trigger-id="Speed">
+    <vocabulary display-prefix="Tempo" display-name="Geschwindigkeit" trigger-id="Speed">
         <arg 
             name="Threshold" 
             type="de.fuberlin.whitespace.regelbau.logic.data.PreselectedTriggerArgument" 

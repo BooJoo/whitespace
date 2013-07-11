@@ -65,7 +65,7 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/buttonSubmit"
+            android:id="@+id/buttonSubmitTime"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"

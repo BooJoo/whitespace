@@ -97,18 +97,21 @@ public class Rule implements Serializable {
 	    this.fullfilledTriggerCount += isFullfilled ? 1 : -1;
 	    
 	    if (this.fullfilledTriggerCount == this.trigger.size()) {
-		
-		final Context context = this.pool.getHandler().getContext();
-		
-		for (final Action a : this.actions) {
-		    this.pool.getHandler().post(new Runnable () {
+		try {
+		    final Context context = this.pool.getHandler().getContext();
 
-			@Override
-			public void run() {
-			    a.Do(context);
-			}
-			
-		    });
+		    for (final Action a : this.actions) {
+			this.pool.getHandler().post(new Runnable () {
+
+			    @Override
+			    public void run() {
+				a.Do(context);
+			    }
+
+			});
+		    }
+		} catch (InterruptedException e) {
+		    e.printStackTrace();
 		}
 	    }
 	}
@@ -136,6 +139,10 @@ public class Rule implements Serializable {
 	    for (Trigger t : this.trigger) {
 		t.wakeUp();
 	    }
+	    
+	    for (Action a : this.actions) {
+		a.wakeUp();
+	    }
 	}
     }
     
@@ -154,6 +161,11 @@ public class Rule implements Serializable {
 		t.fallAsleep();
 		this.triggerStates.put(t, false);
 	    }
+	    
+	    for (Action a : this.actions) {
+		a.fallAsleep();
+	    }
+
 	}
 	
     }
@@ -276,6 +288,7 @@ public class Rule implements Serializable {
     
     public void removeAction(Action a) {
 	this.actions.remove(a);
+	a.signalDestruction();
     }
 
     private void clear() {

@@ -14,6 +14,20 @@
 			<arg name="message">Termin nicht vergessen!</arg>
 		</option>
 	</vocabulary>
+	<vocabulary action-id="Facebook" display-string="Facebook" display-name="Facebook" multiple-choices="true">
+		<option word="Eigene Nachricht">
+			<arg name="usermessage" editable="true" edit-display-string="Ihre persönliche Nachricht:"/>
+		</option>
+		<option word="Geschwindigkeit">
+			<arg name="information">speed</arg>
+		</option>
+		<option word="Wetter">
+			<arg name="information">weather</arg>
+		</option>
+		<option word="Verbrauch">
+			<arg name="information">consumption</arg>
+		</option>
+	</vocabulary>
 	<vocabulary action-id="ShowPOIs" display-string="Zeige mir" display-name="Zeige" multiple-choices="true">
 		<option word="Raststätten">
 			<arg name="query">Raststätte</arg>

@@ -1,9 +1,6 @@
 package de.fuberlin.whitespace.regelbau.logic.triggers;
 
 import java.util.Calendar;
-import java.util.Date;
-
-import de.fuberlin.whitespace.regelbau.logic.Trigger.Param;
 
 public class DaytimeTrigger extends AbstractTimeTrigger {
 
@@ -25,6 +22,11 @@ public class DaytimeTrigger extends AbstractTimeTrigger {
 	cal.set(Calendar.HOUR_OF_DAY, hours);
 	cal.set(Calendar.MINUTE, minutes);
 	cal.set(Calendar.SECOND, 0);
+	
+	// Wenn Uhrzeit < aktuelle Uhrzeit: Erinnerung erst am nächsten Tag.
+	if (cal.getTimeInMillis() < System.currentTimeMillis()) {
+	    cal.setTimeInMillis(cal.getTimeInMillis() + 86400000);
+	}
 	
 	this.obtainTimerEvent(cal.getTime());
     }

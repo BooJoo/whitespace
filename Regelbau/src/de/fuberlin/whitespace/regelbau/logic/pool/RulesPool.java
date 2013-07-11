@@ -34,8 +34,7 @@ public class RulesPool extends Service {
 	
 	super.onCreate();
 	
-	System.out.println("Pool: Created.");
-	
+	this.handler = null;
 	this.client = new ProxyClient(this);
 	this.rules = Collections.synchronizedList(new ArrayList<Rule>());
 	this.DB = new SQLDataBase(this);
@@ -54,8 +53,6 @@ public class RulesPool extends Service {
     public void onDestroy() {
 	super.onDestroy();
 	
-	System.out.println("Pool: Destruction.");
-	
 	for (Rule r : this.rules) {
 	    r.fallAsleep();
 	}
@@ -71,13 +68,11 @@ public class RulesPool extends Service {
 
     @Override
     public IBinder onBind(Intent arg0) {
-	System.out.println("Pool: onBind.");
+	
 	return new PoolBinder(this);
     }
 
     protected void add (Rule r) {
-	
-	System.out.println("Pool: Addition.");
 	
 	assert(r.getId() == null && !r.isAwake());
 	
@@ -95,8 +90,6 @@ public class RulesPool extends Service {
     
     public void update(Rule r) {
 	
-	System.out.println("Pool: Update.");
-	
 	assert(r.getId() != null);
 	this.DB.UpdateRow(r);
 	
@@ -104,8 +97,6 @@ public class RulesPool extends Service {
     }
 
     protected void remove (Rule r) {
-	
-	System.out.println("Pool: Removal.");
 	
 	assert(r.getId() != null && !r.isDeleted());
 	
@@ -118,11 +109,16 @@ public class RulesPool extends Service {
 	this.sendBroadcast(new Intent(RulesPool.RULE_REMOVAL));
     }
     
-    public void setHandler (PoolHandler handler) {
+    public synchronized void setHandler (PoolHandler handler) {
 	this.handler = handler;
+	this.notifyAll();
     }
     
-    public PoolHandler getHandler () {
+    public synchronized PoolHandler getHandler () throws InterruptedException {
+	while (this.handler == null) {
+	    this.wait();
+	}
+	
 	return this.handler;
     }
     

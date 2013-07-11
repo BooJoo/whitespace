@@ -1,6 +1,5 @@
 package de.fuberlin.whitespace.regelbau.logic.triggers;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -9,6 +8,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 import de.exlap.DataObject;
 import de.fuberlin.whitespace.regelbau.logic.Trigger;
 
+/**
+ * Die Oberklasse aller zeitbasierten Auslöser.
+ * Sie stellt die Timer-Erzeugung und -verwaltung
+ * bereit.
+ *
+ */
 public abstract class AbstractTimeTrigger extends Trigger {
 
     /**
@@ -16,12 +21,21 @@ public abstract class AbstractTimeTrigger extends Trigger {
      */
     private static final long serialVersionUID = -8515950629045087185L;
     
+    /**
+     * Globaler Timer für alle Instanzen
+     */
     private static Timer _timer = null;
 
+    /**
+     * Anzahl der laufenden Tasks
+     */
     private static AtomicInteger _taskCount;
 
+    /**
+     * Task der aktuellen Instanz
+     */
     private TimerTask task = null;
-
+    
     private boolean state = false;
     
     private static void init() {
@@ -37,20 +51,14 @@ public abstract class AbstractTimeTrigger extends Trigger {
 	
 	if (_taskCount.decrementAndGet() == 0) {
 	    _timer.cancel();
+	    _timer = null;
 	}
     }
-
-    @Override
-    public Boolean getState() {
-	return this.state;
-    }
-
-    @Override
-    protected boolean isFullfilled(DataObject dataObject) {
-	return false;
-    }
-
-
+    
+    /**
+     * Erzeugt einen TimerTask mit gegebenen Zieldatum.
+     * @param when
+     */
     protected void obtainTimerEvent (Date when) {
 	if (_timer == null) {
 	    AbstractTimeTrigger.init();
@@ -63,11 +71,16 @@ public abstract class AbstractTimeTrigger extends Trigger {
 
     }
 
+    /**
+     * Erzeugt einen TimerTask, der im angegebenen
+     * Millisekunden-Intervall ausgeführt wird.
+     * @param interval
+     */
     protected void obtainTimerEvent (Long interval) {
 	if (_timer == null) {
 	    AbstractTimeTrigger.init();
 	}
-
+	
 	_taskCount.incrementAndGet();
 	this.task = this.buildTask();
 	    
@@ -84,6 +97,11 @@ public abstract class AbstractTimeTrigger extends Trigger {
 	AbstractTimeTrigger.this.getParent().signalTriggerStateChange(AbstractTimeTrigger.this);
     }
     
+    /**
+     * Erzeugt einen TimerTask, der die
+     * Erfüllung dieses Triggers signalisiert.
+     * @return
+     */
     private TimerTask buildTask () {
 	return new TimerTask () {
 
@@ -92,5 +110,16 @@ public abstract class AbstractTimeTrigger extends Trigger {
 		AbstractTimeTrigger.this.propagateFulfillment();
 		_taskCount.decrementAndGet();
 	    }};
+    }
+    
+
+    @Override
+    public Boolean getState() {
+	return this.state;
+    }
+
+    @Override
+    protected boolean isFullfilled(DataObject dataObject) {
+	return false;
     }
 }

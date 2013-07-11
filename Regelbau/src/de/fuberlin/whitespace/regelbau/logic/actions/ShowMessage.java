@@ -32,7 +32,7 @@ public class ShowMessage extends Action {
 	    mPlayer.start();
 		new AlertDialog.Builder(context)
 			.setTitle("Erinnerung")
-			.setMessage(String.valueOf(this.getParam("message")))
+			.setMessage(String.valueOf(this.peekParam("message")))
 			.setNeutralButton(android.R.string.ok,
 				new DialogInterface.OnClickListener() {
 	
@@ -45,5 +45,4 @@ public class ShowMessage extends Action {
 			).show();
 	
 	    }
-    
 }

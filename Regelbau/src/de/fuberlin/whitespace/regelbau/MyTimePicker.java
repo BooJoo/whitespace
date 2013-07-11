@@ -35,7 +35,7 @@ public class MyTimePicker extends AbstractArgumentSelector {
 	hours.setMaxValue(23);
 	minutes.setMaxValue(59);
 	
-	Button submitButton = (Button) layout.findViewById(R.id.buttonSubmit);
+	Button submitButton = (Button) layout.findViewById(R.id.buttonSubmitTime);
 	submitButton.setOnClickListener(new OnClickListener () {
 
 	    @Override
