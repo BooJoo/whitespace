@@ -15,8 +15,8 @@ public class ShowPOIs extends Action {
 
     @Override
     public void Do (Context context) {
-    	String uri = "geo:"+ "52.5069278, 13.3342062"+"?q="+ ((String)this.getParam("message")) ;
-    	String searchquery = "tanken in der nähe von Carnotstraße, Berlin";
+    	String uri = "geo:"+ "52.5069278, 13.3342062"+"?q="+ this.peekParam("message") ;
+    	String searchquery = "tanken in der nï¿½he von Carnotstraï¿½e, Berlin";
     	//context.startActivity(new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(searchquery))); //android.content.Intent.ACTION_VIEW));
     	context.startActivity(new Intent(context, GoogleMapsActivity.class));
     }

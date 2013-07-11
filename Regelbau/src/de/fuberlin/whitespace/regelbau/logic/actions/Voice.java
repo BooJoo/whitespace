@@ -18,7 +18,7 @@ public class Voice extends Action {
     public void Do (Context context) {
     	KnightRider rider = new KnightRider(context);
     	Intent i = new Intent(context,VoiceActivity.class);
-    	final String blubb = (String) this.getParam("message");
+    	final String blubb = this.peekParam("message");
     	Bundle bundle = new Bundle();
 		bundle.putString("text", "Möchten Sie eine SMS schreiben?");
 		bundle.putInt("duration", 4000);
