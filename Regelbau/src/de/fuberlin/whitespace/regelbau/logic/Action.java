@@ -29,12 +29,18 @@ public abstract class Action extends DataObjectListener implements Serializable 
      */
     private static final long serialVersionUID = 7292784095129684509L;
 
+    /**
+     * enthält übergebene Parameter
+     */
     private Map<String, List<String>> params;
 
     private String id;
     
     private String stringRepresentation;
 
+    /**
+     * regel zu der die Aktion gehört
+     */
     private Rule parent;
 
     private boolean awake;
@@ -57,7 +63,9 @@ public abstract class Action extends DataObjectListener implements Serializable 
      */
     public abstract void Do (Context ctx);
     
-
+    /**
+     *setzt einen Parameter  
+     */
     public void setParam(String key, List<ArgumentValue> values) {
 	
 	List<String> rawValues = new ArrayList<String>();
