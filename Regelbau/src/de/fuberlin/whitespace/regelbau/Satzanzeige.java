@@ -12,6 +12,13 @@ import de.fuberlin.whitespace.regelbau.logic.data.DataLoader;
 import de.fuberlin.whitespace.regelbau.logic.data.TriggerGroup;
 import de.fuberlin.whitespace.regelbau.logic.data.TriggerVocabulary;
 
+/**
+ * Stellt den oberen Teil des Regelbaus dar.
+ * Kann von Optionsanzeige geändert werden, wenn der Benutzer eine Einstellung
+ * vorgenommen hat.
+ * @author Christoph
+ *
+ */
 public class Satzanzeige extends LinearLayout {
 
     Vector<IButtonChangeListener> listeners = new Vector<IButtonChangeListener>();

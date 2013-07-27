@@ -16,13 +16,10 @@ import android.util.Log;
  */
 public class KnightRider implements OnInitListener, Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 339074648583659479L;
 	private Context context;
 	TextToSpeech tts;
-	private boolean readytospeek;
+	private boolean readytospeak;
 	public KnightRider(Context c){
 		this.context = c;
 		Intent checkIntent = new Intent();
@@ -39,7 +36,7 @@ public class KnightRider implements OnInitListener, Serializable {
 	 */
 	public void say(String s){
 		
-	   if(!readytospeek){
+	   if(!readytospeak){
 		   
 	   }else{
 		 //  tts.setPitch((float) 0.2);
@@ -47,6 +44,10 @@ public class KnightRider implements OnInitListener, Serializable {
 	   }
 	}
 
+	/**
+	 * Initialisiert den TTS Service und setzt die Sprache auf Deutsch.
+	 * Bei erfolg wird readytospeak = true
+	 */
 	@Override
 	public void onInit(int status) {
 		if (status == TextToSpeech.SUCCESS) {
@@ -57,7 +58,7 @@ public class KnightRider implements OnInitListener, Serializable {
                     || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 Log.e("TTS", "This Language is not supported");
             } else {
-             this.readytospeek = true;
+             this.readytospeak = true;
              // Ab jetzt kann das Gerät sprechen
             }
  

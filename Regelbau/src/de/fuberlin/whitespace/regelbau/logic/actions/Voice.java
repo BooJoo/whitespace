@@ -7,6 +7,12 @@ import de.fuberlin.whitespace.kitt.KnightRider;
 import de.fuberlin.whitespace.regelbau.logic.Action;
 import de.fuberlin.whitespace.sms.SMSActivity;
 
+/**
+ * Aktion, welche eine Sprachausgabe anzeigt und dabei VoiceActivity mit entsprechenden
+ * Parametern startet.
+ * @author Christoph
+ *
+ */
 public class Voice extends Action {
 
     /**
